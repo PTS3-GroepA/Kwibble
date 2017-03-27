@@ -32,7 +32,6 @@ public class Main {
 
 // Create a request object for the type of request you want to make
         TrackRequest request = api.getTrack("73sWs9sacZj2TeZK3p5RxZ").build();
-        AudioFeatureRequest afr = api.
 
 // Retrieve an album
         try {
@@ -47,7 +46,7 @@ public class Main {
                 System.out.println(a.getName());
             }
 
-            track.
+
 
         } catch (Exception e) {
             e.printStackTrace();
