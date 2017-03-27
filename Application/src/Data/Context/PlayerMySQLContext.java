@@ -16,7 +16,7 @@ public class PlayerMySQLContext implements PlayerContextInterface {
 
     private void initConnection(){
         try{
-            this.con = DriverManager.getConnection("jdbc:mysql://studmysql01.fhict.local/dbi344291", "dbi344291", "Kwibble");
+            con = DriverManager.getConnection("jdbc:mysql://studmysql01.fhict.local/dbi344291", "dbi344291", "Kwibble");
         }
         catch (Exception exc){
             System.out.println(exc.getMessage());
@@ -38,7 +38,7 @@ public class PlayerMySQLContext implements PlayerContextInterface {
             myStatement.setInt(4, player.getScore());
             myStatement.executeUpdate();
 
-
+            con.close();
 
         }
         catch(Exception exc){
