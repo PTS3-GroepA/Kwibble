@@ -1,3 +1,5 @@
+package Logic;
+
 /**
  * Created by dennisvermeulen on 20-03-17.
  */

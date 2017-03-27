@@ -1,8 +1,10 @@
+package Logic;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by dennisvermeulen on 20-03-17.
+ * Created by dennis vermeulen on 20-03-17.
  */
 public class Question {
     private String questionString;

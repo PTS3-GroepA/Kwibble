@@ -1,7 +1,9 @@
+package Data;
+
 /**
  * Created by dennisvermeulen on 20-03-17.
  */
-public class TextAnswer implements Answer {
+public class ImageAnswer implements Answer {
     @Override
     public boolean IsCorrectAnswer() {
         return false;
