@@ -1,4 +1,4 @@
-package Data.Context;
+package Data.Context.Interfaces;
 
 /**
  * Created by Max Meijer on 27/03/2017.
