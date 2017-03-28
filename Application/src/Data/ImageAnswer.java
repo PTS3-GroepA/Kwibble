@@ -3,13 +3,13 @@ package Data;
 /**
  * Created by dennisvermeulen on 20-03-17.
  */
-public class ImageAnswer implements Answer {
-    @Override
+public class ImageAnswer {
+    //@Override
     public boolean IsCorrectAnswer() {
         return false;
     }
 
-    @Override
+    //@Override
     public void ShowAnswer() {
 
     }

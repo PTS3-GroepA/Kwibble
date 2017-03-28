@@ -6,4 +6,7 @@ package Data.Context.Interfaces;
  */
 public interface MusicContext {
 
+
+
+
 }
