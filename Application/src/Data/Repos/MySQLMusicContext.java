@@ -1,7 +1,7 @@
 package Data.Repos;
 
 import Data.Answer;
-import Data.Context.Answerable;
+import Data.Context.Interfaces.Answerable;
 import Data.TextAnswer;
 
 import java.sql.*;
