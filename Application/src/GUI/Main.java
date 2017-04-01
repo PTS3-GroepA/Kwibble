@@ -14,6 +14,7 @@ import java.util.List;
 /**
  * Created by Max Meijer on 27/03/2017.
  * Fontys University of Applied Sciences, Eindhoven
+ * Edit made on branch Max 
  */
 public class Main {
 
