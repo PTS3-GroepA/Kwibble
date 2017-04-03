@@ -922,7 +922,14 @@
       <option name="project" value="LOCAL" />
       <updated>1491214181286</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="TEST">
+      <created>1491214225695</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1491214225695</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -982,7 +989,8 @@
     <MESSAGE value="Implemented interface in the context&#10;" />
     <MESSAGE value="Adduser function created&#10;" />
     <MESSAGE value="con.close() in adduser" />
-    <option name="LAST_COMMIT_MESSAGE" value="con.close() in adduser" />
+    <MESSAGE value="TEST" />
+    <option name="LAST_COMMIT_MESSAGE" value="TEST" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
