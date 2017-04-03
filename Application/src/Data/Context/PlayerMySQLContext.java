@@ -34,7 +34,7 @@ public class PlayerMySQLContext implements PlayerContextInterface {
 
             myStatement.setString(1,player.getEmail());
             myStatement.setString(2,player.getPassword());
-            //Create salt here
+            //Create salt here TEST FOR NEW BRANCH
             myStatement.setInt(4, player.getScore());
             myStatement.executeUpdate();
 
