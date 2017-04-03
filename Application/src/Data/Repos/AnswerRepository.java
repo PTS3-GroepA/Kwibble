@@ -2,7 +2,7 @@ package Data.Repos;
 
 import Data.Answer;
 import Data.Context.Interfaces.Answerable;
-import Logic.Question;
+import Models.Question;
 
 import java.util.List;
 

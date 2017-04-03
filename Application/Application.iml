@@ -38,5 +38,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="se.michaelthelin.spotify:spotify-web-api-java:1.5.0" level="project" />
   </component>
 </module>
