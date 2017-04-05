@@ -1,5 +1,6 @@
 package Models;
 
+import Data.Context.SpotifyContext;
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpExchange;
@@ -16,17 +17,24 @@ import java.util.*;
  * Fontys University of Applied Sciences, Eindhoven
  *
  * Class handles setting up a small http server for handling Spotify's authorisations
+ * Spotify sends a code through a Http Post.
+ * We currently get it by redirecting the URI code to this local server
+ * This is probably insecure but we'll worry about that later.
+ *
+ * See https://developer.spotify.com/web-api/authorization-guide/ for more details.
  */
+
 public class SimpleServer {
 
     private HttpServer server;
     private int port;
     Map <String,String> parms;
+    private SpotifyContext context;
 
-    public SimpleServer() {
+    public SimpleServer(SpotifyContext context) {
         port = 9000;
         parms = null;
-
+        this.context = context;
 
         try {
             server = HttpServer.create(new InetSocketAddress(port), 0);
@@ -58,6 +66,12 @@ public class SimpleServer {
             System.out.println("Got a post");
             parms = queryToMap(he.getRequestURI().getQuery());
             System.out.println(parms);
+
+            if(parms != null) {
+                context.authoriseCredentials(getCode());
+            }
+
+            stop();
         }
     }
 

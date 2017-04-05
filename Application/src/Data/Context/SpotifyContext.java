@@ -102,7 +102,7 @@ public class SpotifyContext implements MusicContext {
     @Override
     public void clientAuthorise() {
         // Start a server yo handle the incoming spotify request
-        SimpleServer server = new SimpleServer();
+        SimpleServer server = new SimpleServer(this);
 
         final String clientId = "037636c06b1c4348b69fa5646304de02";
         final String clientSecret = "2b9d9f8c3a8248c19d8064e3e1ee7bed";
@@ -126,10 +126,14 @@ public class SpotifyContext implements MusicContext {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
 
-        /* Application details necessary to get an access token */
-        String code = server.getCode();
-        System.out.println(code);
+    /**
+     * Get an access token from the clients authorisation.
+     *
+     * @param code Application details necessary to get an access token
+     */
+    public void authoriseCredentials(String code) {
 
         /* Make a token request. Asynchronous requests are made with the .getAsync method and synchronous requests
         * are made with the .get method. This holds for all type of requests. */
