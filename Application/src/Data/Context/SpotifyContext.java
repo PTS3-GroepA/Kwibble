@@ -1,6 +1,7 @@
 package Data.Context;
 
 import Data.Context.Interfaces.MusicContext;
+import Models.SimpleServer;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.SettableFuture;
@@ -19,6 +20,8 @@ import javafx.scene.media.MediaPlayer;
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
+
+import static java.lang.Thread.sleep;
 
 /**
  * Created by Max Meijer on 03/04/2017.
@@ -98,9 +101,12 @@ public class SpotifyContext implements MusicContext {
 
     @Override
     public void clientAuthorise() {
+        // Start a server yo handle the incoming spotify request
+        SimpleServer server = new SimpleServer();
+
         final String clientId = "037636c06b1c4348b69fa5646304de02";
         final String clientSecret = "2b9d9f8c3a8248c19d8064e3e1ee7bed";
-        final String redirectURI = "https://www.google.nl";
+        final String redirectURI = "http://localhost:9000/spotify";
 
         api = Api.builder()
                 .clientId(clientId)
@@ -115,8 +121,15 @@ public class SpotifyContext implements MusicContext {
 
         System.out.println(authorizeURL);
 
+        try {
+            sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         /* Application details necessary to get an access token */
-        final String code = "Kwibble music quiz app";
+        String code = server.getCode();
+        System.out.println(code);
 
         /* Make a token request. Asynchronous requests are made with the .getAsync method and synchronous requests
         * are made with the .get method. This holds for all type of requests. */

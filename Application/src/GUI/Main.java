@@ -2,6 +2,8 @@ package GUI;
 
 import Data.Context.SpotifyContext;
 import Data.Repos.MusicRepository;
+import Models.SimpleServer;
+import com.sun.net.httpserver.HttpServer;
 import com.wrapper.spotify.models.Page;
 import com.wrapper.spotify.models.Playlist;
 import com.wrapper.spotify.models.PlaylistTrack;
@@ -9,6 +11,7 @@ import com.wrapper.spotify.models.Track;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+import static java.lang.Thread.sleep;
 
 
 /**
@@ -26,7 +29,9 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         MusicRepository musicRepo = new MusicRepository(new SpotifyContext());
         try {
-           musicRepo.clientAuthorise();
+
+            sleep(1000);
+            musicRepo.clientAuthorise();
         }
         catch(Exception e) {
             e.printStackTrace();
