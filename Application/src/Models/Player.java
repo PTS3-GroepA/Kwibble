@@ -13,7 +13,12 @@ public class Player {
     private String email;
     private String password;
 
-
+    public Player(String name, int score, String email, String password) {
+        this.name = name;
+        this.score = score;
+        this.email = email;
+        this.password = password;
+    }
 
     public Player(int id, String name, int score, String email){
         this.id = id;
