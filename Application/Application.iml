@@ -17,6 +17,7 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="mysql-connector-java-5.1.41-bin" level="project" />
     <orderEntry type="module-library" scope="TEST">
       <library name="JUnit4">
         <CLASSES>
@@ -38,6 +39,5 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="se.michaelthelin.spotify:spotify-web-api-java:1.5.0" level="project" />
-    <orderEntry type="library" name="mysql-connector-java-5.1.41-bin" level="project" />
   </component>
 </module>
