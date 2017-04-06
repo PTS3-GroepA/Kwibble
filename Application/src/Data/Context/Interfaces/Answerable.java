@@ -1,6 +1,6 @@
 package Data.Context.Interfaces;
 
-import Data.Answer;
+import Models.Answer.Answer;
 
 import java.util.List;
 

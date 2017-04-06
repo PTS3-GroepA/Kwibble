@@ -40,4 +40,9 @@ public class MusicRepository implements MusicContext {
     public String getAuthenticationURL() {
         return context.getAuthenticationURL();
     }
+
+    @Override
+    public Track getRandomTrackFromPlaylist(String userId, String playlistURI) {
+        return context.getRandomTrackFromPlaylist(userId, playlistURI);
+    }
 }

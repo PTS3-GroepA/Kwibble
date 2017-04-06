@@ -1,4 +1,4 @@
-package Data;
+package Models.Answer;
 
 /**
  * Created by dennisvermeulen on 20-03-17.

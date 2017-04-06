@@ -1,9 +1,9 @@
-package Data;
+package Models.Answer;
 
 /**
  * Created by dennisvermeulen on 20-03-17.
  */
-public abstract  class Answer {
+public abstract class Answer {
 
     protected String name;
     protected boolean showAlbumArt;
@@ -20,6 +20,6 @@ public abstract  class Answer {
     }
 
     public abstract boolean IsCorrectAnswer();
-    public abstract void ShowAnswer();
+    public abstract String ShowAnswer();
 
 }

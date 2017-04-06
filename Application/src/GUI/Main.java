@@ -1,7 +1,9 @@
 package GUI;
 
+import Data.Context.QuestionMySQLContext;
 import Data.Context.SpotifyContext;
 import Data.Repos.MusicRepository;
+import Data.Repos.QuestionRepository;
 import Models.SimpleServer;
 import com.sun.net.httpserver.HttpServer;
 import com.wrapper.spotify.models.Page;
@@ -27,15 +29,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        MusicRepository musicRepo = new MusicRepository(new SpotifyContext());
-        try {
-
-            sleep(1000);
-            musicRepo.clientAuthorise();
-        }
-        catch(Exception e) {
-            e.printStackTrace();
-        }
-
+        QuestionRepository repo = new QuestionRepository(new QuestionMySQLContext());
+        repo.getRandomQuestion();
     }
 }

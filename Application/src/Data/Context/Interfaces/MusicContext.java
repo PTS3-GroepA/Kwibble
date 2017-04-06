@@ -18,4 +18,5 @@ public interface MusicContext {
 
     String getAuthenticationURL();
 
+    Track getRandomTrackFromPlaylist(String userId, String playlistURI);
 }

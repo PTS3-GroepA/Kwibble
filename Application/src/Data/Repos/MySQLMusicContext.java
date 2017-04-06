@@ -1,8 +1,8 @@
 package Data.Repos;
 
-import Data.Answer;
+import Models.Answer.Answer;
 import Data.Context.Interfaces.Answerable;
-import Data.TextAnswer;
+import Models.Answer.TextAnswer;
 
 import java.sql.*;
 import java.util.ArrayList;

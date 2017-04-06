@@ -1,11 +1,8 @@
 package Data.Repos;
 
-import Data.Answer;
+import Models.Answer.Answer;
 import Data.Context.Interfaces.Answerable;
-<<<<<<< HEAD
-=======
-import Models.Question;
->>>>>>> refs/remotes/origin/Bryan
+
 
 import java.util.List;
 

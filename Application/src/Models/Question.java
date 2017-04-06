@@ -1,5 +1,7 @@
 package Models;
 
+import Models.Answer.Answer;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +14,7 @@ public class Question {
     private String source;
     private boolean showAlbumArt;
     private int score;
-    private List <Question> questions;
+    private List <Answer> answers;
 
     public Question(String questionString, int maxAnswerTime, String source, boolean showAlbumArt, int score){
         this.questionString = questionString;
@@ -20,7 +22,11 @@ public class Question {
         this.source = source;
         this.showAlbumArt = showAlbumArt;
         this.score = score;
-        this.questions = new ArrayList<Question>();
+        this.answers = new ArrayList<>();
+    }
+
+    public Question(String questionString, boolean showAlbumArt) {
+
     }
 
     public int AnswerQuestion(){
@@ -30,6 +36,7 @@ public class Question {
     public void setScore(int score){
         this.score = score;
     }
+
     public int GetScore(){
         return score;
     }
@@ -40,7 +47,6 @@ public class Question {
 
     public void setQuestionString(String questionString){
         this.questionString = questionString;
-
     }
 
     public int getMaxAnswerTime(){

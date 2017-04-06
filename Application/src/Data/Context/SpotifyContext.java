@@ -9,15 +9,13 @@ import com.wrapper.spotify.Api;
 import com.wrapper.spotify.methods.ArtistRequest;
 import com.wrapper.spotify.methods.PlaylistRequest;
 import com.wrapper.spotify.methods.TrackRequest;
-import com.wrapper.spotify.models.Artist;
-import com.wrapper.spotify.models.AuthorizationCodeCredentials;
-import com.wrapper.spotify.models.Playlist;
-import com.wrapper.spotify.models.Track;
+import com.wrapper.spotify.models.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Created by Max Meijer on 03/04/2017.
@@ -50,9 +48,7 @@ public class SpotifyContext implements MusicContext {
         TrackRequest request = api.getTrack(URI).build();
 
         try {
-            Track track = request.get();
-            play(track.getPreviewUrl());
-            return track;
+            return request.get();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -88,12 +84,37 @@ public class SpotifyContext implements MusicContext {
         return null;
     }
 
-    private static void play(String URL) {
-        System.out.println("Playing song");
-        Media m = new Media(URL);
-        MediaPlayer mp = new MediaPlayer(m);
-        mp.play();
+    /**
+     *
+     * Return a random track in a playlist.
+     *
+     * @param userId The ID of the user that the playlist belongs to.
+     * @param playlistURI The URI link to the playlist.
+     * @return A track from the playlist.
+     */
+    @Override
+    public Track getRandomTrackFromPlaylist(String userId ,String playlistURI) {
+        PlaylistRequest request = api.getPlaylist(userId, playlistURI).build();
+
+        try {
+            // Get the playlist.
+            Playlist playlist = request.get();
+
+            // Convert it to a list to be able to perform operations.
+            List<PlaylistTrack> tracks = playlist.getTracks().getItems();
+
+            // Get a random number based on the length of the list.
+            int randomNum = ThreadLocalRandom.current().nextInt(0, tracks.size());
+
+            // Select the track and return it.
+            return tracks.get(randomNum).getTrack();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
+
 
     /**
      * Generates the authentication URL which the user must visit to accept this application to access their spotify data.
@@ -130,7 +151,7 @@ public class SpotifyContext implements MusicContext {
      * Code is written by the creators of the wrapper.
      * See class description for more information
      *
-     * @param code Application details necessary to get an access token
+     * @param code The code return by spotify's authorisation URL.
      */
     public void authoriseCredentials(String code) {
 
