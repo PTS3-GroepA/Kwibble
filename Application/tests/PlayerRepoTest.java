@@ -1,5 +1,3 @@
-package Data.Test;
-
 import Data.Context.PlayerMySQLContext;
 import Data.Repos.PlayerRepo;
 import Models.Player;

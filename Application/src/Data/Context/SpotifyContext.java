@@ -9,7 +9,6 @@ import com.wrapper.spotify.Api;
 import com.wrapper.spotify.methods.ArtistRequest;
 import com.wrapper.spotify.methods.PlaylistRequest;
 import com.wrapper.spotify.methods.TrackRequest;
-import com.wrapper.spotify.methods.authentication.AuthorizationURLRequest;
 import com.wrapper.spotify.models.Artist;
 import com.wrapper.spotify.models.AuthorizationCodeCredentials;
 import com.wrapper.spotify.models.Playlist;
@@ -17,11 +16,8 @@ import com.wrapper.spotify.models.Track;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
-import java.io.File;
 import java.util.Arrays;
 import java.util.List;
-
-import static java.lang.Thread.sleep;
 
 /**
  * Created by Max Meijer on 03/04/2017.
@@ -99,8 +95,16 @@ public class SpotifyContext implements MusicContext {
         mp.play();
     }
 
+    /**
+     * Generates the authentication URL which the user must visit to accept this application to access their spotify data.
+     *
+     * Code is written by the creators of the wrapper.
+     * See class description for more information
+     *
+     * @return returns the URL that needs to be visited
+     */
     @Override
-    public void clientAuthorise() {
+    public String getAuthenticationURL() {
         // Start a server yo handle the incoming spotify request
         SimpleServer server = new SimpleServer(this);
 
@@ -117,19 +121,14 @@ public class SpotifyContext implements MusicContext {
         final List<String> scopes = Arrays.asList("user-library-read", "playlist-read-private");
         String state = "<place_holder>";
 
-        String authorizeURL = api.createAuthorizeURL(scopes, state);
-
-        System.out.println(authorizeURL);
-
-        try {
-            sleep(10000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        return api.createAuthorizeURL(scopes, state);
     }
 
     /**
      * Get an access token from the clients authorisation.
+     *
+     * Code is written by the creators of the wrapper.
+     * See class description for more information
      *
      * @param code Application details necessary to get an access token
      */
@@ -157,7 +156,7 @@ public class SpotifyContext implements MusicContext {
             public void onFailure(Throwable throwable) {
             /* Let's say that the client id is invalid, or the code has been used more than once,
             * the request will fail. Why it fails is written in the throwable's message. */
-
+                System.out.println(throwable);
             }
         });
     }

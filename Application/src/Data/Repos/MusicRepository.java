@@ -37,7 +37,7 @@ public class MusicRepository implements MusicContext {
     }
 
     @Override
-    public void clientAuthorise() {
-        context.clientAuthorise();
+    public String getAuthenticationURL() {
+        return context.getAuthenticationURL();
     }
 }

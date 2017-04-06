@@ -16,6 +16,6 @@ public interface MusicContext {
 
     Playlist getPlaylist(String userId ,String playlistId);
 
-    void clientAuthorise();
+    String getAuthenticationURL();
 
 }
