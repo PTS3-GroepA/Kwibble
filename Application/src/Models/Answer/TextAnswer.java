@@ -5,27 +5,20 @@ package Models.Answer;
  */
 public class TextAnswer extends Answer {
 
-
-    private final String name;
-    private final boolean showAlbumArt;
-    private final String answerType;
-    private final int difficulty;
-
-    public TextAnswer(String name, boolean showAlbumArt, String answerType, int difficulty) {
-        super(name, showAlbumArt, answerType, difficulty);
-        this.name = name;
-        this.showAlbumArt = showAlbumArt;
-        this.answerType = answerType;
-        this.difficulty = difficulty;
-    }
-
-    @Override
-    public boolean IsCorrectAnswer() {
-        return false;
+    public TextAnswer(String name, boolean isCorrectAnswer) {
+        super(name, isCorrectAnswer);
     }
 
     @Override
     public String ShowAnswer() {
         return name;
+    }
+
+    @Override
+    public String toString() {
+        return "TextAnswer{" +
+                "name='" + name + '\'' +
+                "IsCorrect='" + isCorrectAnswer + '\'' +
+                '}';
     }
 }

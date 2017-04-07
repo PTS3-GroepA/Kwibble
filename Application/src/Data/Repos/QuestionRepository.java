@@ -1,6 +1,7 @@
 package Data.Repos;
 
 import Data.Context.Interfaces.Questionable;
+import Models.Difficulty;
 import Models.Question;
 
 import java.util.List;
@@ -27,7 +28,7 @@ public class QuestionRepository implements Questionable {
     }
 
     @Override
-    public Question getRandomQuestion() {
-        return context.getRandomQuestion();
+    public Question getRandomQuestion(Difficulty difficulty) {
+        return context.getRandomQuestion(difficulty);
     }
 }

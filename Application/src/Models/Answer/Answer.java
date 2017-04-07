@@ -6,20 +6,14 @@ package Models.Answer;
 public abstract class Answer {
 
     protected String name;
-    protected boolean showAlbumArt;
-    protected String answerType;
-    protected int difficulty;
+    protected boolean isCorrectAnswer;
 
 
-    public Answer(String name, boolean showAlbumArt, String answerType, int difficulty){
+    public Answer(String name, boolean isCorrectAnswer){
         this.name = name;
-        this.showAlbumArt = showAlbumArt;
-        this.answerType = answerType;
-        this.difficulty = difficulty;
-
+        this.isCorrectAnswer = isCorrectAnswer;
     }
 
-    public abstract boolean IsCorrectAnswer();
     public abstract String ShowAnswer();
 
 }

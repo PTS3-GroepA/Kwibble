@@ -4,6 +4,8 @@ import com.wrapper.spotify.models.Artist;
 import com.wrapper.spotify.models.Playlist;
 import com.wrapper.spotify.models.Track;
 
+import java.util.List;
+
 /**
  * Created by Max Meijer on 27/03/2017.
  * Fontys University of Applied Sciences, Eindhoven
@@ -19,4 +21,6 @@ public interface MusicContext {
     String getAuthenticationURL();
 
     Track getRandomTrackFromPlaylist(String userId, String playlistURI);
+
+    List<Artist> getRelatedArtist(String ArtistID);
 }

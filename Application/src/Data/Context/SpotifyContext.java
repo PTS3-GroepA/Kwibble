@@ -8,6 +8,7 @@ import com.google.common.util.concurrent.SettableFuture;
 import com.wrapper.spotify.Api;
 import com.wrapper.spotify.methods.ArtistRequest;
 import com.wrapper.spotify.methods.PlaylistRequest;
+import com.wrapper.spotify.methods.RelatedArtistsRequest;
 import com.wrapper.spotify.methods.TrackRequest;
 import com.wrapper.spotify.models.*;
 import javafx.scene.media.Media;
@@ -19,7 +20,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Created by Max Meijer on 03/04/2017.
- * Fontys University of Applied Sciences, Eindhoven
+ * Fontys University of Applied Sciences, Eindhoven.
  *
  * Getting all spotify related data is done by using thelinmichael spotify-web-api-java wrapper.
  * Source: https://github.com/thelinmichael/spotify-web-api-java.
@@ -108,6 +109,20 @@ public class SpotifyContext implements MusicContext {
 
             // Select the track and return it.
             return tracks.get(randomNum).getTrack();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    @Override
+    public List<Artist> getRelatedArtist(String ArtistID) {
+        // Create a request object for the type of request you want to make
+        RelatedArtistsRequest request = api.getArtistRelatedArtists(ArtistID).build();
+
+        try {
+            return request.get();
         } catch (Exception e) {
             e.printStackTrace();
         }

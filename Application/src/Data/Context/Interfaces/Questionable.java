@@ -1,5 +1,6 @@
 package Data.Context.Interfaces;
 
+import Models.Difficulty;
 import Models.Question;
 
 import java.util.List;
@@ -13,5 +14,5 @@ public interface Questionable {
 
     Question getQuestionById(int id);
 
-    Question getRandomQuestion();
+    Question getRandomQuestion(Difficulty difficulty);
 }
