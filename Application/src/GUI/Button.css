@@ -1,0 +1,6 @@
+.CuctomButton{
+    -fx-background-color: #1976D2;
+    -fx-background-radius: 12px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 20, 0, 0, 0);
+    -fx-font-size: 25; -fx-font-family: Elephant; -fx-text-fill: #eaf2ff;
+}
