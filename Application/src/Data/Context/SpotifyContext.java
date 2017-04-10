@@ -1,7 +1,7 @@
 package Data.Context;
 
 import Data.Context.Interfaces.MusicContext;
-import Models.SimpleServer;
+import Models.*;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.SettableFuture;
@@ -11,8 +11,6 @@ import com.wrapper.spotify.methods.PlaylistRequest;
 import com.wrapper.spotify.methods.RelatedArtistsRequest;
 import com.wrapper.spotify.methods.TrackRequest;
 import com.wrapper.spotify.models.*;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 
 import java.util.Arrays;
 import java.util.List;

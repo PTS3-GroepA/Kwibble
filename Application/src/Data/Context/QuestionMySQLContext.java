@@ -14,7 +14,10 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * Created by Max on 4/6/2017.
+ * Created by Max Meijer on 03/04/2017.
+ * Fontys University of Applied Sciences, Eindhoven.
+ *
+ * Provides communication via an MySQl database.
  */
 public class QuestionMySQLContext implements Questionable {
 
