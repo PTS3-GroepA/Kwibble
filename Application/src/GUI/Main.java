@@ -20,7 +20,7 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("GUI/Screens/MainMenu.fxml"));
 
-        stage.setTitle("Test");
+        stage.setTitle("Kwibble");
         stage.setScene(new Scene(root, 1200, 800));
         stage.show();
     }

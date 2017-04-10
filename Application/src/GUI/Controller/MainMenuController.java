@@ -14,6 +14,7 @@ import java.util.ResourceBundle;
  * Fontys University of Applied Sciences, Eindhoven
  */
 public class MainMenuController implements Initializable {
+
     @FXML private Button btnJoinGame;
     @FXML private Button btnHostGame;
     @FXML private Button btnLocalGame;
@@ -24,7 +25,7 @@ public class MainMenuController implements Initializable {
         btnHostGame.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                btnHostGame.setText("clicked");
+                System.out.println(e.toString());
             }
         });
     }
