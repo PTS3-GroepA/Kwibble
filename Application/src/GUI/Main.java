@@ -30,7 +30,6 @@ public class Main extends Application {
         stage.setScene(new Scene(root, 1200, 800));
         stage.show();
 
-
         MusicRepository musicRepo = new MusicRepository(new SpotifyContext());
         Quiz quiz = new Quiz(10, Difficulty.EASY, "ursulaboy", "4Y9FDNadgIa7n3ktJejcsW");
         quiz.setAmountOfQuestions(5);
@@ -39,7 +38,7 @@ public class Main extends Application {
         quiz.generateQuestions();
         Track track =  musicRepo.getTrack(quiz.getQuestions().get(0).getSource());
 
-
+        System.out.println(track.getPreviewUrl());
         Media m = new Media(track.getPreviewUrl());
         MediaPlayer player = new MediaPlayer(m);
         player.setVolume(5);

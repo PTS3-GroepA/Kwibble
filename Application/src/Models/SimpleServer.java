@@ -41,6 +41,7 @@ public class SimpleServer {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         server.createContext("/", new RootHandler());
         server.createContext("/spotify", new EchoPostHandler());
         server.setExecutor(null); // creates a default executor

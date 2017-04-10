@@ -6,11 +6,9 @@ import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.SettableFuture;
 import com.wrapper.spotify.Api;
-import com.wrapper.spotify.exceptions.WebApiException;
 import com.wrapper.spotify.methods.*;
 import com.wrapper.spotify.models.*;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -72,9 +70,9 @@ public class SpotifyContext implements MusicContext {
     public Playlist getPlaylist(String userId, String playlistId) {
         // Create a request object for the type of request you want to make
         PlaylistRequest request = api.getPlaylist(userId, playlistId).build();
-
         try {
             return request.get();
+
         } catch (Exception e) {
             e.printStackTrace();
         }

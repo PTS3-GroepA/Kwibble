@@ -8,8 +8,6 @@ import Models.Answer.TextAnswer;
 import com.wrapper.spotify.models.Artist;
 import com.wrapper.spotify.models.SimpleArtist;
 import com.wrapper.spotify.models.Track;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 
 import java.util.ArrayList;
 import java.util.List;
