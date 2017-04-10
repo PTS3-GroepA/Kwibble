@@ -26,7 +26,7 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("GUI/Screens/MainMenu.fxml"));
 
-        stage.setTitle("FXML Welcome");
+        stage.setTitle("Test");
         stage.setScene(new Scene(root, 1200, 800));
         stage.show();
 
@@ -38,6 +38,7 @@ public class Main extends Application {
 
         quiz.generateQuestions();
         Track track =  musicRepo.getTrack(quiz.getQuestions().get(0).getSource());
+
 
         Media m = new Media(track.getPreviewUrl());
         MediaPlayer player = new MediaPlayer(m);
