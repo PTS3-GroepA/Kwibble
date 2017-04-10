@@ -5,6 +5,9 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -25,8 +28,27 @@ public class MainMenuController implements Initializable {
         btnHostGame.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                System.out.println(e.toString());
+                notFinishedDialog();
             }
         });
+
+        btnJoinGame.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                notFinishedDialog();
+            }
+        });
+        btnLocalGame.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                //todo maak dat de nieuwe shit opent
+            }
+        });
+    }
+    public void notFinishedDialog(){
+        Dialog<String> dialog = new Dialog<>();
+        dialog.getDialogPane().setContentText("We zijn nog hard bezig met deze functie");
+        dialog.getDialogPane().getButtonTypes().add(new ButtonType("Ok", ButtonBar.ButtonData.CANCEL_CLOSE));
+        dialog.show();
     }
 }
