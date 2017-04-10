@@ -6,9 +6,12 @@ import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.SettableFuture;
 import com.wrapper.spotify.Api;
+import com.wrapper.spotify.exceptions.BadRequestException;
+import com.wrapper.spotify.exceptions.WebApiException;
 import com.wrapper.spotify.methods.*;
 import com.wrapper.spotify.models.*;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -24,8 +27,11 @@ import java.util.concurrent.ThreadLocalRandom;
 public class SpotifyContext implements MusicContext {
 
     private Api api;
+    SimpleServer server;
 
     public SpotifyContext() {
+
+        server = new SimpleServer(this);
 
         String clientId = "037636c06b1c4348b69fa5646304de02";
         // Super Top Secret
@@ -125,6 +131,18 @@ public class SpotifyContext implements MusicContext {
         return null;
     }
 
+    @Override
+    public boolean checkAuthorization() {
+        CurrentUserRequest req = api.getMe().build();
+        try {
+            User user = req.get();
+            return (user != null);
+
+        } catch (IOException | WebApiException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
     /**
      * Generates the authentication URL which the user must visit to accept this application to access their spotify data.
@@ -137,7 +155,7 @@ public class SpotifyContext implements MusicContext {
     @Override
     public String getAuthenticationURL() {
         // Start a server yo handle the incoming spotify request
-        SimpleServer server = new SimpleServer(this);
+
 
         final String clientId = "037636c06b1c4348b69fa5646304de02";
         final String clientSecret = "2b9d9f8c3a8248c19d8064e3e1ee7bed";
@@ -151,6 +169,8 @@ public class SpotifyContext implements MusicContext {
 
         final List<String> scopes = Arrays.asList("user-library-read", "playlist-read-private");
         String state = "<place_holder>";
+
+        server.start();
 
         return api.createAuthorizeURL(scopes, state);
     }
@@ -190,5 +210,9 @@ public class SpotifyContext implements MusicContext {
                 System.out.println(throwable);
             }
         });
+
+        server.stop();
     }
+
+
 }

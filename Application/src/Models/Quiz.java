@@ -131,12 +131,11 @@ public class Quiz {
         this.questions = questions;
     }
 
-    public void authenticate() {
-        System.out.println(musicRepo.getAuthenticationURL());
-        try {
-            sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+    public boolean checkAuthorization() {
+        return musicRepo.checkAuthorization();
+    }
+
+    public String authenticate() {
+        return musicRepo.getAuthenticationURL();
     }
 }
