@@ -30,20 +30,26 @@ public class SimpleServer {
     private int port;
     Map <String,String> parms;
     private SpotifyContext context;
+    private Quiz quiz;
 
-    public SimpleServer(SpotifyContext context) {
+    public SimpleServer(SpotifyContext context, Quiz quiz) {
         port = 9000;
         parms = null;
         this.context = context;
+        this.quiz = quiz;
 
         try {
             server = HttpServer.create(new InetSocketAddress(port), 0);
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         server.createContext("/", new RootHandler());
         server.createContext("/spotify", new EchoPostHandler());
         server.setExecutor(null); // creates a default executor
+    }
+
+    public void start() {
         server.start();
     }
 
@@ -69,9 +75,13 @@ public class SimpleServer {
 
             if(parms != null) {
                 context.authoriseCredentials(getCode());
-            }
+                stop();
 
-            stop();
+                if(context.checkAuthorization()) {
+                    quiz.confirmAuthorisation();
+                }
+
+            }
         }
     }
 

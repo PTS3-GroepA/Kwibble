@@ -87,12 +87,11 @@ public class QuestionMySQLContext implements Questionable {
             Question question = null;
 
             while(question == null) {
-
-                // The random number will be the ID f the question to ask.
+                // The random number will be the ID of the question to ask.
                 int randomNum = ThreadLocalRandom.current().nextInt(0, numberOfQuestions);
-
                 Statement stmt = (Statement) con.createStatement();
-                //TODO take variable
+
+                // TODO take variable
                 ResultSet result = stmt.executeQuery("SELECT * FROM Question WHERE QuestionID =" + 0 + " AND Difficulty <= " + dif);
                 while (result.next()) {
                     question = new Question(result.getInt(1) ,result.getString(2), result.getBoolean(3), result.getString(4));

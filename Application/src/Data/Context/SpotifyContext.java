@@ -6,6 +6,7 @@ import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.SettableFuture;
 import com.wrapper.spotify.Api;
+import com.wrapper.spotify.exceptions.BadRequestException;
 import com.wrapper.spotify.exceptions.WebApiException;
 import com.wrapper.spotify.methods.*;
 import com.wrapper.spotify.models.*;
@@ -28,6 +29,7 @@ public class SpotifyContext implements MusicContext {
     private Api api;
 
     public SpotifyContext() {
+
 
         String clientId = "037636c06b1c4348b69fa5646304de02";
         // Super Top Secret
@@ -72,9 +74,9 @@ public class SpotifyContext implements MusicContext {
     public Playlist getPlaylist(String userId, String playlistId) {
         // Create a request object for the type of request you want to make
         PlaylistRequest request = api.getPlaylist(userId, playlistId).build();
-
         try {
             return request.get();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -127,6 +129,20 @@ public class SpotifyContext implements MusicContext {
         return null;
     }
 
+    @Override
+    public boolean checkAuthorization() {
+        CurrentUserRequest req = api.getMe().build();
+        try {
+            User user = req.get();
+            System.out.println(user.getEmail());
+            System.out.println(user);
+            return (user != null);
+
+        } catch (IOException | WebApiException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
     /**
      * Generates the authentication URL which the user must visit to accept this application to access their spotify data.
@@ -138,9 +154,6 @@ public class SpotifyContext implements MusicContext {
      */
     @Override
     public String getAuthenticationURL() {
-        // Start a server yo handle the incoming spotify request
-        SimpleServer server = new SimpleServer(this);
-
         final String clientId = "037636c06b1c4348b69fa5646304de02";
         final String clientSecret = "2b9d9f8c3a8248c19d8064e3e1ee7bed";
         final String redirectURI = "http://localhost:9000/spotify";
@@ -151,7 +164,7 @@ public class SpotifyContext implements MusicContext {
                 .redirectURI(redirectURI)
                 .build();
 
-        final List<String> scopes = Arrays.asList("user-library-read", "playlist-read-private");
+        final List<String> scopes = Arrays.asList("user-library-read", "playlist-read-private", "user-read-email");
         String state = "<place_holder>";
 
         return api.createAuthorizeURL(scopes, state);

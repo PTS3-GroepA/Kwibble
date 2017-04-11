@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Models.GameRoom">
+   <children>
+      <TextField fx:id="questionBox" layoutX="254.0" layoutY="183.0" prefHeight="200.0" prefWidth="800.0" />
+      <Button layoutX="254.0" layoutY="400.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="375.0" stylesheets="@../Button.css" text="answer1" />
+      <Button layoutX="679.0" layoutY="400.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="375.0" text="Button" />
+      <Button layoutX="254.0" layoutY="575.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="375.0" text="Button" />
+      <Button layoutX="679.0" layoutY="575.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="375.0" text="Button" />
+   </children>
+</AnchorPane>

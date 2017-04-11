@@ -52,4 +52,9 @@ public class MusicRepository implements MusicContext {
     public List<Artist> getRelatedArtist(String ArtistID) {
         return context.getRelatedArtist(ArtistID);
     }
+
+    @Override
+    public boolean checkAuthorization() {
+        return context.checkAuthorization();
+    }
 }

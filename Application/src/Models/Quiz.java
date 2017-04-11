@@ -4,12 +4,11 @@ import Data.Context.QuestionMySQLContext;
 import Data.Context.SpotifyContext;
 import Data.Repos.MusicRepository;
 import Data.Repos.QuestionRepository;
+import GUI.Controller.LocalGameController;
 import Models.Answer.TextAnswer;
 import com.wrapper.spotify.models.Artist;
 import com.wrapper.spotify.models.SimpleArtist;
 import com.wrapper.spotify.models.Track;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,16 +30,22 @@ public class Quiz {
     private List<Question> questions;
     private MusicRepository musicRepo;
     private QuestionRepository questionRepo;
+    private LocalGameController controller;
+    private SimpleServer server;
 
-    public Quiz(int amountOfQuestions, Difficulty difficulty,String userID, String playlistId){
+    public Quiz(int amountOfQuestions, Difficulty difficulty,String userID, String playlistId, LocalGameController controller){
         this.amountOfQuestions = amountOfQuestions;
         this.difficulty = difficulty;
         this.userID = userID;
         this.playlistURI = playlistId;
         this.questions = new ArrayList<>();
+        this.controller = controller;
+
+        SpotifyContext context = new SpotifyContext();
 
         questionRepo = new QuestionRepository(new QuestionMySQLContext());
-        musicRepo = new MusicRepository(new SpotifyContext());
+        musicRepo = new MusicRepository(context);
+        server = new SimpleServer(context, this);
 
     }
 
@@ -61,7 +66,7 @@ public class Quiz {
 
             System.out.println(question);
 
-            // Partially hard code question generator for the sake of the demo
+            // Partially hard coded question generator for the sake of the demo
             // We'll have to find a solution to this in the near future
             // TODO
             if (question.getQuestionID() == 0) {
@@ -133,12 +138,17 @@ public class Quiz {
         this.questions = questions;
     }
 
-    public void authenticate() {
-        System.out.println(musicRepo.getAuthenticationURL());
-        try {
-            sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+    public boolean checkAuthorization() {
+        return musicRepo.checkAuthorization();
     }
+
+    public String getAuthenticationURL() {
+        server.start();
+        return musicRepo.getAuthenticationURL();
+    }
+
+    public void confirmAuthorisation() {
+        controller.confirmAuthorization();
+    }
+
 }

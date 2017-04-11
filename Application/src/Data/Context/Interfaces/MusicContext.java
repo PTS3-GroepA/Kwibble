@@ -23,4 +23,6 @@ public interface MusicContext {
     Track getRandomTrackFromPlaylist(String userId, String playlistURI);
 
     List<Artist> getRelatedArtist(String ArtistID);
+
+    boolean checkAuthorization();
 }
