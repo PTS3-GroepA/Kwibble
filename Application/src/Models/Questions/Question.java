@@ -1,6 +1,9 @@
-package Models;
+package Models.Questions;
 
+import Data.Context.SpotifyContext;
+import Data.Repos.MusicRepository;
 import Models.Answer.Answer;
+import com.wrapper.spotify.Api;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,16 +11,16 @@ import java.util.List;
 /**
  * Created by dennis vermeulen on 20-03-17.
  */
-public class Question {
-    private int questionID;
-    private String questionString;
-    private int maxAnswerTime;
-    private String source;
-    private String answerType;
-    private boolean showAlbumArt;
-    private int score;
-    private List<Answer> answers;
-
+public abstract class Question {
+    int questionID;
+    String questionString;
+    int maxAnswerTime;
+    String source;
+    String answerType;
+    boolean showAlbumArt;
+    int score;
+    List<Answer> answers;
+    MusicRepository musicRepo;
     public Question(String questionString, int maxAnswerTime, String source, boolean showAlbumArt, int score){
         this.questionString = questionString;
         this. maxAnswerTime = maxAnswerTime;
@@ -25,6 +28,7 @@ public class Question {
         this.showAlbumArt = showAlbumArt;
         this.score = score;
         this.answers = new ArrayList<>();
+        musicRepo = new MusicRepository(new SpotifyContext());
     }
 
     public Question(int id, String questionString, boolean showAlbumArt, String answerType) {
@@ -33,6 +37,7 @@ public class Question {
         this.showAlbumArt = showAlbumArt;
         this.answerType = answerType;
         this.answers = new ArrayList<>();
+        musicRepo = new MusicRepository(new SpotifyContext());
     }
 
     public int AnswerQuestion(){
@@ -88,9 +93,19 @@ public class Question {
         answers.add(answer);
     }
 
+    public String getAnswerString(int answerNumber) {
+        return answers.get(answerNumber).ShowAnswer();
+    }
+
+    public abstract void generateAnswers();
+
+    public void setApi(Api api) {
+        musicRepo.setApi(api);
+    }
+
     @Override
     public String toString() {
-        return "Question{" +
+        return "Questions{" +
                 "questionString='" + questionString + '\'' +
                 ", maxAnswerTime=" + maxAnswerTime +
                 ", source='" + source + '\'' +

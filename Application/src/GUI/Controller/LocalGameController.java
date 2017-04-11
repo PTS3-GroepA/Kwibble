@@ -7,13 +7,19 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -30,14 +36,13 @@ public class LocalGameController implements Initializable {
     @FXML private Button btnPlay;
     @FXML private WebView webView;
 
-    private Object lock;
-
-
-
+    Quiz quiz;
+    int questionPlayed;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         webView.setVisible(false);
+        questionPlayed = 0;
 
         tfNrQuestion.textProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -81,7 +86,7 @@ public class LocalGameController implements Initializable {
         System.out.println(trimUser);
         System.out.println(uri);
 
-        Quiz quiz = new Quiz(Integer.parseInt(tfNrQuestion.getText()), Difficulty.EASY, trimUser, uri, this);
+        quiz = new Quiz(Integer.parseInt(tfNrQuestion.getText()), Difficulty.EASY, trimUser, uri, this);
 
         if(!quiz.checkAuthorization()) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -106,6 +111,8 @@ public class LocalGameController implements Initializable {
     public void confirmAuthorization() {
         System.out.println("Authorization confirmed");
         webView.setVisible(false);
+        quiz.generateQuestions();
+        playQuestion(questionPlayed);
     }
 
     public void showBrowser(String URL) {
@@ -121,5 +128,29 @@ public class LocalGameController implements Initializable {
         dialog.setWidth(300);
         dialog.setHeight(100);
         dialog.showAndWait();
+    }
+
+    private void playQuestion(int questionToPlay) {
+
+        System.out.println("Opening play screen");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("GUI/Screens/GameScreen.fxml"));
+            Parent root1 = loader.load();
+            GameScreenController controller = loader.getController();
+            controller.initData(quiz.getQuestion(questionToPlay));
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(new Scene(root1));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void increasePlayedQuestion() {
+        questionPlayed++;
     }
 }

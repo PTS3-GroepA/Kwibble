@@ -1,5 +1,6 @@
 package Data.Context.Interfaces;
 
+import com.wrapper.spotify.Api;
 import com.wrapper.spotify.models.Artist;
 import com.wrapper.spotify.models.Playlist;
 import com.wrapper.spotify.models.Track;
@@ -25,4 +26,8 @@ public interface MusicContext {
     List<Artist> getRelatedArtist(String ArtistID);
 
     boolean checkAuthorization();
+
+    Api getApi();
+
+    void setApi(Api api);
 }

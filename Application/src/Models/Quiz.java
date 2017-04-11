@@ -5,16 +5,10 @@ import Data.Context.SpotifyContext;
 import Data.Repos.MusicRepository;
 import Data.Repos.QuestionRepository;
 import GUI.Controller.LocalGameController;
-import Models.Answer.TextAnswer;
-import com.wrapper.spotify.models.Artist;
-import com.wrapper.spotify.models.SimpleArtist;
-import com.wrapper.spotify.models.Track;
+import Models.Questions.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
-
-import static java.lang.Thread.sleep;
 
 /**
  * Created by dennisvermeulen on 20-03-17.
@@ -56,36 +50,20 @@ public class Quiz {
      */
     public void generateQuestions(){
 
+        System.out.println("Generating questions");
         for(int i = 1; i <= amountOfQuestions; i++) {
 
             // Get a base random question from the database.
             Question question = questionRepo.getRandomQuestion(difficulty);
 
+            question.setApi(musicRepo.getApi());
+
             // Add a random song from the playlist as source.
             question.setSource(musicRepo.getRandomTrackFromPlaylist(userID, playlistURI).getUri());
 
+            question.generateAnswers();
             System.out.println(question);
-
-            // Partially hard coded question generator for the sake of the demo
-            // We'll have to find a solution to this in the near future
-            // TODO
-            if (question.getQuestionID() == 0) {
-
-                Track track = musicRepo.getTrack(question.getSource());
-                // Add the correct answer.
-                SimpleArtist artist = track.getArtists().get(0);
-                question.addAnswer(new TextAnswer(artist.getName(), true));
-
-                // Add 3 related artist as fake answers
-                List<Artist> related = musicRepo.getRelatedArtist(artist.getId());
-                for (int j = 0; j < 3; j++) {
-                    int randomNum = ThreadLocalRandom.current().nextInt(0, related.size());
-                    question.addAnswer(new TextAnswer(related.get(randomNum).getName(), false));
-                }
-
-                System.out.println(question);
-                questions.add(question);
-            }
+            questions.add(question);
         }
     }
 
@@ -117,7 +95,7 @@ public class Quiz {
 
     /**
      * The difficulty level that the user wants to play.
-     * Question generation will be based on this difficulty level.
+     * Questions generation will be based on this difficulty level.
      *
      * @return The difficulty of the quiz
      */
@@ -129,6 +107,9 @@ public class Quiz {
         this.difficulty = difficulty;
     }
 
+    public Question getQuestion(int questionNumber) {
+        return questions.get(questionNumber);
+    }
 
     public List<Question> getQuestions() {
         return questions;
@@ -148,6 +129,7 @@ public class Quiz {
     }
 
     public void confirmAuthorisation() {
+        server = null;
         controller.confirmAuthorization();
     }
 

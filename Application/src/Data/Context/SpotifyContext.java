@@ -42,6 +42,17 @@ public class SpotifyContext implements MusicContext {
                 .build();
     }
 
+    public SpotifyContext(Api api) {
+
+
+        String clientId = "037636c06b1c4348b69fa5646304de02";
+        // Super Top Secret
+        String clientSecret = "2b9d9f8c3a8248c19d8064e3e1ee7bed";
+
+        // Create an API instance. The default instance connects to https://api.spotify.com/.
+        this.api = api;
+    }
+
     @Override
     public Track getTrack(String URI) {
         // Create a request object for the type of request you want to make
@@ -142,6 +153,16 @@ public class SpotifyContext implements MusicContext {
             e.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public Api getApi() {
+        return api;
+    }
+
+    @Override
+    public void setApi(Api api) {
+        this.api = api;
     }
 
     /**

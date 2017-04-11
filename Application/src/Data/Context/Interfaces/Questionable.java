@@ -1,7 +1,7 @@
 package Data.Context.Interfaces;
 
 import Models.Difficulty;
-import Models.Question;
+import Models.Questions.*;
 
 import java.util.List;
 
