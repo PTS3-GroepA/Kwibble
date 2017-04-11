@@ -8,13 +8,16 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
+
 
 /**
  * Created by Max Meijer on 10/04/2017.
@@ -27,6 +30,8 @@ public class LocalGameController implements Initializable {
     @FXML private Button btnPlay;
     @FXML private WebView webView;
 
+    private Object lock;
+
 
 
 
@@ -37,6 +42,7 @@ public class LocalGameController implements Initializable {
         tfNrQuestion.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                // Make the textField numerical
                 if (!newValue.matches("\\d*")) {
                     tfNrQuestion.setText(newValue.replaceAll("[^\\d]", ""));
                 }
@@ -46,12 +52,12 @@ public class LocalGameController implements Initializable {
         btnPlay.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                startGame();
+                startGame(event);
             }
         });
     }
 
-    private void startGame() {
+    private void startGame(ActionEvent event) {
         if(tfURI.getText().length() <= 0 || tfNrQuestion.getText().length() <= 0) {
             showDialog("Some field are blank");
             return;
@@ -60,26 +66,46 @@ public class LocalGameController implements Initializable {
         String rawString = tfURI.getText();
         System.out.println(rawString);
 
-        String trimUser = rawString.substring(13, rawString.indexOf(':', 13));
-        String uri = rawString.substring(rawString.lastIndexOf(':') + 1);
+        String trimUser = "";
+        String uri = "";
+
+        try {
+            trimUser = rawString.substring(13, rawString.indexOf(':', 13));
+            uri = rawString.substring(rawString.lastIndexOf(':') + 1);
+        } catch (StringIndexOutOfBoundsException e) {
+            showDialog("Invalid spotify playlist URI");
+            e.printStackTrace();
+            return;
+        }
 
         System.out.println(trimUser);
         System.out.println(uri);
 
-        Quiz quiz = new Quiz(Integer.parseInt(tfNrQuestion.getText()), Difficulty.EASY, trimUser, uri);
+        Quiz quiz = new Quiz(Integer.parseInt(tfNrQuestion.getText()), Difficulty.EASY, trimUser, uri, this);
 
-        if(quiz.checkAuthorization()== false) {
+        if(!quiz.checkAuthorization()) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Spotify authorization");
             alert.setHeaderText("Spotify not authorised");
-            alert.setContentText("It appears you are not logged in on spotify. Without authenticating you cannot play, do you want to authenticate your account now?");
+            alert.setContentText("It appears you are not logged in on spotify. Without authenticating you cannot play, do you want to getAuthenticationURL your account now?");
             Optional<ButtonType> result = alert.showAndWait();
+
             if (result.get() == ButtonType.OK){
-                showBrowser(quiz.authenticate());
+                showBrowser(quiz.getAuthenticationURL());
+
             } else {
+                showDialog("You will now return to main menu.");
+                Node source = (Node)  event.getSource();
+                Stage stage  = (Stage) source.getScene().getWindow();
+                stage.close();
                 return;
             }
         }
+    }
+
+    public void confirmAuthorization() {
+        System.out.println("Authorization confirmed");
+        webView.setVisible(false);
     }
 
     public void showBrowser(String URL) {
@@ -91,8 +117,9 @@ public class LocalGameController implements Initializable {
     public void showDialog(String message){
         Dialog<String> dialog = new Dialog<>();
         dialog.getDialogPane().setContentText(message);
-        dialog.getDialogPane().getButtonTypes().add(new ButtonType("Yes", ButtonBar.ButtonData.CANCEL_CLOSE));
-        dialog.getDialogPane().getButtonTypes().add(new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE));
-        dialog.show();
+        dialog.getDialogPane().getButtonTypes().add(new ButtonType("OK", ButtonBar.ButtonData.CANCEL_CLOSE));
+        dialog.setWidth(300);
+        dialog.setHeight(100);
+        dialog.showAndWait();
     }
 }

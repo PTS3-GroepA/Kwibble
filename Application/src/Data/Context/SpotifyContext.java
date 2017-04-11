@@ -27,11 +27,9 @@ import java.util.concurrent.ThreadLocalRandom;
 public class SpotifyContext implements MusicContext {
 
     private Api api;
-    SimpleServer server;
 
     public SpotifyContext() {
 
-        server = new SimpleServer(this);
 
         String clientId = "037636c06b1c4348b69fa5646304de02";
         // Super Top Secret
@@ -136,6 +134,8 @@ public class SpotifyContext implements MusicContext {
         CurrentUserRequest req = api.getMe().build();
         try {
             User user = req.get();
+            System.out.println(user.getEmail());
+            System.out.println(user);
             return (user != null);
 
         } catch (IOException | WebApiException e) {
@@ -154,9 +154,6 @@ public class SpotifyContext implements MusicContext {
      */
     @Override
     public String getAuthenticationURL() {
-        // Start a server yo handle the incoming spotify request
-
-
         final String clientId = "037636c06b1c4348b69fa5646304de02";
         final String clientSecret = "2b9d9f8c3a8248c19d8064e3e1ee7bed";
         final String redirectURI = "http://localhost:9000/spotify";
@@ -167,10 +164,8 @@ public class SpotifyContext implements MusicContext {
                 .redirectURI(redirectURI)
                 .build();
 
-        final List<String> scopes = Arrays.asList("user-library-read", "playlist-read-private");
+        final List<String> scopes = Arrays.asList("user-library-read", "playlist-read-private", "user-read-email");
         String state = "<place_holder>";
-
-        server.start();
 
         return api.createAuthorizeURL(scopes, state);
     }
@@ -210,9 +205,5 @@ public class SpotifyContext implements MusicContext {
                 System.out.println(throwable);
             }
         });
-
-        server.stop();
     }
-
-
 }
