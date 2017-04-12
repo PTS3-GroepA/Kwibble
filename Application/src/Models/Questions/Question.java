@@ -103,6 +103,10 @@ public abstract class Question {
         musicRepo.setApi(api);
     }
 
+    public String getPreviewURL() {
+        return musicRepo.getTrack(source).getPreviewUrl();
+    }
+
     @Override
     public String toString() {
         return "Questions{" +

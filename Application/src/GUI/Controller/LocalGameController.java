@@ -2,6 +2,7 @@ package GUI.Controller;
 
 import Models.Difficulty;
 import Models.Quiz;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -31,10 +32,14 @@ import java.util.ResourceBundle;
  */
 public class LocalGameController implements Initializable {
 
-    @FXML private TextField tfURI;
-    @FXML private TextField tfNrQuestion;
-    @FXML private Button btnPlay;
-    @FXML private WebView webView;
+    @FXML
+    private TextField tfURI;
+    @FXML
+    private TextField tfNrQuestion;
+    @FXML
+    private Button btnPlay;
+    @FXML
+    private WebView webView;
 
     Quiz quiz;
     int questionPlayed;
@@ -63,7 +68,7 @@ public class LocalGameController implements Initializable {
     }
 
     private void startGame(ActionEvent event) {
-        if(tfURI.getText().length() <= 0 || tfNrQuestion.getText().length() <= 0) {
+        if (tfURI.getText().length() <= 0 || tfNrQuestion.getText().length() <= 0) {
             showDialog("Some field are blank");
             return;
         }
@@ -88,20 +93,20 @@ public class LocalGameController implements Initializable {
 
         quiz = new Quiz(Integer.parseInt(tfNrQuestion.getText()), Difficulty.EASY, trimUser, uri, this);
 
-        if(!quiz.checkAuthorization()) {
+        if (!quiz.checkAuthorization()) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Spotify authorization");
             alert.setHeaderText("Spotify not authorised");
             alert.setContentText("It appears you are not logged in on spotify. Without authenticating you cannot play, do you want to getAuthenticationURL your account now?");
             Optional<ButtonType> result = alert.showAndWait();
 
-            if (result.get() == ButtonType.OK){
+            if (result.get() == ButtonType.OK) {
                 showBrowser(quiz.getAuthenticationURL());
 
             } else {
                 showDialog("You will now return to main menu.");
-                Node source = (Node)  event.getSource();
-                Stage stage  = (Stage) source.getScene().getWindow();
+                Node source = (Node) event.getSource();
+                Stage stage = (Stage) source.getScene().getWindow();
                 stage.close();
                 return;
             }
@@ -121,7 +126,7 @@ public class LocalGameController implements Initializable {
         webView.setVisible(true);
     }
 
-    public void showDialog(String message){
+    public void showDialog(String message) {
         Dialog<String> dialog = new Dialog<>();
         dialog.getDialogPane().setContentText(message);
         dialog.getDialogPane().getButtonTypes().add(new ButtonType("OK", ButtonBar.ButtonData.CANCEL_CLOSE));
@@ -133,21 +138,21 @@ public class LocalGameController implements Initializable {
     private void playQuestion(int questionToPlay) {
 
         System.out.println("Opening play screen");
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("GUI/Screens/GameScreen.fxml"));
-            Parent root1 = loader.load();
-            GameScreenController controller = loader.getController();
-            controller.initData(quiz.getQuestion(questionToPlay));
-            Stage stage = new Stage();
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setScene(new Scene(root1));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Platform.runLater(() -> {
+            try {
 
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("GUI/Screens/GameScreen.fxml"));
+                Parent root1 = (Parent) fxmlLoader.load();
+                GameScreenController controller = fxmlLoader.getController();
+                controller.initData(quiz.getQuestion(questionToPlay));
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root1));
+                stage.show();
+                controller.playMusic();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     public void increasePlayedQuestion() {

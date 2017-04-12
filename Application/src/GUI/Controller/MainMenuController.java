@@ -72,7 +72,5 @@ public class MainMenuController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 }

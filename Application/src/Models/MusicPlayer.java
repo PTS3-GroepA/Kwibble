@@ -1,7 +1,11 @@
 package Models;
 
+import com.sun.javafx.tk.Toolkit;
+import javafx.concurrent.Task;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+
+import java.util.Map;
 
 /**
  * Created by Max on 4/7/2017.
@@ -9,12 +13,20 @@ import javafx.scene.media.MediaPlayer;
  *
  * A simple music player that can play a media from a webURL and a file.
  */
-public class MusicPlayer {
+public class MusicPlayer implements Runnable {
 
     private MediaPlayer player;
+    private String source;
 
-    public MusicPlayer() {
+    public MusicPlayer(String source) {
+        this.source = source;
+        System.out.println("Music player running");
+        Media m = new Media(source);
+        player = new MediaPlayer(m);
+    }
 
+    public void setSource(String source) {
+        this.source = source;
     }
 
     /**
@@ -24,9 +36,7 @@ public class MusicPlayer {
      */
     public void play(String URI) {
         System.out.println("Playing song: " + URI);
-        Media m = new Media(URI);
-        player = new MediaPlayer(m);
-        player.play();
+
     }
 
     /**
@@ -34,5 +44,20 @@ public class MusicPlayer {
      */
     public void stop() {
         player.stop();
+    }
+
+    @Override
+    public void run() {
+        if (player.getError() == null)
+        {
+            player.setOnError(new Runnable()
+            {
+                public void run()
+                {
+                    player.getError().printStackTrace();
+                }
+            });
+            player.setAutoPlay(true);
+        }
     }
 }
