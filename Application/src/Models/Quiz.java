@@ -55,8 +55,10 @@ public class Quiz {
 
             // Get a base random question from the database.
             Question question = questionRepo.getRandomQuestion(difficulty);
+            System.out.println(question);
 
             question.setApi(musicRepo.getApi());
+            System.out.println(question);
 
             // Add a random song from the playlist as source.
             question.setSource(musicRepo.getRandomTrackFromPlaylist(userID, playlistURI).getUri());

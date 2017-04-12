@@ -97,7 +97,7 @@ public class LocalGameController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Spotify authorization");
             alert.setHeaderText("Spotify not authorised");
-            alert.setContentText("It appears you are not logged in on spotify. Without authenticating you cannot play, do you want to getAuthenticationURL your account now?");
+            alert.setContentText("It appears you are not logged in on spotify. Without authenticating you cannot play, do you want to authenticate your account now?");
             Optional<ButtonType> result = alert.showAndWait();
 
             if (result.get() == ButtonType.OK) {
@@ -117,7 +117,7 @@ public class LocalGameController implements Initializable {
         System.out.println("Authorization confirmed");
         webView.setVisible(false);
         quiz.generateQuestions();
-        playQuestion(questionPlayed);
+        playQuestion();
     }
 
     public void showBrowser(String URL) {
@@ -135,7 +135,7 @@ public class LocalGameController implements Initializable {
         dialog.showAndWait();
     }
 
-    private void playQuestion(int questionToPlay) {
+    public void playQuestion() {
 
         System.out.println("Opening play screen");
         Platform.runLater(() -> {
@@ -144,7 +144,7 @@ public class LocalGameController implements Initializable {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("GUI/Screens/GameScreen.fxml"));
                 Parent root1 = (Parent) fxmlLoader.load();
                 GameScreenController controller = fxmlLoader.getController();
-                controller.initData(quiz.getQuestion(questionToPlay));
+                controller.initData(quiz.getQuestion(questionPlayed), this);
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root1));
                 stage.show();

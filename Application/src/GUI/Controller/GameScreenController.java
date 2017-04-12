@@ -5,13 +5,16 @@ import Models.MusicPlayer;
 import Models.Questions.Question;
 import Models.Quiz;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.Node;
+import javafx.scene.control.*;
+import javafx.scene.layout.Background;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.*;
@@ -32,16 +35,77 @@ public class GameScreenController implements Initializable {
     @FXML private Label questionBox;
 
     private Question question;
+    LocalGameController controllerReference;
+    MusicPlayer mp;
 
-    void initData(Question question) {
+    void initData(Question question ,LocalGameController controller) {
         System.out.println("initialising game screen with question: " + question.toString());
         this.question = question;
+        this.controllerReference = controller;
         questionBox.setText(question.getQuestionString());
         placeAnswers();
+        mp = new MusicPlayer(question.getPreviewURL());
     }
 
+    @SuppressWarnings("Duplicates")
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        btnAnswer1.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if(answerQuestion(btnAnswer1.getText())) {
+                    btnAnswer1.setStyle("-fx-background-color: green;");
+                    showResultDialog(true, event);
+                }
+                else {
+                    btnAnswer1.setStyle("-fx-background-color: red;");
+                    showResultDialog(false,event);
+                }
+            }
+        });
+
+        btnAnswer2.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if(answerQuestion(btnAnswer2.getText())) {
+                    btnAnswer2.setStyle("-fx-background-color: green;");
+                    showResultDialog(true,event);
+                }
+                else {
+                    btnAnswer2.setStyle("-fx-background-color: red;");
+                    showResultDialog(false,event);
+                }
+            }
+        });
+
+        btnAnswer3.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if(answerQuestion(btnAnswer3.getText())) {
+                    btnAnswer3.setStyle("-fx-background-color: green;");
+                    showResultDialog(true,event);
+                }
+                else {
+                    btnAnswer3.setStyle("-fx-background-color: red;");
+                    showResultDialog(false,event);
+                }
+            }
+        });
+
+        btnAnswer4.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if(answerQuestion(btnAnswer4.getText())) {
+                    btnAnswer4.setStyle("-fx-background-color: green;");
+                    showResultDialog(true,event);
+                }
+                else {
+                    btnAnswer4.setStyle("-fx-background-color: red;");
+                    showResultDialog(false,event);
+                }
+            }
+        });
+
     }
 
     private void placeAnswers() {
@@ -79,6 +143,36 @@ public class GameScreenController implements Initializable {
     void playMusic() {
         System.out.println("Playing music");
         System.out.println(question.getPreviewURL());
-        Platform.runLater(new MusicPlayer(question.getPreviewURL()));
+        Platform.runLater(mp);
+    }
+
+    private boolean answerQuestion(String answer) {
+        return question.answerQuestion(answer);
+    }
+
+    void showResultDialog(boolean correct, ActionEvent actionEvent) {
+        mp.stop();
+        if(correct) {
+            Dialog<String> dialog = new Dialog<>();
+            dialog.getDialogPane().setContentText("Well done!");
+            dialog.getDialogPane().getButtonTypes().add(new ButtonType("OK", ButtonBar.ButtonData.CANCEL_CLOSE));
+            dialog.setWidth(300);
+            dialog.setHeight(100);
+            dialog.showAndWait();
+        } else {
+            Dialog<String> dialog = new Dialog<>();
+            dialog.getDialogPane().setContentText("Wrong, the correct answer was: " + question.getCorrectAnswer());
+            dialog.getDialogPane().getButtonTypes().add(new ButtonType("OK", ButtonBar.ButtonData.CANCEL_CLOSE));
+            dialog.setWidth(300);
+            dialog.setHeight(100);
+            dialog.showAndWait();
+        }
+
+        controllerReference.increasePlayedQuestion();
+        controllerReference.playQuestion();
+
+        Node source = (Node)  actionEvent.getSource();
+        Stage stage  = (Stage) source.getScene().getWindow();
+        stage.close();
     }
 }

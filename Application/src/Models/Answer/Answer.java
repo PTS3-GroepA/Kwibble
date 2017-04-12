@@ -16,4 +16,8 @@ public abstract class Answer {
 
     public abstract String ShowAnswer();
 
+    public boolean getIsCorrectAnswer() {
+        return isCorrectAnswer;
+    }
+
 }

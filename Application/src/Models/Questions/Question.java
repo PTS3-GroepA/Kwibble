@@ -38,10 +38,17 @@ public abstract class Question {
         this.answerType = answerType;
         this.answers = new ArrayList<>();
         musicRepo = new MusicRepository(new SpotifyContext());
+        score =0;
     }
 
-    public int AnswerQuestion(){
-        return 0;
+    public boolean answerQuestion(String answer){
+        for(Answer a : answers) {
+            if(a.ShowAnswer().equals(answer) && a.getIsCorrectAnswer()) {
+                score = 1;
+                return true;
+            }
+        }
+        return false;
     }
 
     public void setScore(int score){
@@ -89,8 +96,17 @@ public abstract class Question {
         this.answerType = answerType;
     }
 
-    public void addAnswer(Answer answer) {
+    void addAnswer(Answer answer) {
         answers.add(answer);
+    }
+
+    public String getCorrectAnswer() {
+        for(Answer a : answers) {
+            if(a.getIsCorrectAnswer()) {
+                return a.ShowAnswer();
+            }
+        }
+        return null;
     }
 
     public String getAnswerString(int answerNumber) {
