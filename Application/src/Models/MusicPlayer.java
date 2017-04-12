@@ -1,6 +1,7 @@
 package Models;
 
 import com.sun.javafx.tk.Toolkit;
+import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -48,6 +49,7 @@ public class MusicPlayer implements Runnable {
 
     @Override
     public void run() {
+        Platform.setImplicitExit(false);
         if (player.getError() == null)
         {
             player.setOnError(new Runnable()

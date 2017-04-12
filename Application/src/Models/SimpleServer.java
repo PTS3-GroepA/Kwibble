@@ -80,7 +80,6 @@ public class SimpleServer {
                 if(context.checkAuthorization()) {
                     quiz.confirmAuthorisation();
                 }
-
             }
         }
     }
