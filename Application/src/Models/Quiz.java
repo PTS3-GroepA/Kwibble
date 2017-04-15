@@ -49,6 +49,7 @@ public class Quiz {
      * @return Returns a question that can be asked in the quiz.
      */
     public void generateQuestions(){
+        //todo zorg dat de lijst vragen cleared na dat er gespeeld is
 
         System.out.println("Generating questions");
         for(int i = 1; i <= amountOfQuestions; i++) {
