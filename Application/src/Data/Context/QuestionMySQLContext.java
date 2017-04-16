@@ -2,7 +2,7 @@ package Data.Context;
 
 import Data.Context.Interfaces.Questionable;
 import Models.Difficulty;
-import Models.Question;
+import Models.Question.Question;
 import com.mysql.jdbc.Statement;
 
 import java.sql.Connection;
@@ -10,7 +10,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**

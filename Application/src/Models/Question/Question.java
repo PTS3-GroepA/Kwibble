@@ -1,5 +1,9 @@
-package Models;
+package Models.Question;
 
+import Data.Context.QuestionMySQLContext;
+import Data.Context.SpotifyContext;
+import Data.Repos.MusicRepository;
+import Data.Repos.QuestionRepository;
 import Models.Answer.Answer;
 
 import java.util.ArrayList;
@@ -8,7 +12,7 @@ import java.util.List;
 /**
  * Created by dennis vermeulen on 20-03-17.
  */
-public class Question {
+public abstract class Question {
     private int questionID;
     private String questionString;
     private int maxAnswerTime;
@@ -18,6 +22,11 @@ public class Question {
     private int score;
     private List<Answer> answers;
 
+
+    //THESE PROPERTIES ARE INITIALIZED IN THE CONSTRUCTORS. PLEASE TAKE THIS INTO ACCOUNT WHEN ALTERING OR REMOVING THE CONSTRUCTORS.
+    private MusicRepository musicRepo;
+    private QuestionRepository questionRepo;
+
     public Question(String questionString, int maxAnswerTime, String source, boolean showAlbumArt, int score){
         this.questionString = questionString;
         this. maxAnswerTime = maxAnswerTime;
@@ -25,6 +34,10 @@ public class Question {
         this.showAlbumArt = showAlbumArt;
         this.score = score;
         this.answers = new ArrayList<>();
+
+        questionRepo = new QuestionRepository(new QuestionMySQLContext());
+        musicRepo = new MusicRepository(new SpotifyContext());
+
     }
 
     public Question(int id, String questionString, boolean showAlbumArt, String answerType) {
@@ -33,7 +46,12 @@ public class Question {
         this.showAlbumArt = showAlbumArt;
         this.answerType = answerType;
         this.answers = new ArrayList<>();
+
+        questionRepo = new QuestionRepository(new QuestionMySQLContext());
+        musicRepo = new MusicRepository(new SpotifyContext());
     }
+
+    public abstract void generateQuestion();
 
     public int AnswerQuestion(){
         return 0;
