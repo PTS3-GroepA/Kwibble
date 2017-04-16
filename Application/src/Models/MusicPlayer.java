@@ -26,19 +26,15 @@ public class MusicPlayer implements Runnable {
         player = new MediaPlayer(m);
     }
 
+    /**
+     * The source file or URL to play.
+     *
+     * @param source The location of the source.
+     */
     public void setSource(String source) {
         this.source = source;
     }
 
-    /**
-     * Play a media file from an url
-     *
-     * @param URI The spotify 30 second preview URI
-     */
-    public void play(String URI) {
-        System.out.println("Playing song: " + URI);
-
-    }
 
     /**
      * Stop the music player.
@@ -52,13 +48,7 @@ public class MusicPlayer implements Runnable {
         Platform.setImplicitExit(false);
         if (player.getError() == null)
         {
-            player.setOnError(new Runnable()
-            {
-                public void run()
-                {
-                    player.getError().printStackTrace();
-                }
-            });
+            player.setOnError(() -> player.getError().printStackTrace());
             player.setAutoPlay(true);
         }
     }

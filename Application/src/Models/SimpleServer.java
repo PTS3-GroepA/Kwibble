@@ -41,6 +41,7 @@ public class SimpleServer {
         try {
             server = HttpServer.create(new InetSocketAddress(port), 0);
         } catch (IOException e) {
+            System.out.println("Error starting server: ");
             e.printStackTrace();
         }
 

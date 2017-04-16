@@ -11,6 +11,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Created by dennisvermeulen on 10-04-17.
+ *
+ * Question where the answer type will be artists.
  */
 public class ArtistNameQuestion extends Question {
 
@@ -19,8 +21,8 @@ public class ArtistNameQuestion extends Question {
         super(questionString, maxAnswerTime, source, showAlbumArt, score);
     }
 
-    public ArtistNameQuestion(int id, String questionString, boolean showAlbumArt, String answerType) {
-        super(id, questionString, showAlbumArt, answerType);
+    public ArtistNameQuestion(String questionString, boolean showAlbumArt, String answerType) {
+        super(questionString, showAlbumArt, answerType);
     }
 
     @Override

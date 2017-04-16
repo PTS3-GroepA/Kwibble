@@ -58,6 +58,7 @@ public class Quiz {
             Question question = questionRepo.getRandomQuestion(difficulty);
             System.out.println(question);
 
+            // Pass the api with credentials to the question.
             question.setApi(musicRepo.getApi());
             System.out.println(question);
 
@@ -110,10 +111,21 @@ public class Quiz {
         this.difficulty = difficulty;
     }
 
+    /**
+     * Get a question at a specific location in the list.
+     *
+     * @param questionNumber The zero-based index location.
+     * @return The question at the given location.
+     */
     public Question getQuestion(int questionNumber) {
         return questions.get(questionNumber);
     }
 
+    /**
+     * Return all questions in the quiz.
+     *
+     * @return A list of all questions in the quiz.
+     */
     public List<Question> getQuestions() {
         return questions;
     }
@@ -122,15 +134,28 @@ public class Quiz {
         this.questions = questions;
     }
 
+    /**
+     * Check whether the user is logged in on Spotify.
+     *
+     * @return Returns true when the user is logged in.
+     */
     public boolean checkAuthorization() {
         return musicRepo.checkAuthorization();
     }
 
+    /**
+     * gets the URL which the user can visit to authorise the application via spotify.
+     *
+     * @return The URL the user must visit to authorise.
+     */
     public String getAuthenticationURL() {
         server.start();
         return musicRepo.getAuthenticationURL();
     }
 
+    /**
+     * Method called when the server has received the access token from spotify.
+     */
     public void confirmAuthorisation() {
         server = null;
         controller.confirmAuthorization();
