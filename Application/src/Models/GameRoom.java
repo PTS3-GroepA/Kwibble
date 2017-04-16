@@ -5,6 +5,8 @@ import java.util.List;
 
 /**
  * Created by dennisvermeulen on 20-03-17.
+ *
+ * This class will contain all players in a multi-player scenario.
  */
 public class GameRoom {
 

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.GameScreenController">
+   <children>
+      <Button fx:id="btnAnswer1" layoutX="254.0" layoutY="400.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="375.0" stylesheets="@Button.css" text="answer1" />
+      <Button fx:id="btnAnswer2" layoutX="679.0" layoutY="400.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="375.0" text="answer2" />
+      <Button fx:id="btnAnswer3" layoutX="254.0" layoutY="575.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="375.0" text="answer3" />
+      <Button fx:id="btnAnswer4" layoutX="679.0" layoutY="575.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="375.0" text="answer4" />
+      <Label fx:id="questionBox" alignment="CENTER" layoutX="254.0" layoutY="252.0" prefHeight="85.0" prefWidth="800.0" text="Tets string" textAlignment="CENTER">
+         <font>
+            <Font size="35.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

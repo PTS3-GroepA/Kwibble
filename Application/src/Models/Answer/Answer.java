@@ -2,8 +2,13 @@ package Models.Answer;
 
 /**
  * Created by dennisvermeulen on 20-03-17.
+ *
+ * Super class for answers.
+ * Every Question will contain 4 answers.
+ *
+ * Because this uses generic types to make sure to cast whenever you call the showAnswer function.
  */
-public abstract class Answer {
+public abstract class Answer <T> {
 
     protected String name;
     protected boolean isCorrectAnswer;
@@ -14,6 +19,23 @@ public abstract class Answer {
         this.isCorrectAnswer = isCorrectAnswer;
     }
 
-    public abstract String ShowAnswer();
+    /**
+     * This will return the answer to display.
+     * The actual object to return will be defined by the child class.
+     *
+     * Remember to cast to prevent errors!
+     *
+     * @return The answer to display on the screen.
+     */
+    public abstract T ShowAnswer();
+
+    /**
+     * Shows whether this answer is the actual answer to the question.
+     *
+     * @return Shows if this answer is the actual answer to the question.
+     */
+    public boolean getIsCorrectAnswer() {
+        return isCorrectAnswer;
+    }
 
 }

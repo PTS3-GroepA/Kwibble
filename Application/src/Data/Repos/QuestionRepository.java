@@ -2,7 +2,7 @@ package Data.Repos;
 
 import Data.Context.Interfaces.Questionable;
 import Models.Difficulty;
-import Models.Question.Question;
+import Models.Questions.*;
 
 import java.util.List;
 

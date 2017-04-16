@@ -2,7 +2,7 @@ package Data.Context;
 
 import Data.Context.Interfaces.Questionable;
 import Models.Difficulty;
-import Models.Question.Question;
+import Models.Questions.*;
 import com.mysql.jdbc.Statement;
 
 import java.sql.Connection;
@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -82,24 +83,19 @@ public class QuestionMySQLContext implements Questionable {
         }
 
         try {
-
-            Question question = null;
-
-            while(question == null) {
-
-                // The random number will be the ID f the question to ask.
+                // The random number will be the ID of the question to ask.
                 int randomNum = ThreadLocalRandom.current().nextInt(0, numberOfQuestions);
-
                 Statement stmt = (Statement) con.createStatement();
-                //TODO take variable
+
+                // TODO take variable
+                // TODO Extend switch case to take all values
                 ResultSet result = stmt.executeQuery("SELECT * FROM Question WHERE QuestionID =" + 0 + " AND Difficulty <= " + dif);
                 while (result.next()) {
-                    question = new Question(result.getInt(1) ,result.getString(2), result.getBoolean(3), result.getString(4));
-                }
+                    switch (result.getString(4)) {
+                        case "ARTNAME":
+                            return new ArtistNameQuestion(result.getString(2), result.getBoolean(3), result.getString(4));
+                    }
             }
-
-            return question;
-
         } catch (SQLException e) {
             e.printStackTrace();
         }

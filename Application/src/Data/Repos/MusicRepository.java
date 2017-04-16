@@ -1,6 +1,7 @@
 package Data.Repos;
 
 import Data.Context.Interfaces.MusicContext;
+import com.wrapper.spotify.Api;
 import com.wrapper.spotify.models.Artist;
 import com.wrapper.spotify.models.Playlist;
 import com.wrapper.spotify.models.Track;
@@ -52,4 +53,20 @@ public class MusicRepository implements MusicContext {
     public List<Artist> getRelatedArtist(String ArtistID) {
         return context.getRelatedArtist(ArtistID);
     }
+
+    @Override
+    public boolean checkAuthorization() {
+        return context.checkAuthorization();
+    }
+
+    @Override
+    public Api getApi() {
+        return context.getApi();
+    }
+
+    @Override
+    public void setApi(Api api) {
+        context.setApi(api);
+    }
+
 }
