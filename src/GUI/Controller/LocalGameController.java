@@ -29,6 +29,8 @@ import java.util.ResourceBundle;
  */
 public class LocalGameController implements Initializable {
 
+    Quiz quiz;
+    int questionPlayed;
     @FXML
     private TextField tfURI;
     @FXML
@@ -37,9 +39,6 @@ public class LocalGameController implements Initializable {
     private Button btnPlay;
     @FXML
     private WebView webView;
-
-    Quiz quiz;
-    int questionPlayed;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
