@@ -13,7 +13,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
@@ -25,9 +24,12 @@ import java.util.ResourceBundle;
  */
 public class MainMenuController implements Initializable {
 
-    @FXML private Button btnJoinGame;
-    @FXML private Button btnHostGame;
-    @FXML private Button btnLocalGame;
+    @FXML
+    private Button btnJoinGame;
+    @FXML
+    private Button btnHostGame;
+    @FXML
+    private Button btnLocalGame;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -53,7 +55,7 @@ public class MainMenuController implements Initializable {
         });
     }
 
-    public void showDialog(String message){
+    public void showDialog(String message) {
         Dialog<String> dialog = new Dialog<>();
         dialog.getDialogPane().setContentText(message);
         dialog.getDialogPane().getButtonTypes().add(new ButtonType("Ok", ButtonBar.ButtonData.CANCEL_CLOSE));
@@ -63,7 +65,7 @@ public class MainMenuController implements Initializable {
     public void openLocalGame() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("GUI/Screens/LocalGame.fxml"));
-            Parent root1 = (Parent) fxmlLoader.load();
+            Parent root1 = fxmlLoader.load();
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("Local game settings");

@@ -16,11 +16,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -142,7 +139,7 @@ public class LocalGameController implements Initializable {
             try {
 
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("GUI/Screens/GameScreen.fxml"));
-                Parent root1 = (Parent) fxmlLoader.load();
+                Parent root1 = fxmlLoader.load();
                 GameScreenController controller = fxmlLoader.getController();
                 controller.initData(quiz.getQuestion(questionPlayed), this);
                 Stage stage = new Stage();
