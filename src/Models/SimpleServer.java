@@ -11,6 +11,8 @@ import java.net.InetSocketAddress;
 import java.net.URI;
 import java.net.URLDecoder;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by Max Meijer on 03/04/2017.
@@ -26,6 +28,7 @@ import java.util.*;
 
 public class SimpleServer {
 
+    private static final Logger LOGGER = Logger.getLogger( SimpleServer.class.getName() );
     private HttpServer server;
     private int port;
     Map <String,String> parms;
@@ -41,7 +44,7 @@ public class SimpleServer {
         try {
             server = HttpServer.create(new InetSocketAddress(port), 0);
         } catch (IOException e) {
-            System.out.println("Error starting server: ");
+            LOGGER.log(Level.SEVERE, e.toString(), e);
             e.printStackTrace();
         }
 
