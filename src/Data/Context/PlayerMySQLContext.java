@@ -2,6 +2,8 @@ package Data.Context;
 
 import Data.Context.Interfaces.PlayerContextInterface;
 import Models.Player;
+import com.sun.media.jfxmedia.logging.Logger;
+import jdk.nashorn.internal.runtime.options.LoggingOption;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -14,6 +16,7 @@ import java.util.Random;
 /**
  * Created by Bryan on 27-3-2017.
  */
+//test
 public class PlayerMySQLContext implements PlayerContextInterface {
 
     private Connection con;
@@ -24,6 +27,7 @@ public class PlayerMySQLContext implements PlayerContextInterface {
         }
         catch (Exception exc){
             System.out.println(exc.getMessage());
+            throw new RuntimeException("couldn't get the SQL connection");
         }
     }
     public PlayerMySQLContext() {
@@ -58,11 +62,14 @@ public class PlayerMySQLContext implements PlayerContextInterface {
             myStatement.executeUpdate();
 
             con.close();
+            myStatement.close();
 
         }
         catch(Exception exc){
             System.out.println(exc.getMessage());
-            return false;
+
+            throw new RuntimeException("context");
+
         }
         return true;
     }
@@ -76,7 +83,6 @@ public class PlayerMySQLContext implements PlayerContextInterface {
             if (rs.next()){
                 String salt = rs.getString("Salt");
             }
-
 
 
             PreparedStatement myStatement = con.prepareStatement("SELECT Email, Password, Score FROM player WHERE Email = ? AND Password = ?");
