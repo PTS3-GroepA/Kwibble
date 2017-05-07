@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -30,9 +31,16 @@ public class MainMenuController implements Initializable {
     private Button btnHostGame;
     @FXML
     private Button btnLocalGame;
+    @FXML
+    private AnchorPane anchorPane;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        String btnStyle = "customButton";
+        btnJoinGame.getStyleClass().add(btnStyle);
+        btnHostGame.getStyleClass().add(btnStyle);
+        btnLocalGame.getStyleClass().add(btnStyle);
+        anchorPane.getStyleClass().add("backGround");
 
         btnHostGame.setOnAction(new EventHandler<ActionEvent>() {
             @Override
