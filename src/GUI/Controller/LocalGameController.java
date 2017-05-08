@@ -21,6 +21,8 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -28,7 +30,7 @@ import java.util.ResourceBundle;
  * Fontys University of Applied Sciences, Eindhoven
  */
 public class LocalGameController implements Initializable {
-
+    private static final Logger LOGGER = Logger.getLogger( LocalGameController.class.getName());
     Quiz quiz;
     int questionPlayed;
     @FXML
@@ -80,7 +82,7 @@ public class LocalGameController implements Initializable {
             uri = rawString.substring(rawString.lastIndexOf(':') + 1);
         } catch (StringIndexOutOfBoundsException e) {
             showDialog("Invalid spotify playlist URI");
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, e.toString(), e);
             return;
         }
 
@@ -146,7 +148,7 @@ public class LocalGameController implements Initializable {
                 stage.show();
                 controller.playMusic();
             } catch (Exception e) {
-                e.printStackTrace();
+                LOGGER.log(Level.SEVERE, e.toString(), e);
             }
         });
     }

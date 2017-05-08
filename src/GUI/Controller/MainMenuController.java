@@ -11,28 +11,38 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by Max Meijer on 10/04/2017.
  * Fontys University of Applied Sciences, Eindhoven
  */
 public class MainMenuController implements Initializable {
-
+    private static final Logger LOGGER = Logger.getLogger( MainMenuController.class.getName());
     @FXML
     private Button btnJoinGame;
     @FXML
     private Button btnHostGame;
     @FXML
     private Button btnLocalGame;
+    @FXML
+    private AnchorPane anchorPane;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        String btnStyle = "customButton";
+        btnJoinGame.getStyleClass().add(btnStyle);
+        btnHostGame.getStyleClass().add(btnStyle);
+        btnLocalGame.getStyleClass().add(btnStyle);
+        anchorPane.getStyleClass().add("backGround");
 
         btnHostGame.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -72,7 +82,7 @@ public class MainMenuController implements Initializable {
             stage.setScene(new Scene(root1));
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, e.toString(), e);
         }
     }
 }

@@ -15,6 +15,8 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by Max Meijer on 03/04/2017.
@@ -27,6 +29,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class SpotifyContext implements MusicContext {
 
     private Api api;
+    private static final Logger LOGGER = Logger.getLogger( SpotifyContext.class.getName());
 
     public SpotifyContext() {
 
@@ -61,7 +64,7 @@ public class SpotifyContext implements MusicContext {
         try {
             return request.get();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, e.toString(), e);
         }
 
         return null;
@@ -75,7 +78,8 @@ public class SpotifyContext implements MusicContext {
         try {
             return request.get();
         } catch (Exception e) {
-            e.printStackTrace();
+
+            LOGGER.log(Level.SEVERE, e.toString(), e);
         }
 
         return null;
@@ -89,8 +93,8 @@ public class SpotifyContext implements MusicContext {
             return request.get();
 
         } catch (Exception e) {
-            e.printStackTrace();
-        }
+            LOGGER.log(Level.SEVERE, e.toString(), e);
+    }
 
         return null;
     }
@@ -120,7 +124,7 @@ public class SpotifyContext implements MusicContext {
             // Select the track and return it.
             return tracks.get(randomNum).getTrack();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, e.toString(), e);
         }
 
         return null;
@@ -134,7 +138,7 @@ public class SpotifyContext implements MusicContext {
         try {
             return request.get();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, e.toString(), e);
         }
 
         return null;
@@ -150,7 +154,7 @@ public class SpotifyContext implements MusicContext {
             return (user != null);
 
         } catch (IOException | WebApiException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, e.toString(), e);
             return false;
         }
     }

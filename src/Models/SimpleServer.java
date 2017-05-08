@@ -42,7 +42,7 @@ class SimpleServer {
             server = HttpServer.create(new InetSocketAddress(port), 0);
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, e.toString(), e);
-            e.printStackTrace();
+
         }
 
         server.createContext("/", new RootHandler());
