@@ -62,7 +62,7 @@ public class QuestionMySQLContext implements Questionable {
             try {
                 stmt.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                
                 LOGGER.log(Level.SEVERE, e.toString(), e);
             }
         }
