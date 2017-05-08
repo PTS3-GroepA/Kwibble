@@ -40,12 +40,12 @@ public class PlayerMySQLContext implements PlayerContextInterface {
 
     @Override
     public boolean Add(Player player) {
-        PreparedStatement myStatement = null;
+        PreparedStatement AddPlayer = null;
         try{
             initConnection();
 
-            myStatement = con.prepareStatement("INSERT INTO player (Email,Password,Salt,Score) VALUES ?, ?, ?,?");
-            myStatement.setString(1,player.getEmail());
+            AddPlayer = con.prepareStatement("INSERT INTO player (Email,Password,Salt,Score) VALUES ?, ?, ?,?");
+            AddPlayer.setString(1,player.getEmail());
 
             //create random salt
             Random r = new Random();
@@ -55,16 +55,17 @@ public class PlayerMySQLContext implements PlayerContextInterface {
             //encrypt the salt and password with md5
             MessageDigest m = MessageDigest.getInstance("MD5");
             m.reset();
-            String completepass = player.getPassword() + salt.toString();
+            
+            String completepass = player.getPassword() + Arrays.toString(salt);
             m.update(completepass.getBytes());
 
             player.setPassword(m.toString());
 
             //set parameters
-            myStatement.setString(2,player.getPassword());
-            myStatement.setString(3,salt.toString());
-            myStatement.setInt(4, player.getScore());
-            myStatement.executeUpdate();
+            AddPlayer.setString(2,player.getPassword());
+            AddPlayer.setString(3,Arrays.toString(salt));
+            AddPlayer.setInt(4, player.getScore());
+            AddPlayer.executeUpdate();
 
 
 
@@ -75,8 +76,8 @@ public class PlayerMySQLContext implements PlayerContextInterface {
         }
         finally {
             try {
-                if (myStatement != null ){
-                    myStatement.close();
+                if (AddPlayer != null ){
+                    AddPlayer.close();
                 }
 
                 con.close();
@@ -87,55 +88,66 @@ public class PlayerMySQLContext implements PlayerContextInterface {
         }
         return true;
     }
-    public boolean Login(Player player){
-        try{
+    public boolean Login(Player player) {
+
+        PreparedStatement GetSalt = null;
+        PreparedStatement myStatement = null;
+        try {
             initConnection();
-            PreparedStatement GetSalt = con.prepareStatement("SELECT Salt From Player WHERE Email = ?");
-            GetSalt.setString(1,player.getEmail());
+            GetSalt = con.prepareStatement("SELECT Salt From Player WHERE Email = ?");
+            GetSalt.setString(1, player.getEmail());
 
             ResultSet rs = GetSalt.executeQuery();
-            if (rs.next()){
+            if (rs.next()) {
                 String salt = rs.getString("Salt");
             }
+            myStatement = con.prepareStatement("SELECT Email, Password, Score FROM player WHERE Email = ? AND Password = ?");
 
-
-            PreparedStatement myStatement = con.prepareStatement("SELECT Email, Password, Score FROM player WHERE Email = ? AND Password = ?");
-
-            myStatement.setString(1,player.getEmail());
-            myStatement.setString(2,player.getPassword());
-
+            myStatement.setString(1, player.getEmail());
+            myStatement.setString(2, player.getPassword());
 
             myStatement.executeUpdate();
 
-            con.close();
-
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             LOGGER.log(Level.SEVERE, e.toString(), e);
             return false;
+        } finally {
+
+            try {
+                con.close();
+                    if (GetSalt != null){
+                        GetSalt.close();
+                    }
+                    if (myStatement != null){
+                        myStatement.close();
+                    }
+
+            } catch (SQLException e) {
+                LOGGER.log(Level.SEVERE, e.toString(), e);
+
+            }
+
         }
         return true;
     }
-
-    @Override
-    public boolean Remove(Player player) {
-        PreparedStatement myStatement = null    ;
+    public boolean Remove (Player player) {
+        PreparedStatement RemovePlayer = null;
         try{
             initConnection();
 
-            myStatement = con.prepareStatement("DELETE FROM player WHERE Email = ?");
+            RemovePlayer = con.prepareStatement("DELETE FROM player WHERE Email = ?");
 
-            myStatement.setString(1,player.getEmail());
+            RemovePlayer.setString(1,player.getEmail());
 
-            myStatement.executeUpdate();
+            RemovePlayer.executeUpdate();
 
             con.close();
 
         }
         catch(Exception e){
-            if (myStatement != null ){
+            if (RemovePlayer != null ){
                 try {
-                    myStatement.close();
+                    RemovePlayer.close();
                 } catch (SQLException e1) {
                     LOGGER.log(Level.SEVERE, e.toString(), e);
                 }

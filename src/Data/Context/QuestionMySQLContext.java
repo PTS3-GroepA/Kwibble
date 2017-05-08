@@ -47,8 +47,9 @@ public class QuestionMySQLContext implements Questionable {
 
     @Override
     public Question getQuestionById(int id) {
+        Statement stmt = null;
         try {
-            Statement stmt = (Statement) con.createStatement();
+            stmt = (Statement) con.createStatement();
             ResultSet result = stmt.executeQuery("SELECT * FROM Question WHERE QuestionID =" + id);
             while(result.next()) {
                 System.out.println(result.getString(1) +  result.getString(2) + result.getString(3) + result.getString(4) +result.getString(5));
@@ -56,6 +57,14 @@ public class QuestionMySQLContext implements Questionable {
 
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, e.toString(), e);
+        }
+        finally {
+            try {
+                stmt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                LOGGER.log(Level.SEVERE, e.toString(), e);
+            }
         }
 
         return null;
