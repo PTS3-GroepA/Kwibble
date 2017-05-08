@@ -17,13 +17,15 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by Max Meijer on 10/04/2017.
  * Fontys University of Applied Sciences, Eindhoven
  */
 public class MainMenuController implements Initializable {
-
+    private static final Logger LOGGER = Logger.getLogger( MainMenuController.class.getName());
     @FXML
     private Button btnJoinGame;
     @FXML
@@ -72,7 +74,7 @@ public class MainMenuController implements Initializable {
             stage.setScene(new Scene(root1));
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, e.toString(), e);
         }
     }
 }

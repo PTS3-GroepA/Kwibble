@@ -12,6 +12,8 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by Max Meijer on 03/04/2017.
@@ -21,14 +23,16 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class QuestionMySQLContext implements Questionable {
 
+    private static final Logger LOGGER = Logger.getLogger( QuestionMySQLContext.class.getName());
     private Connection con;
 
     private void initConnection(){
         try{
             con = DriverManager.getConnection("jdbc:mysql://studmysql01.fhict.local/dbi356103", "dbi356103", "Kwibble");
         }
-        catch (Exception exc){
-            System.out.println(exc.getMessage());
+        catch (Exception e){
+            System.out.println(e.getMessage());
+            LOGGER.log(Level.SEVERE, e.toString(), e);
         }
     }
 
@@ -51,7 +55,7 @@ public class QuestionMySQLContext implements Questionable {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, e.toString(), e);
         }
 
         return null;
@@ -79,7 +83,7 @@ public class QuestionMySQLContext implements Questionable {
             }
         }
         catch(SQLException e) {
-                e.printStackTrace();
+            LOGGER.log(Level.SEVERE, e.toString(), e);
         }
 
         try {
@@ -97,7 +101,7 @@ public class QuestionMySQLContext implements Questionable {
                     }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, e.toString(), e);
         }
 
         return null;

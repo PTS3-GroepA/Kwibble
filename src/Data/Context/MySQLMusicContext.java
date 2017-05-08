@@ -6,6 +6,8 @@ import Data.Context.Interfaces.Answerable;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by Max Meijer on 27/03/2017.
@@ -18,7 +20,7 @@ public class MySQLMusicContext implements Answerable {
 
 
     private Connection connection;
-
+    private static final Logger LOGGER = Logger.getLogger(MySQLMusicContext.class.getName() );
     @Override
     public List<Answer> getAnswers() {
         try{
@@ -42,8 +44,8 @@ public class MySQLMusicContext implements Answerable {
 
 
 
-        } catch (SQLException e1) {
-            e1.printStackTrace();
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, e.toString(), e);
         }
 
 
