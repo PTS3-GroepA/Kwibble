@@ -14,7 +14,7 @@
         <Label layoutX="469.0" layoutY="277.0" text="Playlist URL" />
         <TextField fx:id="tfNrQuestion" layoutX="600.0" layoutY="356.0" />
         <Label layoutX="405.0" layoutY="361.0" text="Number of questions" />
-        <Button fx:id="btnPlay" layoutX="507.0" layoutY="465.0" mnemonicParsing="false" prefHeight="125.0" prefWidth="187.0" styleClass="CuctomButton" stylesheets="@Button.css" text="Play" />
+        <Button fx:id="btnPlay" layoutX="507.0" layoutY="465.0" mnemonicParsing="false" prefHeight="125.0" prefWidth="187.0" styleClass="CuctomButton" stylesheets="@Main.css" text="Play" />
       <Label layoutX="796.0" layoutY="268.0" prefHeight="39.0" prefWidth="281.0" text="You can find the URI by clicking the&quot;...&quot; behind a playlist and clicking on the share and then &quot;URI&quot;button " wrapText="true">
          <font>
             <Font size="10.0" />

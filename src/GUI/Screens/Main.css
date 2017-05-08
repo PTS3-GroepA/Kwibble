@@ -1,0 +1,25 @@
+/**{*/
+    /*--main-color:#2196f3;*/
+    /*--secondary-color:#64b5f6;*/
+    /*--accent-color: #1976d2;*/
+/*}*/
+
+.root{
+    -fx-font-size: 16pt;
+    -fx-font-family: "Courier New";
+    -fx-base: rgb(132, 145, 47);
+    -fx-background: rgb(225, 228, 203);
+}
+
+.customButton{
+    -fx-background-color:  #64b5f6;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 15, 0, 5, 5);
+    -fx-font-size: 25;
+}
+.questionBar{
+    -fx-background-color:  #1976d2;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 15, 0, 5, 5);
+}
+.backGround{
+    -fx-background-color: #2196f3;
+}
