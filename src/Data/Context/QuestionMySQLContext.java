@@ -66,7 +66,6 @@ public class QuestionMySQLContext implements Questionable {
                 LOGGER.log(Level.SEVERE, e.toString(), e);
             }
         }
-
         return null;
     }
 
