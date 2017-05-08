@@ -34,16 +34,10 @@ public class MainMenuController implements Initializable {
     @FXML
     private Button btnLocalGame;
     @FXML
-    private AnchorPane anchorPane;
+    private AnchorPane ap;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        String btnStyle = "customButton";
-        btnJoinGame.getStyleClass().add(btnStyle);
-        btnHostGame.getStyleClass().add(btnStyle);
-        btnLocalGame.getStyleClass().add(btnStyle);
-        anchorPane.getStyleClass().add("backGround");
-
         btnHostGame.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
@@ -63,6 +57,38 @@ public class MainMenuController implements Initializable {
                 openLocalGame();
             }
         });
+//          zooi geprobeert om kleur aan te passen.
+//        Thread cycler = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                float h = 0;
+//                boolean optellen = true;
+//                Color c = java.awt.Color.getHSBColor(h,1,1);
+//
+//                while(true){
+//                    try {
+//                        this.wait(100);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                    if(optellen){
+//                        h =h +0.05f;
+//
+//                        if(h== 1){
+//                            optellen = false;
+//                        }
+//                    }else {
+//                        h = h - 0.05f;
+//                        if(h== 0){
+//                            optellen = true;
+//                        }
+//                    }
+//                    String css = "-fx-background-color:"+c.getRGB()+";";
+//
+//                }
+//            }
+//        });
+//        cycler.run();
     }
 
     public void showDialog(String message) {

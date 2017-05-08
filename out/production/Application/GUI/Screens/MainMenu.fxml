@@ -1,25 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.MainMenuController">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: #3AC5E4;" styleClass="backGround" stylesheets="Main.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.MainMenuController">
    <children>
-      <Button fx:id="btnJoinGame" layoutX="225.0" layoutY="338.0" mnemonicParsing="false" prefHeight="125.0" prefWidth="250.0" stylesheets="@Main.css" text="Join Game">
+      <Button fx:id="btnJoinGame" layoutX="201.0" layoutY="409.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="800.0" style="-fx-background-color: #954FA7;" styleClass="customButton" stylesheets="@Main.css" text="Join Game" textFill="WHITE">
          <font>
-            <Font name="Edwardian Script ITC" size="15.0" />
-         </font>
+            <Font name="Courier New Bold" size="15.0" />
+         </font></Button>
+      <Button fx:id="btnHostGame" layoutX="201.0" layoutY="525.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="800.0" style="-fx-background-color: FFCA28;" styleClass="customButton" stylesheets="@Main.css" text="Host Game" textFill="WHITE">
+
       </Button>
-      <Button fx:id="btnHostGame" layoutX="725.0" layoutY="338.0" mnemonicParsing="false" prefHeight="125.0" prefWidth="250.0" stylesheets="@Main.css" text="Host Game">
-         <font>
-            <Font name="Eras Bold ITC" size="15.0" />
-         </font>
+      <Button fx:id="btnLocalGame" layoutX="200.0" layoutY="643.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="800.0" style="-fx-background-color: #3FBB65;" styleClass="customButton" stylesheets="@Main.css" text="Local Game" textFill="WHITE">
+
       </Button>
-      <Button fx:id="btnLocalGame" layoutX="475.0" layoutY="508.0" mnemonicParsing="false" prefHeight="125.0" prefWidth="250.0" stylesheets="@Main.css" text="Local Game">
-         <font>
-            <Font name="Comic Sans MS" size="15.0" />
-         </font>
-      </Button>
+      <ImageView fitHeight="245.0" fitWidth="446.0" layoutX="479.0" layoutY="132.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../Downloads/Chrome.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="424.0" layoutY="28.0" style="-fx-font-family: Broadway; -fx-font-size: 80;" text="Kwibble" textFill="WHITE" />
    </children>
 </AnchorPane>
