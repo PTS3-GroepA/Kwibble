@@ -1,15 +1,12 @@
 package Models;
 
 import Data.Context.SpotifyContext;
-import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
 
 import java.io.*;
 import java.net.InetSocketAddress;
-import java.net.URI;
-import java.net.URLDecoder;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,16 +23,16 @@ import java.util.logging.Logger;
  * See https://developer.spotify.com/web-api/authorization-guide/ for more details.
  */
 
-public class SimpleServer {
+class SimpleServer {
 
-    private static final Logger LOGGER = Logger.getLogger( SimpleServer.class.getName() );
+    private static final Logger LOGGER = Logger.getLogger( SimpleServer.class.getName());
     private HttpServer server;
     private int port;
-    Map <String,String> parms;
+    private Map <String,String> parms;
     private SpotifyContext context;
     private Quiz quiz;
 
-    public SimpleServer(SpotifyContext context, Quiz quiz) {
+    SimpleServer(SpotifyContext context, Quiz quiz) {
         port = 9000;
         parms = null;
         this.context = context;
@@ -53,7 +50,7 @@ public class SimpleServer {
         server.setExecutor(null); // creates a default executor
     }
 
-    public void start() {
+    void start() {
         server.start();
     }
 
@@ -88,7 +85,7 @@ public class SimpleServer {
         }
     }
 
-    public static Map<String, String> queryToMap(String query){
+    static Map<String, String> queryToMap(String query){
         Map<String, String> result = new HashMap<String, String>();
         for (String param : query.split("&")) {
             String pair[] = param.split("=");
@@ -101,11 +98,11 @@ public class SimpleServer {
         return result;
     }
 
-    public String getCode() {
+    private String getCode() {
         return parms.get("code");
     }
 
-    public void stop() {
+    private void stop() {
         server.stop(0);
     }
 }
