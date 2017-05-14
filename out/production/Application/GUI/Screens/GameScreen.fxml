@@ -5,13 +5,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id=".CustomButton" prefHeight="800.0" prefWidth="1200.0" stylesheets="@Main.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.GameScreenController">
+<AnchorPane id=".CustomButton" prefHeight="800.0" prefWidth="1200.0" styleClass="backGround" stylesheets="@Main.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.GameScreenController">
    <children>
-      <Button id=".customButton" fx:id="btnAnswer1" layoutX="254.0" layoutY="400.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="375.0" styleClass="customButton" stylesheets="@Main.css" text="answer1" />
-      <Button id=".CustomButton" fx:id="btnAnswer2" layoutX="679.0" layoutY="400.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="375.0" stylesheets="@Main.css" text="answer2" />
-      <Button fx:id="btnAnswer3" layoutX="254.0" layoutY="575.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="375.0" text="answer3" />
-      <Button fx:id="btnAnswer4" layoutX="679.0" layoutY="575.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="375.0" text="answer4" />
-      <Label fx:id="questionBox" alignment="CENTER" layoutX="254.0" layoutY="252.0" prefHeight="85.0" prefWidth="800.0" text="Test string" textAlignment="CENTER">
+      <Button fx:id="btnAnswer1" layoutX="225.0" layoutY="361.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="375.0" style="-fx-background-color: #954FA7;" styleClass="answer" stylesheets="@Main.css" text="answer1" />
+      <Button fx:id="btnAnswer2" layoutX="625.0" layoutY="361.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="375.0" style="-fx-background-color: #FFCA28;" styleClass="answer" stylesheets="@Main.css" text="answer2" />
+      <Button fx:id="btnAnswer3" layoutX="225.0" layoutY="575.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="375.0" style="-fx-background-color: #3FBB65;" styleClass="answer" text="answer3" />
+      <Button fx:id="btnAnswer4" layoutX="625.0" layoutY="575.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="375.0" style="-fx-background-color: #FF5242;" styleClass="answer" stylesheets="@Main.css" text="answer4" />
+      <Label fx:id="questionBox" alignment="CENTER" layoutX="200.0" layoutY="166.0" prefHeight="150.0" prefWidth="800.0" styleClass="questionBar" text="Test string" textAlignment="CENTER">
          <font>
             <Font size="35.0" />
          </font>

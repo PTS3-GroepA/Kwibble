@@ -1,5 +1,9 @@
 package GUI.Controller;
 
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -15,9 +19,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.Console;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.CountDownLatch;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -34,7 +40,7 @@ public class MainMenuController implements Initializable {
     @FXML
     private Button btnLocalGame;
     @FXML
-    private AnchorPane ap;
+    private AnchorPane anchorPane;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -57,38 +63,9 @@ public class MainMenuController implements Initializable {
                 openLocalGame();
             }
         });
-//          zooi geprobeert om kleur aan te passen.
-//        Thread cycler = new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                float h = 0;
-//                boolean optellen = true;
-//                Color c = java.awt.Color.getHSBColor(h,1,1);
-//
-//                while(true){
-//                    try {
-//                        this.wait(100);
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-//                    if(optellen){
-//                        h =h +0.05f;
-//
-//                        if(h== 1){
-//                            optellen = false;
-//                        }
-//                    }else {
-//                        h = h - 0.05f;
-//                        if(h== 0){
-//                            optellen = true;
-//                        }
-//                    }
-//                    String css = "-fx-background-color:"+c.getRGB()+";";
-//
-//                }
-//            }
-//        });
-//        cycler.run();
+
+
+
     }
 
     public void showDialog(String message) {
