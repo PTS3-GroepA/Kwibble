@@ -1,5 +1,7 @@
 package Models.Answer;
 
+import java.io.Serializable;
+
 /**
  * Created by dennisvermeulen on 20-03-17.
  *
@@ -8,7 +10,7 @@ package Models.Answer;
  *
  * Because this uses generic types to make sure to cast whenever you call the showAnswer function.
  */
-public abstract class Answer <T> {
+public abstract class Answer <T> implements Serializable {
 
     protected String name;
     protected boolean isCorrectAnswer;

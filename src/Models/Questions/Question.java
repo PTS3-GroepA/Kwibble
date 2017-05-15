@@ -5,6 +5,7 @@ import Data.Repos.MusicRepository;
 import Models.Answer.Answer;
 import com.wrapper.spotify.Api;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
  *
  * The question class will contain all information to play one single question in the quiz.
  */
-public abstract class Question {
+public abstract class Question implements Serializable {
     String questionString;
     int maxAnswerTime;
     String source;
