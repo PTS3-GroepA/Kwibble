@@ -58,7 +58,6 @@ public class MainMenuController implements Initializable {
             }
         });
 
-
     }
 
     public void showDialog(String message) {

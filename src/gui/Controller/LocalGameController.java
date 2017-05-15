@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 import models.Difficulty;
 import models.Quiz;
 
+import javax.swing.text.html.ImageView;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -41,6 +42,8 @@ public class LocalGameController implements Initializable {
     private Button btnPlay;
     @FXML
     private WebView webView;
+    @FXML
+    private ImageView imageView;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -57,12 +60,17 @@ public class LocalGameController implements Initializable {
             }
         });
 
+        Tooltip tp = new Tooltip();
+
+        imageView.
+
         btnPlay.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 startGame(event);
             }
         });
+
     }
 
     private void startGame(ActionEvent event) {
