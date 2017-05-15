@@ -20,7 +20,7 @@
     -fx-font-family: Impact;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 5, 0, 2, 2);
     -fx-font-size: 50;
-    -fx-background-radius: 50;
+    -fx-background-radius: 70;
 }
 
 .customButton:hover{
@@ -44,4 +44,12 @@
 .animated-gradient {
     -gradient-base: red ;
     -fx-text-fill: linear-gradient(to right, -gradient-base, black);
+}
+.customLabel{
+    -fx-font-family: Impact;
+    -fx-font-size: 30;
+}
+.customAnchorPane{
+    -fx-background-color: #0071d2;
+    -fx-background-radius: 50;
 }
