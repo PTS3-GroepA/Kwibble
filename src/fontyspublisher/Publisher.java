@@ -34,7 +34,7 @@ public class Publisher {
     /**
      * Local and remote property listeners subscribed to a property.
      */
-    // private final HashMap<String, Set<IPropertyListener>> propertyListeners;
+
     private final Map<String, List<IPropertyListener>> propertyListeners;
 
     /**
@@ -54,7 +54,7 @@ public class Publisher {
     /**
      * Number of threads in thread pool.
      */
-    private final int nrThreads = 10;
+    private final static int nrThreads = 10;
     
     /**
      * Default no-arg constructor for Publisher.

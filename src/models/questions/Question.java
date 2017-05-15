@@ -21,7 +21,7 @@ public abstract class Question implements Serializable {
     String answerType;
     boolean showAlbumArt;
     int score;
-    List<Answer> answers;
+    private List<Answer> answers;
     MusicRepository musicRepo;
 
     public Question(String questionString, int maxAnswerTime, String source, boolean showAlbumArt, int score) {
