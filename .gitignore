@@ -45,7 +45,7 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 *.class
-Application/out/production/Application/Models/Player.class
+Application/out/production/Application/models/Player.class
 *.class
-Application/src/Data/Repos/AnswerRepository.java
+Application/src/data/Repos/AnswerRepository.java
 *.class
