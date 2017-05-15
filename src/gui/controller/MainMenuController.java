@@ -1,4 +1,4 @@
-package gui.Controller;
+package gui.controller;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -69,7 +69,7 @@ public class MainMenuController implements Initializable {
 
     public void openLocalGame() {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("gui/Screens/LocalGame.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("gui/screens/LocalGame.fxml"));
             Parent root1 = fxmlLoader.load();
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);

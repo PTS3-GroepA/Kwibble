@@ -9,7 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1200.0" stylesheets="@Main.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.LocalGameController">
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" stylesheets="@Main.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.LocalGameController">
     <children>
       <WebView fx:id="webView" layoutX="331.0" layoutY="60.0" prefHeight="641.0" prefWidth="540.0" />
         <TextField fx:id="tfNrQuestion" layoutX="613.0" layoutY="350.0" />
@@ -22,7 +22,7 @@
       </Label>
       <ImageView fx:id="ivInfo" fitHeight="31.0" fitWidth="32.0" layoutX="856.0" layoutY="234.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../Images/InfoIcon.png" />
+            <Image url="@../images/InfoIcon.png" />
          </image>
       </ImageView>
         <TextField fx:id="tfURI" layoutX="567.0" layoutY="230.0" prefHeight="39.0" prefWidth="281.0" />

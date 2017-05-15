@@ -9,7 +9,7 @@
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
             minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: #3AC5E4;"
             styleClass="backGround" stylesheets="Main.css" xmlns="http://javafx.com/javafx/8"
-            fx:controller="gui.Controller.MainMenuController">
+            fx:controller="gui.controller.MainMenuController">
     <children>
         <Button fx:id="btnJoinGame" layoutX="201.0" layoutY="409.0" mnemonicParsing="false" prefHeight="60.0"
                 prefWidth="800.0" style="-fx-background-color: #954FA7;" styleClass="customButton"

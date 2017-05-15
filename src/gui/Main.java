@@ -20,10 +20,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("gui/Screens/MainMenu.fxml"));
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("gui/screens/MainMenu.fxml"));
         stage.setTitle("Kwibble");
         Scene scene = new Scene(root, 1200, 800);
-        scene.getStylesheets().add(getClass().getResource("Screens/Main.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("screens/Main.css").toExternalForm());
         stage.setScene(scene);
         stage.show();
 

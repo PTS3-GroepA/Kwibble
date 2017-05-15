@@ -1,6 +1,6 @@
 package models;
 
-import gui.Controller.LocalGameController;
+import gui.controller.LocalGameController;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

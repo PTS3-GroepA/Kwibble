@@ -1,4 +1,4 @@
-package gui.Controller;
+package gui.controller;
 
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -76,7 +76,7 @@ public class LocalGameController implements Initializable {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                Image image = new Image("/gui/Images/instructionComplete.png");
+                Image image = new Image("/gui/images/instructionComplete.png");
                 Tooltip tp = new Tooltip();
                 ImageView iv = new ImageView(image);
                 iv.setFitHeight(600);
@@ -161,7 +161,7 @@ public class LocalGameController implements Initializable {
         Platform.runLater(() -> {
             try {
 
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("gui/Screens/GameScreen.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("gui/screens/GameScreen.fxml"));
                 Parent root1 = fxmlLoader.load();
                 GameScreenController controller = fxmlLoader.getController();
                 controller.initData(quiz.getQuestion(questionPlayed), this);

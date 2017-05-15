@@ -4,7 +4,7 @@ import data.context.QuestionMySQLContext;
 import data.context.SpotifyContext;
 import data.repos.MusicRepository;
 import data.repos.QuestionRepository;
-import gui.Controller.LocalGameController;
+import gui.controller.LocalGameController;
 import models.questions.Question;
 
 import java.util.ArrayList;
