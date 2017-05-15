@@ -24,11 +24,11 @@ public class GameRoom {
     }
 
     public void Join(Player player){
-
+        players.add(player);
     }
 
     public void Leave(Player player){
-
+        players.remove(player);
     }
 
 }

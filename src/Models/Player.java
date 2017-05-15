@@ -1,11 +1,12 @@
 package Models;
 
 import javax.print.DocFlavor;
+import java.io.Serializable;
 
 /**
  * Created by dennisvermeulen on 20-03-17.
  */
-public class Player {
+public class Player implements Serializable {
 
     private int id;
     private String name;
