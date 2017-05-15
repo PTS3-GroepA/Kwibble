@@ -6,6 +6,7 @@ import com.wrapper.spotify.models.Playlist;
 import com.wrapper.spotify.models.Track;
 import data.context.interfaces.MusicContext;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**

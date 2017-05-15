@@ -18,9 +18,7 @@ public class TextAnswer extends Answer<String> {
 
     @Override
     public String toString() {
-        return "TextAnswer{" +
-                "name='" + name + '\'' +
-                "IsCorrect='" + isCorrectAnswer + '\'' +
-                '}';
+        return name + ',' +
+               isCorrectAnswer;
     }
 }

@@ -23,11 +23,11 @@ public class GameRoom {
         this.players = new ArrayList<Player>();
     }
 
-    public void Join(Player player) {
+    public void join(Player player) {
         players.add(player);
     }
 
-    public void Leave(Player player) {
+    public void leave(Player player) {
         players.remove(player);
     }
 

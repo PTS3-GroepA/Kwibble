@@ -3,6 +3,7 @@ package models.questions;
 import com.wrapper.spotify.Api;
 import data.context.SpotifyContext;
 import data.repos.MusicRepository;
+import models.Difficulty;
 import models.answer.Answer;
 
 import java.io.Serializable;
@@ -14,31 +15,34 @@ import java.util.List;
  * <p>
  * The question class will contain all information to play one single question in the quiz.
  */
-public abstract class Question implements Serializable {
+public abstract class Question {
     String questionString;
     int maxAnswerTime;
     String source;
     String answerType;
     boolean showAlbumArt;
     int score;
+    Difficulty difficulty;
     private List<Answer> answers;
     MusicRepository musicRepo;
 
-    public Question(String questionString, int maxAnswerTime, String source, boolean showAlbumArt, int score) {
+    public Question(String questionString, int maxAnswerTime, String source, boolean showAlbumArt, int score, Difficulty difficulty) {
         this.questionString = questionString;
         this.maxAnswerTime = maxAnswerTime;
         this.source = source;
         this.showAlbumArt = showAlbumArt;
         this.score = score;
         this.answers = new ArrayList<>();
+        this.difficulty = difficulty;
         musicRepo = new MusicRepository(new SpotifyContext());
     }
 
-    public Question(String questionString, boolean showAlbumArt, String answerType) {
+    public Question(String questionString, boolean showAlbumArt, String answerType, Difficulty difficulty) {
         this.questionString = questionString;
         this.showAlbumArt = showAlbumArt;
         this.answerType = answerType;
         this.answers = new ArrayList<>();
+        this.difficulty = difficulty;
         musicRepo = new MusicRepository(new SpotifyContext());
         score = 0;
     }
@@ -183,16 +187,17 @@ public abstract class Question implements Serializable {
         return musicRepo.getTrack(source).getPreviewUrl();
     }
 
+    public String getDifficulty() {
+        return difficulty.name();
+    }
+
     @Override
     public String toString() {
-        return "questions{" +
-                "questionString='" + questionString + '\'' +
-                ", maxAnswerTime=" + maxAnswerTime +
-                ", source='" + source + '\'' +
-                ", answerType='" + answerType + '\'' +
-                ", showAlbumArt=" + showAlbumArt +
-                ", score=" + score +
-                ", answers=" + answers.toString() +
-                '}';
-    }
+        return       questionString +
+                ","+ maxAnswerTime +
+                "," + source +
+                "," + answerType +
+                "," + showAlbumArt +
+                "," + score +
+                "," + answers.toString();}
 }
