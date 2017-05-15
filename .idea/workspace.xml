@@ -2,53 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3798a2ba-61d7-49a7-bcc8-5d6f1dcb94de" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Data/Context/MySQLMusicContext.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Data/Context/PlayerMySQLContext.java" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Data/Context/Interfaces/Answerable.java" afterPath="$PROJECT_DIR$/src/data/context/interfaces/Answerable.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Data/Context/Interfaces/MusicContext.java" afterPath="$PROJECT_DIR$/src/data/context/interfaces/MusicContext.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Data/Context/Interfaces/PlayerContextInterface.java" afterPath="$PROJECT_DIR$/src/data/context/interfaces/PlayerContextInterface.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Data/Context/Interfaces/Questionable.java" afterPath="$PROJECT_DIR$/src/data/context/interfaces/Questionable.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Data/Context/QuestionMySQLContext.java" afterPath="$PROJECT_DIR$/src/data/context/QuestionMySQLContext.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Data/Context/SpotifyContext.java" afterPath="$PROJECT_DIR$/src/data/context/SpotifyContext.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Data/Repos/AnswerRepository.java" afterPath="$PROJECT_DIR$/src/data/repos/AnswerRepository.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Data/Repos/DatabaseRepository.java" afterPath="$PROJECT_DIR$/src/data/repos/DatabaseRepository.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Data/Repos/MusicRepository.java" afterPath="$PROJECT_DIR$/src/data/repos/MusicRepository.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Data/Repos/PlayerRepo.java" afterPath="$PROJECT_DIR$/src/data/repos/PlayerRepo.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Data/Repos/QuestionRepository.java" afterPath="$PROJECT_DIR$/src/data/repos/QuestionRepository.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/GUI/Controller/GameScreenController.java" afterPath="$PROJECT_DIR$/src/gui/Controller/GameScreenController.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/GUI/Controller/LocalGameController.java" afterPath="$PROJECT_DIR$/src/gui/Controller/LocalGameController.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/GUI/Controller/MainMenuController.java" afterPath="$PROJECT_DIR$/src/gui/Controller/MainMenuController.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/GUI/Main.java" afterPath="$PROJECT_DIR$/src/gui/Main.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/GUI/Screens/GameScreen.fxml" afterPath="$PROJECT_DIR$/src/gui/Screens/GameScreen.fxml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/GUI/Screens/LocalGame.fxml" afterPath="$PROJECT_DIR$/src/gui/Screens/LocalGame.fxml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/GUI/Screens/Main.css" afterPath="$PROJECT_DIR$/src/gui/Screens/Main.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/GUI/Screens/MainMenu.fxml" afterPath="$PROJECT_DIR$/src/gui/Screens/MainMenu.fxml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/GUI/Screens/animated-gradient.css" afterPath="$PROJECT_DIR$/src/gui/Screens/animated-gradient.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Models/Answer/Answer.java" afterPath="$PROJECT_DIR$/src/models/answer/Answer.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Models/Answer/ImageAnswer.java" afterPath="$PROJECT_DIR$/src/models/answer/ImageAnswer.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Models/Answer/TextAnswer.java" afterPath="$PROJECT_DIR$/src/models/answer/TextAnswer.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Models/Difficulty.java" afterPath="$PROJECT_DIR$/src/models/Difficulty.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Models/GameRoom.java" afterPath="$PROJECT_DIR$/src/models/GameRoom.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Models/MusicPlayer.java" afterPath="$PROJECT_DIR$/src/models/MusicPlayer.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Models/Player.java" afterPath="$PROJECT_DIR$/src/models/Player.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Models/Questions/ArtistNameQuestion.java" afterPath="$PROJECT_DIR$/src/models/questions/ArtistNameQuestion.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Models/Questions/Question.java" afterPath="$PROJECT_DIR$/src/models/questions/Question.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Models/Quiz.java" afterPath="$PROJECT_DIR$/src/models/Quiz.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Models/SimpleServer.java" afterPath="$PROJECT_DIR$/src/models/SimpleServer.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/tests/Models/Answer/ImageAnswerTest.java" afterPath="$PROJECT_DIR$/tests/models/answer/ImageAnswerTest.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/tests/Models/Answer/TextAnswerTest.java" afterPath="$PROJECT_DIR$/tests/models/answer/TextAnswerTest.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/tests/Models/PlayerTest.java" afterPath="$PROJECT_DIR$/tests/models/PlayerTest.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/tests/Models/Questions/QuestionTest.java" afterPath="$PROJECT_DIR$/tests/models/questions/QuestionTest.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/tests/Models/QuizTest.java" afterPath="$PROJECT_DIR$/tests/models/QuizTest.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/tests/Models/SimpleServerTest.java" afterPath="$PROJECT_DIR$/tests/models/SimpleServerTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.scannerwork/report-task.txt" afterPath="$PROJECT_DIR$/.scannerwork/report-task.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Application/GUI/Screens/GameScreen.fxml" afterPath="$PROJECT_DIR$/out/production/Application/GUI/Screens/GameScreen.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Application/GUI/Screens/LocalGame.fxml" afterPath="$PROJECT_DIR$/out/production/Application/GUI/Screens/LocalGame.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Application/GUI/Screens/MainMenu.fxml" afterPath="$PROJECT_DIR$/out/production/Application/GUI/Screens/MainMenu.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sonar-project.properties" afterPath="$PROJECT_DIR$/sonar-project.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/PlayerRepoTest.java" afterPath="$PROJECT_DIR$/tests/PlayerRepoTest.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -951,7 +905,7 @@
       <workItem from="1494332173732" duration="519000" />
       <workItem from="1494404734779" duration="860000" />
       <workItem from="1494405693999" duration="21000" />
-      <workItem from="1494831543793" duration="4896000" />
+      <workItem from="1494831543793" duration="5097000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <created>1493795216707</created>
@@ -1002,11 +956,18 @@
       <option name="project" value="LOCAL" />
       <updated>1494252129374</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="renamed some zooi">
+      <created>1494836798756</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1494836798756</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="53101000" />
+    <option name="totallyTimeSpent" value="53302000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1019,7 +980,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="0" width="1170" height="1047" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.4978678" order="6" side_tool="false" content_ui="tabs" />
@@ -1027,7 +987,7 @@
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32932165" sideWeight="0.5036036" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32932165" sideWeight="0.5036036" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33260393" sideWeight="0.46846846" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.248104" sideWeight="0.4978678" order="2" side_tool="false" content_ui="tabs" />
@@ -1064,7 +1024,8 @@
     <MESSAGE value="0 VULNERABILITIES BITCHEZZ" />
     <MESSAGE value="0 VULNERABILITIES again BITCHEZZ" />
     <MESSAGE value="printstacktrace verwijderd" />
-    <option name="LAST_COMMIT_MESSAGE" value="printstacktrace verwijderd" />
+    <MESSAGE value="renamed some zooi" />
+    <option name="LAST_COMMIT_MESSAGE" value="renamed some zooi" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
