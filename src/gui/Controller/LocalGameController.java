@@ -12,13 +12,14 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import models.Difficulty;
 import models.Quiz;
 
-import javax.swing.text.html.ImageView;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -43,7 +44,7 @@ public class LocalGameController implements Initializable {
     @FXML
     private WebView webView;
     @FXML
-    private ImageView imageView;
+    private ImageView ivInfo;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -59,10 +60,9 @@ public class LocalGameController implements Initializable {
                 }
             }
         });
+        setTooltip();
 
-        Tooltip tp = new Tooltip();
 
-        imageView.
 
         btnPlay.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -72,7 +72,21 @@ public class LocalGameController implements Initializable {
         });
 
     }
+    private void setTooltip(){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                Image image = new Image("/gui/Images/instructionComplete.png");
+                Tooltip tp = new Tooltip();
+                ImageView iv = new ImageView(image);
+                iv.setFitHeight(600);
+                iv.setFitWidth(600);
+                tp.setGraphic(iv);
 
+                Tooltip.install(ivInfo,tp);
+            }
+        });
+    }
     private void startGame(ActionEvent event) {
         if (tfURI.getText().length() <= 0 || tfNrQuestion.getText().length() <= 0) {
             showDialog("Some field are blank");
