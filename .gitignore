@@ -6,6 +6,7 @@
 .idea/**/tasks.xml
 .idea/dictionaries
 .idea/**/workspace.xml
+.idea/shelf/*
 
 # Sensitive or high-churn files:
 .idea/**/dataSources/
@@ -50,4 +51,4 @@ Application/out/production/Application/models/Player.class
 *.class
 Application/src/data/Repos/AnswerRepository.java
 *.class
-/.idea/workspace.xml
+.idea/workspace.xml

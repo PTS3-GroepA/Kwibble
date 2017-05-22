@@ -74,8 +74,13 @@ public class Player {
         this.password = password;
     }
 
+<<<<<<< HEAD
     @Override
     public String toString() {
         return name;
     }
+=======
+
+
+>>>>>>> 6be990da0226fa075ef1d6b5c2b4e31c3e5b4a82
 }
