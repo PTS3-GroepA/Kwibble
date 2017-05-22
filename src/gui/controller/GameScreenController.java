@@ -1,6 +1,7 @@
 package gui.controller;
 
 import javafx.application.Platform;
+import javafx.event.Event;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -11,16 +12,18 @@ import javafx.stage.Stage;
 import models.MusicPlayer;
 import models.questions.Question;
 
+import java.awt.event.MouseEvent;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.concurrent.ThreadLocalRandom;
 
+
 /**
  * Created by Max on 4/11/2017.
  * Fontys University of Applied Sciences, Eindhoven
  */
-public class GameScreenController implements Initializable {
+public class GameScreenController  implements Initializable  {
 
     LocalGameController controllerReference;
     MusicPlayer mp;
@@ -61,6 +64,9 @@ public class GameScreenController implements Initializable {
             }
         });
 
+        btnAnswer1.setOnMouseEntered(mouseEvent -> btnAnswer1.setStyle("-fx-background-color: #954FA7"));
+
+
         btnAnswer2.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -73,6 +79,8 @@ public class GameScreenController implements Initializable {
                 }
             }
         });
+
+        btnAnswer2.setOnMouseEntered(mouseEvent -> btnAnswer2.setStyle("-fx-background-color: #EFCA28"));
 
         btnAnswer3.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -87,6 +95,8 @@ public class GameScreenController implements Initializable {
             }
         });
 
+        btnAnswer3.setOnMouseEntered(mouseEvent -> btnAnswer3.setStyle("-fx-background-color: #1FBB65"));
+
         btnAnswer4.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -100,7 +110,13 @@ public class GameScreenController implements Initializable {
             }
         });
 
+        btnAnswer4.setOnMouseEntered(mouseEvent -> btnAnswer4.setStyle("-fx-background-color:  #DF5242"));
+
     }
+
+
+
+
 
     private void placeAnswers() {
         Platform.runLater(() -> {

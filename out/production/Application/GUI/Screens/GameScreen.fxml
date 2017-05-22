@@ -19,7 +19,7 @@
                 prefWidth="375.0" style="-fx-background-color: #FF5242;" styleClass="answer" stylesheets="@Main.css"
                 text="answer4"/>
         <Label fx:id="questionBox" alignment="CENTER" layoutX="200.0" layoutY="166.0" prefHeight="150.0"
-               prefWidth="800.0" styleClass="questionBar" text="Test string" textAlignment="CENTER">
+               prefWidth="800.0" styleClass="questionBar" text="Test string" stylesheets="Main.css" textAlignment="CENTER">
             <font>
                 <Font size="35.0"/>
             </font>

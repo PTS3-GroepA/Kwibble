@@ -40,8 +40,8 @@
     -fx-background-radius: 50;
 }
 .backGround{
-   /* -fx-background-color:#42A5F5;*/
--fx-background-color: radial-gradient(center 50% +60%,radius 120%, #5FC3E4 0%, #1A2980 100%);
+    -fx-background-color:#42A5F5;
+    /*-fx-background-color: radial-gradient(center 50% +60%,radius 120%, #5FC3E4 0%, #1A2980 100%);*/
 }
 .animated-gradient {
     -gradient-base: red ;
