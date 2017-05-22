@@ -43,4 +43,8 @@ public class GameRoom {
     }
 
     public ObservableMap<Player, Boolean> getPlayers() {return observablePlayer; }
+
+    public void addQuiz(Quiz quiz) {
+        this.quiz = quiz;
+    }
 }

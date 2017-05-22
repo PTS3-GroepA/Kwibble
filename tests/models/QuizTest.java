@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * Created by dande on 15-4-2017.
  */
 class QuizTest {
-    Quiz q = new Quiz(3, Difficulty.EASY, "spotify:user:118534594", "spotify:user:spotify:playlist:37i9dQZF1DX1OY2Lp0bIPp", new LocalGameController());
+    Quiz q = new Quiz(3, Difficulty.EASY, "spotify:user:118534594", "spotify:user:spotify:playlist:37i9dQZF1DX1OY2Lp0bIPp");
 
     @Test
     void generateQuestions() {

@@ -97,7 +97,6 @@ public class HostOptionsScreenController implements Initializable {
         }
         Player player = new Player(name, 0);
 
-
         Platform.runLater(() -> {
             try {
                 Stage stageToHide = (Stage) btnHost.getScene().getWindow();
