@@ -6,7 +6,6 @@ import data.repos.MusicRepository;
 import models.Difficulty;
 import models.answer.Answer;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,13 +15,13 @@ import java.util.List;
  * The question class will contain all information to play one single question in the quiz.
  */
 public abstract class Question {
-    String questionString;
-    int maxAnswerTime;
+    private String questionString;
+    private int maxAnswerTime;
     String source;
-    String answerType;
-    boolean showAlbumArt;
-    int score;
-    Difficulty difficulty;
+    private String answerType;
+    private boolean showAlbumArt;
+    private int score;
+    private Difficulty difficulty;
     private List<Answer> answers;
     MusicRepository musicRepo;
 

@@ -50,3 +50,4 @@ Application/out/production/Application/models/Player.class
 *.class
 Application/src/data/Repos/AnswerRepository.java
 *.class
+/.idea/workspace.xml

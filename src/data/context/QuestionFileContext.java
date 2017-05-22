@@ -33,7 +33,7 @@ public class QuestionFileContext implements Questionable {
 
         Scanner c = null;
         try {
-            c = new Scanner(new BufferedReader(new FileReader("question/0_1.txt")));
+            c = new Scanner(new BufferedReader(new FileReader("C:\\Users\\Max\\Source\\Repos\\Semester 3\\Kwibble\\src\\questions\\0_1.txt")));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -41,7 +41,11 @@ public class QuestionFileContext implements Questionable {
         try {
             assert c != null;
             while (c.hasNextLine()) {
+                // TODO fix string splitting on whitespaces
                 String[] result = c.next().split(",");
+                for(String s :result) {
+                    System.out.println(s);
+                }
                 switch (result[3]) {
                     case "ARTNAME" :
                         return new ArtistNameQuestion(result[1], Boolean.parseBoolean(result[2]), result[3], Difficulty.values()[Integer.parseInt(result[4])]);
