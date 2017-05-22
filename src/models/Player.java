@@ -25,6 +25,11 @@ public class Player {
         this.email = email;
     }
 
+    public Player(String name, int score) {
+        this.name = name;
+        this.score = score;
+    }
+
     public void createGameRoom(String name) {
         //TODO
     }
@@ -67,5 +72,10 @@ public class Player {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

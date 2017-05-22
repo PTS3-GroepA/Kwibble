@@ -1,7 +1,9 @@
 package models;
 
-import java.util.ArrayList;
-import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableMap;
+
+import java.util.*;
 
 /**
  * Created by dennisvermeulen on 20-03-17.
@@ -10,21 +12,22 @@ import java.util.List;
  */
 public class GameRoom {
 
-    private Player owner;
     private String sessionName;
     private Quiz quiz;
-    private List<Player> players;
+    private Map<Player, Boolean> players;
+    ObservableMap<Player, Boolean> observablePlayer;
 
 
-    public GameRoom(Player owner, String sessionName, Quiz quiz) {
-        this.owner = owner;
+    public GameRoom(Player owner, String sessionName) {
+        players = new HashMap<>();
+        players.put(owner, true);
         this.sessionName = sessionName;
-        this.quiz = quiz;
-        this.players = new ArrayList<Player>();
+        observablePlayer = FXCollections.observableMap(players);
     }
 
+
     public void join(Player player) {
-        players.add(player);
+        players.put(player,false);
     }
 
     public void leave(Player player) {
@@ -38,4 +41,6 @@ public class GameRoom {
     public void setDifficulty(Difficulty dif) {
         quiz.setDifficulty(dif);
     }
+
+    public ObservableMap<Player, Boolean> getPlayers() {return observablePlayer; }
 }
