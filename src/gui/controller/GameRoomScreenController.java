@@ -44,6 +44,15 @@ public class GameRoomScreenController implements Initializable {
         lvPlayers.getItems().setAll(room.getPlayers().keySet());
 
         cbDifficulty.getItems().setAll(Difficulty.values());
+
+        final int initialValue = 5;
+
+        // Value factory.
+        SpinnerValueFactory<Integer> valueFactory = //
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 20, initialValue);
+        spinNumberOfQuestions.setValueFactory(valueFactory);
+
+        spinNumberOfQuestions.setEditable(true);
     }
 
     @Override

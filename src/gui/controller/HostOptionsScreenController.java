@@ -16,6 +16,7 @@ import models.Player;
 
 import java.io.IOException;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -45,6 +46,15 @@ public class HostOptionsScreenController implements Initializable {
                 startServer();
             }
         });
+
+        String pcName = "";
+        try {
+            java.net.InetAddress localMachine = java.net.InetAddress.getLocalHost();
+            pcName = localMachine.getHostName();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+        tfHostName.setText("Server on: " + pcName);
     }
 
     private void startServer() {
@@ -86,6 +96,7 @@ public class HostOptionsScreenController implements Initializable {
     private void showGameRoomScreen() {
         TextInputDialog tid = new TextInputDialog();
         tid.setHeaderText("Enter a player name: ");
+        tid.setContentText("Player");
         Optional<String> op = tid.showAndWait();
         String name = "";
 
