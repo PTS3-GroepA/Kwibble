@@ -52,3 +52,5 @@ Application/out/production/Application/models/Player.class
 Application/src/data/Repos/AnswerRepository.java
 *.class
 .idea/workspace.xml
+
+out/
