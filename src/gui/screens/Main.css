@@ -18,9 +18,10 @@
 }
 .answer{
     -fx-font-family: Impact;
+    -fx-text-fill: white;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 5, 0, 2, 2);
     -fx-font-size: 50;
-    -fx-background-radius: 10;
+    -fx-background-radius: 9;
 }
 
 .customButton:hover{
