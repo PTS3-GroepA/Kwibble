@@ -3,6 +3,7 @@ package models.questions;
 import com.wrapper.spotify.models.Artist;
 import com.wrapper.spotify.models.SimpleArtist;
 import com.wrapper.spotify.models.Track;
+import models.Difficulty;
 import models.answer.TextAnswer;
 
 import java.util.List;
@@ -16,12 +17,12 @@ import java.util.concurrent.ThreadLocalRandom;
 public class ArtistNameQuestion extends Question {
 
 
-    public ArtistNameQuestion(String questionString, int maxAnswerTime, String source, boolean showAlbumArt, int score) {
-        super(questionString, maxAnswerTime, source, showAlbumArt, score);
+    public ArtistNameQuestion(String questionString, int maxAnswerTime, String source, boolean showAlbumArt, int score, Difficulty difficulty) {
+        super(questionString, maxAnswerTime, source, showAlbumArt, score, difficulty);
     }
 
-    public ArtistNameQuestion(String questionString, boolean showAlbumArt, String answerType) {
-        super(questionString, showAlbumArt, answerType);
+    public ArtistNameQuestion(String questionString, boolean showAlbumArt, String answerType, Difficulty difficulty) {
+        super(questionString, showAlbumArt, answerType, difficulty);
     }
 
     @Override

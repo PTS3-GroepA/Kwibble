@@ -76,10 +76,10 @@ public class LocalGameController implements Initializable {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                Image image = new Image("/gui/images/instructionComplete.png");
+                Image image = new Image("/gui/images/instructionComplete_2.png");
                 Tooltip tp = new Tooltip();
                 ImageView iv = new ImageView(image);
-                iv.setFitHeight(600);
+                iv.setFitHeight(200);
                 iv.setFitWidth(600);
                 tp.setGraphic(iv);
 

@@ -10,6 +10,7 @@ import com.wrapper.spotify.models.*;
 import data.context.interfaces.MusicContext;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
