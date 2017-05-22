@@ -51,52 +51,28 @@ public class GameScreenController implements Initializable {
         btnAnswer1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                if (answerQuestion(btnAnswer1.getText())) {
-                    btnAnswer1.setStyle("-fx-background-color: green;");
-                    showResultDialog(true, event);
-                } else {
-                    btnAnswer1.setStyle("-fx-background-color: red;");
-                    showResultDialog(false, event);
-                }
+                checkAnswer(event);
             }
         });
 
         btnAnswer2.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                if (answerQuestion(btnAnswer2.getText())) {
-                    btnAnswer2.setStyle("-fx-background-color: green;");
-                    showResultDialog(true, event);
-                } else {
-                    btnAnswer2.setStyle("-fx-background-color: red;");
-                    showResultDialog(false, event);
-                }
+                checkAnswer(event);
             }
         });
 
         btnAnswer3.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                if (answerQuestion(btnAnswer3.getText())) {
-                    btnAnswer3.setStyle("-fx-background-color: green;");
-                    showResultDialog(true, event);
-                } else {
-                    btnAnswer3.setStyle("-fx-background-color: red;");
-                    showResultDialog(false, event);
-                }
+                checkAnswer(event);
             }
         });
 
         btnAnswer4.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                if (answerQuestion(btnAnswer4.getText())) {
-                    btnAnswer4.setStyle("-fx-background-color: green;");
-                    showResultDialog(true, event);
-                } else {
-                    btnAnswer4.setStyle("-fx-background-color: red;");
-                    showResultDialog(false, event);
-                }
+                checkAnswer(event);
             }
         });
 
@@ -168,5 +144,15 @@ public class GameScreenController implements Initializable {
         Node source = (Node) actionEvent.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
+    }
+    private void checkAnswer(ActionEvent event){
+        Button b = (Button) event.getSource();
+        if (answerQuestion(b.getText())) {
+            b.setStyle("-fx-background-color: green;");
+            showResultDialog(true, event);
+        } else {
+            b.setStyle("-fx-background-color: red;");
+            showResultDialog(false, event);
+        }
     }
 }
