@@ -41,7 +41,7 @@ public class MainMenuController implements Initializable {
         btnHostGame.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                showDialog("This feature is not yet available.");
+                openHostOptions();
             }
         });
 
@@ -60,14 +60,14 @@ public class MainMenuController implements Initializable {
 
     }
 
-    public void showDialog(String message) {
+    private void showDialog(String message) {
         Dialog<String> dialog = new Dialog<>();
         dialog.getDialogPane().setContentText(message);
         dialog.getDialogPane().getButtonTypes().add(new ButtonType("Ok", ButtonBar.ButtonData.CANCEL_CLOSE));
         dialog.show();
     }
 
-    public void openLocalGame() {
+    private void openLocalGame() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("gui/screens/LocalGame.fxml"));
             Parent root1 = fxmlLoader.load();
@@ -75,6 +75,25 @@ public class MainMenuController implements Initializable {
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("Local game settings");
             stage.setScene(new Scene(root1));
+            stage.show();
+
+
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, e.toString(), e);
+        }
+    }
+
+    private void openHostOptions() {
+        try {
+            Stage stageToHide = (Stage) btnHostGame.getScene().getWindow();
+            stageToHide.close();
+
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("gui/screens/HostOptionsScreen.fxml"));
+            Parent root1 = fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Host options");
+            stage.setScene(new Scene(root1 ));
             stage.show();
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, e.toString(), e);
