@@ -30,8 +30,8 @@ import java.util.logging.Logger;
  * Created by Max Meijer on 22/05/2017.
  * Fontys University of Applied Sciences, Eindhoven
  */
-public class HostOptionsScreenController implements Initializable {
-    private static final Logger LOGGER = Logger.getLogger(HostOptionsScreenController.class.getName());
+public class HostOptionsController implements Initializable {
+    private static final Logger LOGGER = Logger.getLogger(HostOptionsController.class.getName());
 
     @FXML
     private TextField tfHostName;
@@ -64,14 +64,28 @@ public class HostOptionsScreenController implements Initializable {
             showDialog("Server name is empty.");
             return;
         }
-        String name = tfHostName.getText();
+        String serverName = tfHostName.getText();
+
+        TextInputDialog tid = new TextInputDialog();
+        tid.setHeaderText("Enter a player name: ");
+        tid.setContentText("Player");
+        Optional<String> op = tid.showAndWait();
+        String playerName = "";
+
+        if (op.isPresent() && op.get().length() > 0) {
+            playerName = op.get();
+        } else {
+            showDialog("Enter a valid player name.");
+            return;
+        }
+        Player player = new Player(playerName, 0);
 
         // Create an instance of RemotePublisher
         RemotePublisher remotePublisher = null;
         try {
             remotePublisher = new RemotePublisher();
             Registry registry = LocateRegistry.createRegistry(portNumber);
-            registry.rebind(name, remotePublisher);
+            registry.rebind(serverName, remotePublisher);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -79,9 +93,9 @@ public class HostOptionsScreenController implements Initializable {
         // Remote publisher registered
         System.out.println("Server started");
         System.out.println("Port number  : " + portNumber);
-        System.out.println("Binding name : " + name);
+        System.out.println("Binding name : " + serverName);
 
-        showGameRoomScreen();
+        showGameRoomScreen(player);
     }
 
 
@@ -93,28 +107,16 @@ public class HostOptionsScreenController implements Initializable {
         alert.showAndWait();
     }
 
-    private void showGameRoomScreen() {
-        TextInputDialog tid = new TextInputDialog();
-        tid.setHeaderText("Enter a player name: ");
-        tid.setContentText("Player");
-        Optional<String> op = tid.showAndWait();
-        String name = "";
+    private void showGameRoomScreen(Player player) {
 
-        if (op.isPresent() && op.get().length() > 0) {
-            name = op.get();
-        } else {
-            showDialog("Enter a valid player name.");
-            return;
-        }
-        Player player = new Player(name, 0);
 
         Platform.runLater(() -> {
             try {
                 Stage stageToHide = (Stage) btnHost.getScene().getWindow();
                 stageToHide.close();
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("gui/screens/GameRoomScreen.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("gui/screens/GameRoom.fxml"));
                 Parent root1 = fxmlLoader.load();
-                GameRoomScreenController controller = fxmlLoader.getController();
+                GameRoomController controller = fxmlLoader.getController();
                 controller.initData(tfHostName.getText(), player);
                 Stage stage = new Stage();
                 stage.initModality(Modality.APPLICATION_MODAL);

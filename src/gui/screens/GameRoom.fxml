@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.GameRoomScreenController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.GameRoomController">
     <children>
         <Label fx:id="lblServerName" layoutX="33.0" layoutY="14.0" text="Server: name">
             <font>
@@ -18,7 +18,7 @@
         </Label>
         <ListView fx:id="lvPlayers" layoutX="33.0" layoutY="124.0" prefHeight="200.0" prefWidth="200.0" />
         <Label layoutX="33.0" layoutY="95.0" text="Players:" />
-        <Button fx:id="btnHost" layoutX="516.0" layoutY="293.0" mnemonicParsing="false" text="Host">
+        <Button fx:id="btnStart" layoutX="516.0" layoutY="293.0" mnemonicParsing="false" text="Start">
             <font>
                 <Font size="15.0" />
             </font>

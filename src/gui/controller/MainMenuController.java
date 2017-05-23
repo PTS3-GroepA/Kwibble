@@ -48,7 +48,7 @@ public class MainMenuController implements Initializable {
         btnJoinGame.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                showDialog("This feature is not yet available.");
+                openGameBrowser();
             }
         });
         btnLocalGame.setOnAction(new EventHandler<ActionEvent>() {
@@ -88,7 +88,7 @@ public class MainMenuController implements Initializable {
             Stage stageToHide = (Stage) btnHostGame.getScene().getWindow();
             stageToHide.close();
 
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("gui/screens/HostOptionsScreen.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("gui/screens/HostOptions.fxml"));
             Parent root1 = fxmlLoader.load();
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
@@ -98,5 +98,21 @@ public class MainMenuController implements Initializable {
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, e.toString(), e);
         }
+    }
+
+    private void openGameBrowser() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("gui/screens/GameBrowser.fxml"));
+            Parent root1 = null;
+            root1 = fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Local game settings");
+            stage.setScene(new Scene(root1));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }

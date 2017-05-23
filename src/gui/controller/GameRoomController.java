@@ -19,13 +19,13 @@ import java.util.logging.Logger;
  * Created by Max Meijer on 22/05/2017.
  * Fontys University of Applied Sciences, Eindhoven
  */
-public class GameRoomScreenController implements Initializable {
+public class GameRoomController implements Initializable {
     private static final Logger LOGGER = Logger.getLogger(LocalGameController.class.getName());
 
     @FXML
     private ListView lvPlayers;
     @FXML
-    private Button btnHost;
+    private Button btnStart;
     @FXML
     private ComboBox cbDifficulty;
     @FXML
@@ -60,7 +60,7 @@ public class GameRoomScreenController implements Initializable {
     }
 
     private void setServerName(String name) {
-        lblServerName.setText("Server: " +  name);
+        lblServerName.setText(name);
     }
 
     private void addQuiz() {
