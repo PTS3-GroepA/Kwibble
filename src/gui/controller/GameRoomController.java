@@ -21,6 +21,8 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static java.lang.Thread.sleep;
+
 /**
  * Created by Max Meijer on 22/05/2017.
  * Fontys University of Applied Sciences, Eindhoven
@@ -28,6 +30,7 @@ import java.util.logging.Logger;
 public class GameRoomController implements Initializable {
     private static final Logger LOGGER = Logger.getLogger(LocalGameController.class.getName());
 
+    private boolean isConnected = false;
 
     @FXML
     private ListView lvPlayers;
@@ -44,21 +47,17 @@ public class GameRoomController implements Initializable {
 
     GameRoom room = null;
     GameRoomCommunicator communicator = null;
-    private static String[] properties = {"players", "difficulty", "numberOfQuestions", "playlistUri", "join"};
+    private static String[] properties = {"room", "difficulty", "numberOfQuestions", "playlistUri", "join"};
 
     void initData(String name, Player host) {
         room = new GameRoom(host , name);
-        room.getPlayers().addListener(new MapChangeListener<Player, Boolean>() {
-            @Override
-            public void onChanged(Change<? extends Player, ? extends Boolean> change) {
-                communicator.broadcast("players", room.getPlayers());
-            }
-        });
 
         cbDifficulty.getItems().setAll(Difficulty.values());
         setLvPlayers();
 
         spinNumberOfQuestions.setEditable(true);
+
+        isConnected = true;
     }
 
     @Override
@@ -129,7 +128,7 @@ public class GameRoomController implements Initializable {
 
         return result;
     }
-
+    @SuppressWarnings("Duplicates")
     private void showDialog(String message) {
         Dialog<String> dialog = new Dialog<>();
         dialog.getDialogPane().setContentText(message);
@@ -165,7 +164,6 @@ public class GameRoomController implements Initializable {
                 new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 20, 5);
         spinNumberOfQuestions.setValueFactory(valueFactory);
 
-
         setServerName(serverName);
 
         try {
@@ -180,9 +178,13 @@ public class GameRoomController implements Initializable {
             communicator.subscribe(s);
         }
 
-        if(room == null) {
+        if(!isConnected) {
+            try {
+                sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             room = new GameRoom(serverName);
-            System.out.println("joining");
             TextInputDialog tid = new TextInputDialog("Player");
             tid.setHeaderText("Enter a player name: ");
             Optional<String> op = tid.showAndWait();
@@ -194,9 +196,7 @@ public class GameRoomController implements Initializable {
                 showDialog("Enter a valid player name.");
                 return;
             }
-
-            Player newPlayer = new Player(playerName , 0);
-            communicator.broadcast("join", newPlayer);
+            communicator.broadcast("join", null);
         }
     }
 
@@ -239,5 +239,17 @@ public class GameRoomController implements Initializable {
                 lvPlayers.getItems().setAll(room.getPlayers().keySet());
             }
         });
+    }
+
+    public void setRoom(Object value) {
+        this.room = (GameRoom) value;
+        setLvPlayers();
+    }
+
+    public void synchronise() {
+        communicator.broadcast("room", room);
+        communicator.broadcast("difficulty" , cbDifficulty.getValue());
+        communicator.broadcast("playlistUri" , tfPlaylistURI.getText());
+        communicator.broadcast("numberOfQuestions" , spinNumberOfQuestions.getValue());
     }
 }

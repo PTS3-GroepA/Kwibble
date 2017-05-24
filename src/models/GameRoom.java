@@ -3,6 +3,7 @@ package models;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 
+import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -10,7 +11,7 @@ import java.util.*;
  *
  * This class will contain all players in a multi-player scenario.
  */
-public class GameRoom {
+public class GameRoom implements Serializable {
 
     private String sessionName;
     private Quiz quiz;
@@ -26,6 +27,7 @@ public class GameRoom {
     }
 
     public GameRoom(String sessionName) {
+        players = new HashMap<>();
         this.sessionName = sessionName;
     }
 
@@ -33,6 +35,7 @@ public class GameRoom {
     public void join(Player player) {
         System.out.println("Player " + player.getName() + " is joining!");
         players.put(player,false);
+        System.out.println(observablePlayer);
     }
 
     public void leave(Player player) {

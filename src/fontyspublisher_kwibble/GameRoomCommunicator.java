@@ -113,7 +113,7 @@ public class GameRoomCommunicator
                 @Override
                 public void run() {
                     try {
-                        System.out.println("Subscribing to property: " + property);
+                        //System.out.println("Subscribing to property: " + property);
                         publisherForListener.subscribeRemoteListener(listener, property);
                     } catch (RemoteException ex) {
                         LOGGER.severe(ex.getMessage());
@@ -133,7 +133,7 @@ public class GameRoomCommunicator
                 @Override
                 public void run() {
                     try {
-                        System.out.println("Broadcasting: " + property + " at value: " + newValue.toString());
+                        //System.out.println("Broadcasting: " + property + " at value: " + newValue.toString());
                         publisherForDomain.inform(property,null, newValue);
                     } catch (RemoteException ex) {
                         LOGGER.severe(ex.getMessage());
@@ -156,11 +156,11 @@ public class GameRoomCommunicator
             case "playlistUri":
                 controller.setUriText(evt.getNewValue());
                 break;
-            case "players":
-                controller.setPlayers(evt.getNewValue());
+            case "room":
+                controller.setRoom(evt.getNewValue());
                 break;
             case "join":
-                controller.addPlayer((Player) evt.getNewValue());
+                controller.synchronise();
             default:
                 System.out.println("Property: " + evt.getPropertyName() + " could not be found.");
         }
