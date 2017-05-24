@@ -1,5 +1,11 @@
 package gui.controller;
 
+import fontyspublisher_kwibble.GameRoomCommunicator;
+import javafx.application.Platform;
+import javafx.collections.MapChangeListener;
+import javafx.collections.ObservableMap;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -7,11 +13,11 @@ import models.Difficulty;
 import models.GameRoom;
 import models.Player;
 import models.Quiz;
+import org.omg.PortableInterceptor.ORBInitInfoPackage.DuplicateName;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.rmi.RemoteException;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,6 +27,7 @@ import java.util.logging.Logger;
  */
 public class GameRoomController implements Initializable {
     private static final Logger LOGGER = Logger.getLogger(LocalGameController.class.getName());
+
 
     @FXML
     private ListView lvPlayers;
@@ -36,27 +43,48 @@ public class GameRoomController implements Initializable {
     private Label lblServerName;
 
     GameRoom room = null;
+    GameRoomCommunicator communicator = null;
+    private static String[] properties = {"players", "difficulty", "numberOfQuestions", "playlistUri", "join"};
 
     void initData(String name, Player host) {
         room = new GameRoom(host , name);
-        setServerName(name);
-
-        lvPlayers.getItems().setAll(room.getPlayers().keySet());
+        room.getPlayers().addListener(new MapChangeListener<Player, Boolean>() {
+            @Override
+            public void onChanged(Change<? extends Player, ? extends Boolean> change) {
+                communicator.broadcast("players", room.getPlayers());
+            }
+        });
 
         cbDifficulty.getItems().setAll(Difficulty.values());
-
-        final int initialValue = 5;
-
-        // Value factory.
-        SpinnerValueFactory<Integer> valueFactory = //
-                new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 20, initialValue);
-        spinNumberOfQuestions.setValueFactory(valueFactory);
+        setLvPlayers();
 
         spinNumberOfQuestions.setEditable(true);
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        btnStart.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                // TODO make method to start playing
+            }
+        });
+
+        // Event when difficulty changes.
+        cbDifficulty.getSelectionModel().selectedItemProperty().addListener( (options, oldValue, newValue) -> {
+            cbDifficultyChangeEvent(newValue);
+        });
+
+        // Event when number of questions changes.
+        spinNumberOfQuestions.valueProperty().addListener((obs, oldValue, newValue) -> {
+                spinChangeEvent(newValue);
+        });
+
+        // Event when the uri changes.
+        tfPlaylistURI.textProperty().addListener((observable, oldValue, newValue) -> {
+            tfUriChangeEvent(newValue);
+        });
     }
 
     private void setServerName(String name) {
@@ -111,8 +139,105 @@ public class GameRoomController implements Initializable {
         dialog.showAndWait();
     }
 
-    private void addPlayer(Player player) {
-
+    public void addPlayer(Player player) {
+        room.join(player);
     }
 
+    private void cbDifficultyChangeEvent(Object newValue) {
+        communicator.broadcast("difficulty", newValue);
+    }
+
+    private void spinChangeEvent(Object newValue) {
+        communicator.broadcast("numberOfQuestions", newValue);
+    }
+
+    private void tfUriChangeEvent(Object newValue) {
+        communicator.broadcast("playlistUri", newValue);
+    }
+
+    /**
+     * Setup connection to the server and subscribe to all properties.
+     *
+     * @param serverName The name of the server to connect to.
+     */
+    public void connectAndSetup(String serverName) {
+        SpinnerValueFactory<Integer> valueFactory =
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 20, 5);
+        spinNumberOfQuestions.setValueFactory(valueFactory);
+
+
+        setServerName(serverName);
+
+        try {
+            communicator = new GameRoomCommunicator(this);
+            communicator.connectToServer(serverName);
+        } catch (RemoteException e) {
+            LOGGER.severe(e.getMessage());
+        }
+
+        for (String s : properties) {
+            communicator.register(s);
+            communicator.subscribe(s);
+        }
+
+        if(room == null) {
+            room = new GameRoom(serverName);
+            System.out.println("joining");
+            TextInputDialog tid = new TextInputDialog("Player");
+            tid.setHeaderText("Enter a player name: ");
+            Optional<String> op = tid.showAndWait();
+            String playerName = "";
+
+            if (op.isPresent() && op.get().length() > 0) {
+                playerName = op.get();
+            } else {
+                showDialog("Enter a valid player name.");
+                return;
+            }
+
+            Player newPlayer = new Player(playerName , 0);
+            communicator.broadcast("join", newPlayer);
+        }
+    }
+
+    public void setPlayers(Object value) {
+        room.setPlayers((ObservableMap<Player, Boolean>) value);
+        setLvPlayers();
+    }
+
+    public void setSpin(Object value) {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                spinNumberOfQuestions.getValueFactory().setValue(value);
+            }
+        });
+    }
+
+    public void setUriText(Object value) {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                tfPlaylistURI.setText((String) value);
+            }
+        });
+    }
+
+    public void setCbDifficulty(Object value) {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                cbDifficulty.setValue(value);
+            }
+        });
+    }
+
+    public void setLvPlayers() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                lvPlayers.getItems().setAll(room.getPlayers().keySet());
+            }
+        });
+    }
 }

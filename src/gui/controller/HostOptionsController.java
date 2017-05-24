@@ -66,9 +66,8 @@ public class HostOptionsController implements Initializable {
         }
         String serverName = tfHostName.getText();
 
-        TextInputDialog tid = new TextInputDialog();
+        TextInputDialog tid = new TextInputDialog("Player");
         tid.setHeaderText("Enter a player name: ");
-        tid.setContentText("Player");
         Optional<String> op = tid.showAndWait();
         String playerName = "";
 
@@ -108,8 +107,6 @@ public class HostOptionsController implements Initializable {
     }
 
     private void showGameRoomScreen(Player player) {
-
-
         Platform.runLater(() -> {
             try {
                 Stage stageToHide = (Stage) btnHost.getScene().getWindow();
@@ -118,6 +115,7 @@ public class HostOptionsController implements Initializable {
                 Parent root1 = fxmlLoader.load();
                 GameRoomController controller = fxmlLoader.getController();
                 controller.initData(tfHostName.getText(), player);
+                controller.connectAndSetup(tfHostName.getText());
                 Stage stage = new Stage();
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.setTitle("Game Room");

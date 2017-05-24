@@ -102,12 +102,15 @@ public class MainMenuController implements Initializable {
 
     private void openGameBrowser() {
         try {
+            Stage stageToHide = (Stage) btnHostGame.getScene().getWindow();
+            stageToHide.close();
+
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("gui/screens/GameBrowser.fxml"));
             Parent root1 = null;
             root1 = fxmlLoader.load();
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setTitle("Local game settings");
+            stage.setTitle("Game browser");
             stage.setScene(new Scene(root1));
             stage.show();
         } catch (IOException e) {

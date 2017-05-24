@@ -25,8 +25,13 @@ public class GameRoom {
         observablePlayer = FXCollections.observableMap(players);
     }
 
+    public GameRoom(String sessionName) {
+        this.sessionName = sessionName;
+    }
+
 
     public void join(Player player) {
+        System.out.println("Player " + player.getName() + " is joining!");
         players.put(player,false);
     }
 
@@ -44,7 +49,16 @@ public class GameRoom {
 
     public ObservableMap<Player, Boolean> getPlayers() {return observablePlayer; }
 
+    public void setPlayers(ObservableMap<Player, Boolean> players) {
+        this.players = players;
+        System.out.println(observablePlayer);
+    }
+
     public void addQuiz(Quiz quiz) {
         this.quiz = quiz;
+    }
+
+    public String getName() {
+        return sessionName;
     }
 }
