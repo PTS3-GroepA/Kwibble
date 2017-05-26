@@ -16,14 +16,12 @@ public class GameRoom implements Serializable {
     private String sessionName;
     private Quiz quiz;
     private Map<Player, Boolean> players;
-    ObservableMap<Player, Boolean> observablePlayer;
 
 
     public GameRoom(Player owner, String sessionName) {
         players = new HashMap<>();
         players.put(owner, true);
         this.sessionName = sessionName;
-        observablePlayer = FXCollections.observableMap(players);
     }
 
     public GameRoom(String sessionName) {
@@ -33,9 +31,8 @@ public class GameRoom implements Serializable {
 
 
     public void join(Player player) {
-        System.out.println("Player " + player.getName() + " is joining!");
         players.put(player,false);
-        System.out.println(observablePlayer);
+        System.out.println(players);
     }
 
     public void leave(Player player) {
@@ -50,12 +47,7 @@ public class GameRoom implements Serializable {
         quiz.setDifficulty(dif);
     }
 
-    public ObservableMap<Player, Boolean> getPlayers() {return observablePlayer; }
-
-    public void setPlayers(ObservableMap<Player, Boolean> players) {
-        this.players = players;
-        System.out.println(observablePlayer);
-    }
+    public Map<Player, Boolean> getPlayers() {return players; }
 
     public void addQuiz(Quiz quiz) {
         this.quiz = quiz;

@@ -94,7 +94,7 @@ public class GameRoomCommunicator
     public void register(String property) {
         if (connected) {
             try {
-                System.out.println("Registering property: " +  property);
+                // System.out.println("Registering property: " +  property);
                 // Nothing changes at remote publisher in case property was already registered
                 publisherForDomain.registerProperty(property);
             } catch (RemoteException ex) {
@@ -145,7 +145,7 @@ public class GameRoomCommunicator
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) throws RemoteException {
-        System.out.println("Property: " + evt.getPropertyName() + " has changed to: " + evt.getNewValue());
+        //System.out.println("Property: " + evt.getPropertyName() + " has changed to: " + evt.getNewValue());
         switch(evt.getPropertyName()) {
             case "difficulty":
                 controller.setCbDifficulty(evt.getNewValue());
@@ -160,7 +160,9 @@ public class GameRoomCommunicator
                 controller.setRoom(evt.getNewValue());
                 break;
             case "join":
-                controller.synchronise();
+                controller.synchronise(evt.getNewValue());
+            case "leave":
+                controller.removePlayer(evt.getNewValue());
             default:
                 System.out.println("Property: " + evt.getPropertyName() + " could not be found.");
         }

@@ -2,8 +2,6 @@ package gui.controller;
 
 import fontyspublisher_kwibble.GameRoomCommunicator;
 import javafx.application.Platform;
-import javafx.collections.MapChangeListener;
-import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -13,7 +11,6 @@ import models.Difficulty;
 import models.GameRoom;
 import models.Player;
 import models.Quiz;
-import org.omg.PortableInterceptor.ORBInitInfoPackage.DuplicateName;
 
 import java.net.URL;
 import java.rmi.RemoteException;
@@ -31,7 +28,11 @@ public class GameRoomController implements Initializable {
     private static final Logger LOGGER = Logger.getLogger(LocalGameController.class.getName());
 
     private boolean isConnected = false;
+    private boolean isHost = false;
+    Player player = null;
 
+    @FXML
+    public Button btnLeave;
     @FXML
     private ListView lvPlayers;
     @FXML
@@ -47,10 +48,11 @@ public class GameRoomController implements Initializable {
 
     GameRoom room = null;
     GameRoomCommunicator communicator = null;
-    private static String[] properties = {"room", "difficulty", "numberOfQuestions", "playlistUri", "join"};
+    private static String[] properties = {"room", "difficulty", "numberOfQuestions", "playlistUri", "join", "leave"};
 
     void initData(String name, Player host) {
         room = new GameRoom(host , name);
+        player = host;
 
         cbDifficulty.getItems().setAll(Difficulty.values());
         setLvPlayers();
@@ -58,15 +60,25 @@ public class GameRoomController implements Initializable {
         spinNumberOfQuestions.setEditable(true);
 
         isConnected = true;
+        isHost = true;
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        // Button start click event.
         btnStart.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 // TODO make method to start playing
+            }
+        });
+
+        // Button leave click event.
+        btnLeave.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                leave();
             }
         });
 
@@ -86,6 +98,10 @@ public class GameRoomController implements Initializable {
         });
     }
 
+    /**
+     * Set the server name label at the top of the screen.
+     * @param name The name of the server.
+     */
     private void setServerName(String name) {
         lblServerName.setText(name);
     }
@@ -128,6 +144,11 @@ public class GameRoomController implements Initializable {
 
         return result;
     }
+
+    /**
+     * Prompt a warning to the user.
+     * @param message The warning message to display.
+     */
     @SuppressWarnings("Duplicates")
     private void showDialog(String message) {
         Dialog<String> dialog = new Dialog<>();
@@ -138,18 +159,48 @@ public class GameRoomController implements Initializable {
         dialog.showAndWait();
     }
 
-    public void addPlayer(Player player) {
-        room.join(player);
+    /**
+     * Add player to the game room.
+     * @param player The player to add
+     */
+    public void addPlayer(Object player) {
+        System.out.println("adding player: " + player);
+        room.join((Player) player);
+        //synchronise();
     }
 
+    /**
+     * Leave the current server
+     */
+    public void leave() {
+        communicator.broadcast("leave" , player);
+    }
+
+    public void removePlayer(Object player) {
+        room.leave((Player) player);
+        //synchronise();
+    }
+
+    /**
+     * Broadcast the difficulty setting when it changes.
+     * @param newValue The new value of difficulty.
+     */
     private void cbDifficultyChangeEvent(Object newValue) {
         communicator.broadcast("difficulty", newValue);
     }
 
+    /**
+     * Broadcast the number of questions when it changes.
+     * @param newValue The new number of questions.
+     */
     private void spinChangeEvent(Object newValue) {
         communicator.broadcast("numberOfQuestions", newValue);
     }
 
+    /**
+     * Broadcast the new uri value when it changes.
+     * @param newValue The new value of uri.
+     */
     private void tfUriChangeEvent(Object newValue) {
         communicator.broadcast("playlistUri", newValue);
     }
@@ -160,12 +211,16 @@ public class GameRoomController implements Initializable {
      * @param serverName The name of the server to connect to.
      */
     public void connectAndSetup(String serverName) {
+
+        // Setup the spinner with a valueFactory otherwise we get a null point exception.
         SpinnerValueFactory<Integer> valueFactory =
                 new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 20, 5);
         spinNumberOfQuestions.setValueFactory(valueFactory);
 
+        // Set label on top of the screen.
         setServerName(serverName);
 
+        // Setup the communicator and connect to the server.
         try {
             communicator = new GameRoomCommunicator(this);
             communicator.connectToServer(serverName);
@@ -173,11 +228,26 @@ public class GameRoomController implements Initializable {
             LOGGER.severe(e.getMessage());
         }
 
+        // Register and subscribe to all the properties except join.
+        // Only the host will subscribe to join and will synchronise the other listeners.
+
+
         for (String s : properties) {
             communicator.register(s);
-            communicator.subscribe(s);
+        }
+        communicator.subscribe("difficulty");
+        communicator.subscribe("numberOfQuestions");
+        communicator.subscribe("playlistUri");
+        communicator.subscribe("room");
+
+        if(isHost) {
+            communicator.subscribe("join");
+            communicator.subscribe("leave");
         }
 
+        // This statement is a bit fuzzy.
+        // It will basically check if the connector is new to the server.
+        // If this is the case it will prompt the user for a name and push the join property.
         if(!isConnected) {
             try {
                 sleep(1000);
@@ -196,15 +266,19 @@ public class GameRoomController implements Initializable {
                 showDialog("Enter a valid player name.");
                 return;
             }
-            communicator.broadcast("join", null);
+
+            // Create the new player and push it on join.
+            // The server will handle the join event.
+            Player newPlayer = new Player(playerName, 0);
+            player = newPlayer;
+            communicator.broadcast("join", newPlayer);
         }
     }
 
-    public void setPlayers(Object value) {
-        room.setPlayers((ObservableMap<Player, Boolean>) value);
-        setLvPlayers();
-    }
-
+    /**
+     * Set the spinner value.
+     * @param value The value to set the spinner to.
+     */
     public void setSpin(Object value) {
         Platform.runLater(new Runnable() {
             @Override
@@ -214,6 +288,10 @@ public class GameRoomController implements Initializable {
         });
     }
 
+    /**
+     * Set the tfUri value.
+     * @param value The value to set the textfield to.
+     */
     public void setUriText(Object value) {
         Platform.runLater(new Runnable() {
             @Override
@@ -223,6 +301,10 @@ public class GameRoomController implements Initializable {
         });
     }
 
+    /**
+     * Set the combo box value.
+     * @param value The value to set the cb to.
+     */
     public void setCbDifficulty(Object value) {
         Platform.runLater(new Runnable() {
             @Override
@@ -232,6 +314,9 @@ public class GameRoomController implements Initializable {
         });
     }
 
+    /**
+     * Set the list view items based on the player map in room.
+     */
     public void setLvPlayers() {
         Platform.runLater(new Runnable() {
             @Override
@@ -241,12 +326,24 @@ public class GameRoomController implements Initializable {
         });
     }
 
+    /**
+     * Set the room to the new value.
+     * @param value The new GameRoom value.
+     */
     public void setRoom(Object value) {
+
+        System.out.println("Room updated");
         this.room = (GameRoom) value;
         setLvPlayers();
     }
 
-    public void synchronise() {
+    /**
+     * Add the new player to the room and send over all current data.
+     */
+    public void synchronise(Object player) {
+        room.join((Player) player);
+
+        System.out.println("Synchronising");
         communicator.broadcast("room", room);
         communicator.broadcast("difficulty" , cbDifficulty.getValue());
         communicator.broadcast("playlistUri" , tfPlaylistURI.getText());

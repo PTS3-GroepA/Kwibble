@@ -18,7 +18,7 @@
         </Label>
         <ListView fx:id="lvPlayers" layoutX="33.0" layoutY="124.0" prefHeight="200.0" prefWidth="200.0" />
         <Label layoutX="33.0" layoutY="95.0" text="Players:" />
-        <Button fx:id="btnStart" layoutX="516.0" layoutY="293.0" mnemonicParsing="false" text="Start">
+        <Button fx:id="btnStart" layoutX="516.0" layoutY="339.0" mnemonicParsing="false" text="Start">
             <font>
                 <Font size="15.0" />
             </font>
@@ -41,5 +41,10 @@
         <ComboBox fx:id="cbDifficulty" layoutX="417.0" layoutY="100.0" prefWidth="150.0" />
         <Spinner fx:id="spinNumberOfQuestions" layoutX="418.0" layoutY="158.0" />
         <TextField fx:id="tfPlaylistURI" layoutX="418.0" layoutY="227.0" />
+      <Button fx:id="btnLeave" layoutX="33.0" layoutY="339.0" mnemonicParsing="false" text="Leave">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
     </children>
 </AnchorPane>
