@@ -5,13 +5,19 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import models.Difficulty;
 import models.GameRoom;
 import models.Player;
 import models.Quiz;
 
+import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.*;
@@ -48,7 +54,7 @@ public class GameRoomController implements Initializable {
 
     GameRoom room = null;
     GameRoomCommunicator communicator = null;
-    private static String[] properties = {"room", "difficulty", "numberOfQuestions", "playlistUri", "join"};
+    private static String[] properties = {"room", "difficulty", "numberOfQuestions", "playlistUri", "join", "leave"};
 
     void initData(String name, Player host) {
         room = new GameRoom(host , name);
@@ -164,9 +170,8 @@ public class GameRoomController implements Initializable {
      * @param player The localPlayer to add
      */
     public void addPlayer(Object player) {
-        System.out.println("adding localPlayer: " + player);
         room.join((Player) player);
-        //synchronise();
+        synchronise();
     }
 
     /**
@@ -174,11 +179,12 @@ public class GameRoomController implements Initializable {
      */
     private void leave() {
         communicator.broadcast("leave" , localPlayer);
+        backToMainMenu();
     }
 
     public void removePlayer(Object player) {
         room.leave((Player) player);
-        //synchronise();
+        synchronise();
     }
 
     /**
@@ -329,18 +335,33 @@ public class GameRoomController implements Initializable {
      * @param value The new GameRoom value.
      */
     public void setRoom(Object value) {
-
-        System.out.println("Room updated");
         this.room = (GameRoom) value;
         setLvPlayers();
+    }
+
+    private void backToMainMenu() {
+        try {
+            Stage stageToHide = (Stage) btnStart.getScene().getWindow();
+            stageToHide.close();
+
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("gui/screens/MainMenu.fxml"));
+            Parent root1 = null;
+            root1 = fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Kwibble");
+            stage.setScene(new Scene(root1));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     /**
      * Add the new localPlayer to the room and send over all current data.
      */
-    public void synchronise(Object player) {
-        room.join((Player) player);
-
+    private void synchronise() {
         System.out.println("Synchronising");
         communicator.broadcast("room", room);
         communicator.broadcast("difficulty" , cbDifficulty.getValue());

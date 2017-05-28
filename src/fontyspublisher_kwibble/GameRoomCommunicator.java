@@ -160,7 +160,7 @@ public class GameRoomCommunicator
                 controller.setRoom(evt.getNewValue());
                 break;
             case "join":
-                controller.synchronise(evt.getNewValue());
+                controller.addPlayer(evt.getNewValue());
                 break;
             case "leave":
                 controller.removePlayer(evt.getNewValue());
