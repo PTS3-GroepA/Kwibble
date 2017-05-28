@@ -6,15 +6,15 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.HostOptionsController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: radial-gradient(center 50% +60%,radius 120%, #5FC3E4 0%, #1A2980 100%);" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.HostOptionsController">
    <children>
       <TextField fx:id="tfHostName" layoutX="338.0" layoutY="93.0" />
-      <Label layoutX="148.0" layoutY="91.0" text="Server name:">
+      <Label layoutX="148.0" layoutY="91.0" style="-fx-text-fill: white;" text="Server name:">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Button fx:id="btnHost" layoutX="263.0" layoutY="278.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="75.0" text="Host">
+      <Button fx:id="btnHost" layoutX="243.0" layoutY="277.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="115.0" style="-fx-background-color: FF5242; -fx-text-fill: white; -fx-background-radius: 20;" text="Host">
          <font>
             <Font size="20.0" />
          </font>
