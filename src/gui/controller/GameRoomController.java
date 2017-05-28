@@ -29,7 +29,7 @@ public class GameRoomController implements Initializable {
 
     private boolean isConnected = false;
     private boolean isHost = false;
-    Player player = null;
+    private Player localPlayer = null;
 
     @FXML
     public Button btnLeave;
@@ -48,11 +48,11 @@ public class GameRoomController implements Initializable {
 
     GameRoom room = null;
     GameRoomCommunicator communicator = null;
-    private static String[] properties = {"room", "difficulty", "numberOfQuestions", "playlistUri", "join", "leave"};
+    private static String[] properties = {"room", "difficulty", "numberOfQuestions", "playlistUri", "join"};
 
     void initData(String name, Player host) {
         room = new GameRoom(host , name);
-        player = host;
+        localPlayer = host;
 
         cbDifficulty.getItems().setAll(Difficulty.values());
         setLvPlayers();
@@ -160,11 +160,11 @@ public class GameRoomController implements Initializable {
     }
 
     /**
-     * Add player to the game room.
-     * @param player The player to add
+     * Add localPlayer to the game room.
+     * @param player The localPlayer to add
      */
     public void addPlayer(Object player) {
-        System.out.println("adding player: " + player);
+        System.out.println("adding localPlayer: " + player);
         room.join((Player) player);
         //synchronise();
     }
@@ -172,8 +172,8 @@ public class GameRoomController implements Initializable {
     /**
      * Leave the current server
      */
-    public void leave() {
-        communicator.broadcast("leave" , player);
+    private void leave() {
+        communicator.broadcast("leave" , localPlayer);
     }
 
     public void removePlayer(Object player) {
@@ -234,15 +234,13 @@ public class GameRoomController implements Initializable {
 
         for (String s : properties) {
             communicator.register(s);
+            if(!s.equals("join")) {
+                communicator.subscribe(s);
+            }
         }
-        communicator.subscribe("difficulty");
-        communicator.subscribe("numberOfQuestions");
-        communicator.subscribe("playlistUri");
-        communicator.subscribe("room");
 
         if(isHost) {
             communicator.subscribe("join");
-            communicator.subscribe("leave");
         }
 
         // This statement is a bit fuzzy.
@@ -256,21 +254,21 @@ public class GameRoomController implements Initializable {
             }
             room = new GameRoom(serverName);
             TextInputDialog tid = new TextInputDialog("Player");
-            tid.setHeaderText("Enter a player name: ");
+            tid.setHeaderText("Enter a localPlayer name: ");
             Optional<String> op = tid.showAndWait();
             String playerName = "";
 
             if (op.isPresent() && op.get().length() > 0) {
                 playerName = op.get();
             } else {
-                showDialog("Enter a valid player name.");
+                showDialog("Enter a valid localPlayer name.");
                 return;
             }
 
-            // Create the new player and push it on join.
+            // Create the new localPlayer and push it on join.
             // The server will handle the join event.
             Player newPlayer = new Player(playerName, 0);
-            player = newPlayer;
+            localPlayer = newPlayer;
             communicator.broadcast("join", newPlayer);
         }
     }
@@ -315,7 +313,7 @@ public class GameRoomController implements Initializable {
     }
 
     /**
-     * Set the list view items based on the player map in room.
+     * Set the list view items based on the localPlayer map in room.
      */
     public void setLvPlayers() {
         Platform.runLater(new Runnable() {
@@ -338,7 +336,7 @@ public class GameRoomController implements Initializable {
     }
 
     /**
-     * Add the new player to the room and send over all current data.
+     * Add the new localPlayer to the room and send over all current data.
      */
     public void synchronise(Object player) {
         room.join((Player) player);

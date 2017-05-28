@@ -161,8 +161,10 @@ public class GameRoomCommunicator
                 break;
             case "join":
                 controller.synchronise(evt.getNewValue());
+                break;
             case "leave":
                 controller.removePlayer(evt.getNewValue());
+                break;
             default:
                 System.out.println("Property: " + evt.getPropertyName() + " could not be found.");
         }

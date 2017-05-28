@@ -67,14 +67,14 @@ public class HostOptionsController implements Initializable {
         String serverName = tfHostName.getText();
 
         TextInputDialog tid = new TextInputDialog("Player");
-        tid.setHeaderText("Enter a player name: ");
+        tid.setHeaderText("Enter a localPlayer name: ");
         Optional<String> op = tid.showAndWait();
         String playerName = "";
 
         if (op.isPresent() && op.get().length() > 0) {
             playerName = op.get();
         } else {
-            showDialog("Enter a valid player name.");
+            showDialog("Enter a valid localPlayer name.");
             return;
         }
         Player player = new Player(playerName, 0);
