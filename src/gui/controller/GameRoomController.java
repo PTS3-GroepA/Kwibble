@@ -325,7 +325,25 @@ public class GameRoomController implements Initializable {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                lvPlayers.getItems().setAll(room.getPlayers().keySet());
+                ArrayList<String> items = new ArrayList<>();
+                for(Map.Entry<Player, Boolean> entry : room.getPlayers().entrySet()) {
+                    Player key = entry.getKey();
+                    Boolean value = entry.getValue();
+
+                    String itemToAdd = "";
+
+                    itemToAdd = key.getName();
+                    if(value) {
+                        itemToAdd = itemToAdd + " (host)";
+                    }
+
+                    if(key.getName().equals(localPlayer.getName())) {
+                        itemToAdd = itemToAdd + " (you)";
+                    }
+
+                    items.add(itemToAdd);
+                }
+                lvPlayers.getItems().setAll(items);
             }
         });
     }
