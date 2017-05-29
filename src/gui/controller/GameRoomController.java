@@ -133,6 +133,10 @@ public class GameRoomController implements Initializable {
 
     }
 
+    public void confirmAuth(){
+        webView.setVisible(false);
+    }
+
     /**
      * Set the server name label at the top of the screen.
      * @param name The name of the server.
@@ -148,7 +152,7 @@ public class GameRoomController implements Initializable {
 
         Quiz quiz = new Quiz(amountOfQuestions, dif, result.get(0), result.get(1));
         room.addQuiz(quiz);
-
+        room.quiz.setGameBrowserController(this);
     }
 
     /**

@@ -4,6 +4,8 @@ import data.context.QuestionMSSQLContext;
 import data.context.SpotifyContext;
 import data.repos.MusicRepository;
 import data.repos.QuestionRepository;
+import gui.controller.GameBrowserController;
+import gui.controller.GameRoomController;
 import models.questions.Question;
 
 import java.util.ArrayList;
@@ -24,6 +26,7 @@ public class Quiz {
     private MusicRepository musicRepo;
     private QuestionRepository questionRepo;
     private SimpleServer server;
+    private GameRoomController gameRoomController;
 
     public Quiz(int amountOfQuestions, Difficulty difficulty, String userID, String playlistId) {
         this.amountOfQuestions = amountOfQuestions;
@@ -38,6 +41,13 @@ public class Quiz {
         musicRepo = new MusicRepository(context);
         server = new SimpleServer(context, this);
     }
+
+
+    public void setGameBrowserController(GameRoomController controller){
+        this.gameRoomController = controller;
+    }
+
+
 
     /**
      * Create a question based on the playlist and the difficulty level
@@ -151,5 +161,6 @@ public class Quiz {
     public void confirmAuthorisation() {
         server = null;
         generateQuestions();
+        gameRoomController.confirmAuth();
     }
 }
