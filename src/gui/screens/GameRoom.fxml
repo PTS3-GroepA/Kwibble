@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: radial-gradient(center 50% +60%,radius 120%, #5FC3E4 0%, #1A2980 100%);" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.GameRoomController">
+    <children>
+        <Label fx:id="lblServerName" layoutX="15.0" layoutY="14.0" style="-fx-text-fill: white;" text="Server: name">
+            <font>
+                <Font size="29.0" />
+            </font>
+        </Label>
+        <ListView fx:id="lvPlayers" layoutX="14.0" layoutY="97.0" prefHeight="227.0" prefWidth="200.0" />
+        <Label layoutX="14.0" layoutY="66.0" style="-fx-text-fill: white; -fx-font-size: 17;" text="Players:" />
+        <Button fx:id="btnStart" layoutX="421.0" layoutY="325.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="167.0" style="-fx-background-color: #3FBB65; -fx-text-fill: white; -fx-background-radius: 20;" text="Start">
+            <font>
+                <Font size="15.0" />
+            </font>
+        </Button>
+        <Label layoutX="325.0" layoutY="99.0" prefHeight="30.0" prefWidth="92.0" style="-fx-text-fill: white;" text="Difficulty: ">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+        <Label layoutX="272.0" layoutY="150.0" prefHeight="43.0" prefWidth="249.0" style="-fx-text-fill: white;" text="Number of questions:" wrapText="true">
+            <font>
+                <Font size="13.0" />
+            </font>
+        </Label>
+        <Label layoutX="310.0" layoutY="226.0" prefHeight="30.0" prefWidth="123.0" style="-fx-text-fill: white;" text="Playlist URI:">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+        <ComboBox fx:id="cbDifficulty" layoutX="417.0" layoutY="100.0" prefWidth="167.0" />
+        <Spinner fx:id="spinNumberOfQuestions" layoutX="418.0" layoutY="158.0" />
+        <TextField fx:id="tfPlaylistURI" layoutX="418.0" layoutY="227.0" />
+      <Button fx:id="btnLeave" layoutX="15.0" layoutY="339.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="200.0" style="-fx-background-color: #FF5242; -fx-text-fill: white;" text="Leave">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+    </children>
+</AnchorPane>

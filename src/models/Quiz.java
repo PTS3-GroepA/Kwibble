@@ -24,16 +24,14 @@ public class Quiz {
     private List<Question> questions;
     private MusicRepository musicRepo;
     private QuestionRepository questionRepo;
-    private LocalGameController controller;
     private SimpleServer server;
 
-    public Quiz(int amountOfQuestions, Difficulty difficulty, String userID, String playlistId, LocalGameController controller) {
+    public Quiz(int amountOfQuestions, Difficulty difficulty, String userID, String playlistId) {
         this.amountOfQuestions = amountOfQuestions;
         this.difficulty = difficulty;
         this.userID = userID;
         this.playlistURI = playlistId;
         this.questions = new ArrayList<>();
-        this.controller = controller;
 
         SpotifyContext context = new SpotifyContext();
 
@@ -46,7 +44,6 @@ public class Quiz {
     /**
      * Create a question based on the playlist and the difficulty level
      *
-     * @return Returns a question that can be asked in the quiz.
      */
     public void generateQuestions() {
         //todo zorg dat de lijst vragen cleared na dat er gespeeld is
@@ -76,11 +73,11 @@ public class Quiz {
      *
      * @return Returns the playlist URI.
      */
-    public String getPlaylistURI() {
+    String getPlaylistURI() {
         return playlistURI;
     }
 
-    public void setPlaylistURI(String playListURI) {
+    void setPlaylistURI(String playListURI) {
         this.playlistURI = playListURI;
     }
 
@@ -89,11 +86,11 @@ public class Quiz {
      *
      * @return Returns the amount of questions the quiz will have
      */
-    public int getAmountOfQuestions() {
+    int getAmountOfQuestions() {
         return amountOfQuestions;
     }
 
-    public void setAmountOfQuestions(int amountOfQuestions) {
+    void setAmountOfQuestions(int amountOfQuestions) {
         this.amountOfQuestions = amountOfQuestions;
     }
 
@@ -153,12 +150,7 @@ public class Quiz {
         return musicRepo.getAuthenticationURL();
     }
 
-    /**
-     * Method called when the server has received the access token from spotify.
-     */
     public void confirmAuthorisation() {
         server = null;
-        controller.confirmAuthorization();
     }
-
 }

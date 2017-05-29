@@ -111,7 +111,7 @@ public class LocalGameController implements Initializable {
         System.out.println(trimUser);
         System.out.println(uri);
 
-        quiz = new Quiz(Integer.parseInt(tfNrQuestion.getText()), Difficulty.EASY, trimUser, uri, this);
+        quiz = new Quiz(Integer.parseInt(tfNrQuestion.getText()), Difficulty.EASY, trimUser, uri);
 
         if (!quiz.checkAuthorization()) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -122,7 +122,6 @@ public class LocalGameController implements Initializable {
 
             if (result.get() == ButtonType.OK) {
                 showBrowser(quiz.getAuthenticationURL());
-
             } else {
                 showDialog("You will now return to main menu.");
                 Node source = (Node) event.getSource();

@@ -1,9 +1,11 @@
 package models;
 
+import java.io.Serializable;
+
 /**
  * Created by dennisvermeulen on 20-03-17.
  */
-public class Player {
+public class Player implements Serializable {
 
     private int id;
     private String name;
@@ -23,6 +25,11 @@ public class Player {
         this.name = name;
         this.score = score;
         this.email = email;
+    }
+
+    public Player(String name, int score) {
+        this.name = name;
+        this.score = score;
     }
 
     public void createGameRoom(String name) {
@@ -69,6 +76,9 @@ public class Player {
         this.password = password;
     }
 
-
+    @Override
+    public String toString() {
+        return name;
+    }
 
 }

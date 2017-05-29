@@ -1,34 +1,43 @@
 package models;
 
-import java.util.ArrayList;
-import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableMap;
+
+import java.io.Serializable;
+import java.util.*;
 
 /**
  * Created by dennisvermeulen on 20-03-17.
  *
  * This class will contain all players in a multi-player scenario.
  */
-public class GameRoom {
+public class GameRoom implements Serializable {
 
-    private Player owner;
     private String sessionName;
     private Quiz quiz;
-    private List<Player> players;
+    private Map<Player, Boolean> players;
 
 
-    public GameRoom(Player owner, String sessionName, Quiz quiz) {
-        this.owner = owner;
+    public GameRoom(Player owner, String sessionName) {
+        players = new HashMap<>();
+        players.put(owner, true);
         this.sessionName = sessionName;
-        this.quiz = quiz;
-        this.players = new ArrayList<Player>();
     }
 
+    public GameRoom(String sessionName) {
+        players = new HashMap<>();
+        this.sessionName = sessionName;
+    }
+
+
     public void join(Player player) {
-        players.add(player);
+        players.put(player,false);
+        System.out.println(players);
     }
 
     public void leave(Player player) {
-        players.remove(player);
+        players.entrySet().removeIf(entry -> Objects.equals(entry.getKey().getName(), player.getName()));
+        System.out.println(players);
     }
 
     public void generateQuestions() {
@@ -37,5 +46,15 @@ public class GameRoom {
 
     public void setDifficulty(Difficulty dif) {
         quiz.setDifficulty(dif);
+    }
+
+    public Map<Player, Boolean> getPlayers() {return players; }
+
+    public void addQuiz(Quiz quiz) {
+        this.quiz = quiz;
+    }
+
+    public String getName() {
+        return sessionName;
     }
 }
