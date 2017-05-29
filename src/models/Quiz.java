@@ -1,5 +1,6 @@
 package Models;
 
+import data.context.QuestionMSSQLContext;
 import data.context.QuestionMySQLContext;
 import data.context.SpotifyContext;
 import Data.Repos.MusicRepository;
@@ -35,10 +36,9 @@ public class Quiz {
 
         SpotifyContext context = new SpotifyContext();
 
-        questionRepo = new QuestionRepository(new QuestionMySQLContext());
+        questionRepo = new QuestionRepository(new QuestionMSSQLContext());
         musicRepo = new MusicRepository(context);
         server = new SimpleServer(context, this);
-
     }
 
     /**
@@ -47,7 +47,7 @@ public class Quiz {
      */
     public void generateQuestions() {
         //todo zorg dat de lijst vragen cleared na dat er gespeeld is
-
+        questions.clear();
         System.out.println("Generating questions");
         for (int i = 1; i <= amountOfQuestions; i++) {
 

@@ -81,4 +81,7 @@ public class Player implements Serializable {
         return name;
     }
 
+    public void addScore(int score){
+        this.score = this.score + score;
+    }
 }
