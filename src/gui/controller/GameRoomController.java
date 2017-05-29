@@ -77,7 +77,7 @@ public class GameRoomController implements Initializable {
         btnStart.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                // TODO make method to start playing
+                addQuiz();
             }
         });
 
@@ -119,8 +119,9 @@ public class GameRoomController implements Initializable {
         ArrayList<String> result = (ArrayList<String>) trimUri();
 
         Quiz quiz = new Quiz(amountOfQuestions, dif, result.get(0), result.get(1));
-
         room.addQuiz(quiz);
+
+        room.generateQuestions();
     }
 
     /**
