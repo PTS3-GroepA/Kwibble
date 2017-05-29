@@ -1,4 +1,4 @@
-package models;
+package Models;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;

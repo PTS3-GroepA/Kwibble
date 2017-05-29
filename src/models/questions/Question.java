@@ -1,10 +1,10 @@
-package models.questions;
+package Models.Questions;
 
 import com.wrapper.spotify.Api;
 import data.context.SpotifyContext;
-import data.repos.MusicRepository;
-import models.Difficulty;
-import models.answer.Answer;
+import Data.Repos.MusicRepository;
+import Models.Difficulty;
+import Models.Answer.Answer;
 
 import java.util.ArrayList;
 import java.util.List;

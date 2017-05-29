@@ -1,11 +1,11 @@
-package models;
+package Models;
 
 import data.context.QuestionMySQLContext;
 import data.context.SpotifyContext;
-import data.repos.MusicRepository;
-import data.repos.QuestionRepository;
+import Data.Repos.MusicRepository;
+import Data.Repos.QuestionRepository;
 import gui.controller.LocalGameController;
-import models.questions.Question;
+import Models.Questions.Question;
 
 import java.util.ArrayList;
 import java.util.List;
