@@ -36,7 +36,6 @@ public class GameRoom implements Serializable {
     }
 
     public void leave(Player player) {
-        System.out.println("Removing player: " + player);
         players.entrySet().removeIf(entry -> Objects.equals(entry.getKey().getName(), player.getName()));
         System.out.println(players);
     }

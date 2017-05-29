@@ -54,6 +54,7 @@ public class GameRoomController implements Initializable {
 
     GameRoom room = null;
     GameRoomCommunicator communicator = null;
+    // TODO change string array to enum.
     private static String[] properties = {"room", "difficulty", "numberOfQuestions", "playlistUri", "join", "leave"};
 
     void initData(String name, Player host) {
@@ -277,6 +278,7 @@ public class GameRoomController implements Initializable {
             localPlayer = newPlayer;
             communicator.broadcast("join", newPlayer);
 
+            // Disable the controls so only the host can change them.
             disableControls();
         }
     }
@@ -378,6 +380,9 @@ public class GameRoomController implements Initializable {
 
     }
 
+    /**
+     * Disable all the setting controls.
+     */
     private void disableControls() {
         cbDifficulty.setDisable(true);
         spinNumberOfQuestions.setDisable(true);

@@ -81,7 +81,9 @@ public class GameRoomCommunicator
             }
             return registries;
         } catch (RemoteException e) {
-            e.printStackTrace();
+            LOGGER.severe(e.getMessage());
+        } catch(Exception e) {
+            LOGGER.severe(e.getMessage());
         }
         return null;
     }
