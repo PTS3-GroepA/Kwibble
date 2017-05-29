@@ -71,7 +71,7 @@ public class GameBrowserController implements Initializable {
         servers.clear();
         if(!tfIp.getText().equals("")) {
             String[] foundServers = communicator.findServers(tfIp.getText());
-            if(servers.size() == 0 || servers == null) {
+            if(foundServers.length == 0 || servers == null) {
                 servers.add("No servers found");
                 lvServer.setItems(servers);
             }

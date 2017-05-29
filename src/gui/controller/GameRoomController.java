@@ -65,7 +65,7 @@ public class GameRoomController implements Initializable {
     private static String[] properties = {"room", "difficulty", "numberOfQuestions", "playlistUri", "join", "leave"};
 
     void initData(String name, Player host) {
-        room = new GameRoom(host , name);
+        room = new GameRoom(host, name);
         localPlayer = host;
 
         cbDifficulty.getItems().setAll(Difficulty.values());
@@ -99,15 +99,20 @@ public class GameRoomController implements Initializable {
             }
         });
 
+
         // Event when difficulty changes.
-        cbDifficulty.getSelectionModel().selectedItemProperty().addListener( (options, oldValue, newValue) -> {
+        cbDifficulty.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
             cbDifficultyChangeEvent(newValue);
         });
 
-        // Event when number of questions changes.
-        spinNumberOfQuestions.valueProperty().addListener((obs, oldValue, newValue) -> {
+        try {
+            // Event when number of questions changes.
+            spinNumberOfQuestions.valueProperty().addListener((obs, oldValue, newValue) -> {
                 spinChangeEvent(newValue);
-        });
+            });
+        } catch (Exception e) {
+            LOGGER.severe(e.getMessage());
+        }
 
         // Event when the uri changes.
         tfPlaylistURI.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -139,6 +144,7 @@ public class GameRoomController implements Initializable {
 
     /**
      * Set the server name label at the top of the screen.
+     *
      * @param name The name of the server.
      */
     private void setServerName(String name) {
@@ -186,6 +192,7 @@ public class GameRoomController implements Initializable {
 
     /**
      * Prompt a warning to the user.
+     *
      * @param message The warning message to display.
      */
     @SuppressWarnings("Duplicates")
@@ -200,6 +207,7 @@ public class GameRoomController implements Initializable {
 
     /**
      * Add localPlayer to the game room.
+     *
      * @param player The localPlayer to add
      */
     public void addPlayer(Object player) {
@@ -211,7 +219,7 @@ public class GameRoomController implements Initializable {
      * Leave the current server
      */
     private void leave() {
-        communicator.broadcast("leave" , localPlayer);
+        communicator.broadcast("leave", localPlayer);
         backToMainMenu();
     }
 
@@ -222,6 +230,7 @@ public class GameRoomController implements Initializable {
 
     /**
      * Broadcast the difficulty setting when it changes.
+     *
      * @param newValue The new value of difficulty.
      */
     private void cbDifficultyChangeEvent(Object newValue) {
@@ -230,14 +239,20 @@ public class GameRoomController implements Initializable {
 
     /**
      * Broadcast the number of questions when it changes.
+     *
      * @param newValue The new number of questions.
      */
     private void spinChangeEvent(Object newValue) {
-        communicator.broadcast("numberOfQuestions", newValue);
+        try {
+            communicator.broadcast("numberOfQuestions", newValue);
+        } catch(Exception e) {
+            LOGGER.severe(e.getMessage());
+        }
     }
 
     /**
      * Broadcast the new uri value when it changes.
+     *
      * @param newValue The new value of uri.
      */
     private void tfUriChangeEvent(Object newValue) {
@@ -251,10 +266,14 @@ public class GameRoomController implements Initializable {
      */
     public void connectAndSetup(String serverName) {
 
-        // Setup the spinner with a valueFactory otherwise we get a null point exception.
-        SpinnerValueFactory<Integer> valueFactory =
-                new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 20, 5);
-        spinNumberOfQuestions.setValueFactory(valueFactory);
+        try {
+            // Setup the spinner with a valueFactory otherwise we get a null point exception.
+            SpinnerValueFactory<Integer> valueFactory =
+                    new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 20, 5);
+            spinNumberOfQuestions.setValueFactory(valueFactory);
+        } catch (Exception e) {
+            LOGGER.severe(e.getMessage());
+        }
 
         // Set label on top of the screen.
         setServerName(serverName);
@@ -273,19 +292,19 @@ public class GameRoomController implements Initializable {
 
         for (String s : properties) {
             communicator.register(s);
-            if(!s.equals("join")) {
+            if (!s.equals("join")) {
                 communicator.subscribe(s);
             }
         }
 
-        if(isHost) {
+        if (isHost) {
             communicator.subscribe("join");
         }
 
         // This statement is a bit fuzzy.
         // It will basically check if the connector is new to the server.
         // If this is the case it will prompt the user for a name and push the join property.
-        if(!isConnected) {
+        if (!isConnected) {
             try {
                 sleep(1000);
             } catch (InterruptedException e) {
@@ -317,6 +336,7 @@ public class GameRoomController implements Initializable {
 
     /**
      * Set the spinner value.
+     *
      * @param value The value to set the spinner to.
      */
     public void setSpin(Object value) {
@@ -330,6 +350,7 @@ public class GameRoomController implements Initializable {
 
     /**
      * Set the tfUri value.
+     *
      * @param value The value to set the textfield to.
      */
     public void setUriText(Object value) {
@@ -343,6 +364,7 @@ public class GameRoomController implements Initializable {
 
     /**
      * Set the combo box value.
+     *
      * @param value The value to set the cb to.
      */
     public void setCbDifficulty(Object value) {
@@ -362,18 +384,18 @@ public class GameRoomController implements Initializable {
             @Override
             public void run() {
                 ArrayList<String> items = new ArrayList<>();
-                for(Map.Entry<Player, Boolean> entry : room.getPlayers().entrySet()) {
+                for (Map.Entry<Player, Boolean> entry : room.getPlayers().entrySet()) {
                     Player key = entry.getKey();
                     Boolean value = entry.getValue();
 
                     String itemToAdd = "";
 
                     itemToAdd = key.getName();
-                    if(value) {
+                    if (value) {
                         itemToAdd = itemToAdd + " (host)";
                     }
 
-                    if(key.getName().equals(localPlayer.getName())) {
+                    if (key.getName().equals(localPlayer.getName())) {
                         itemToAdd = itemToAdd + " (you)";
                     }
 
@@ -386,6 +408,7 @@ public class GameRoomController implements Initializable {
 
     /**
      * Set the room to the new value.
+     *
      * @param value The new GameRoom value.
      */
     public void setRoom(Object value) {
@@ -428,8 +451,8 @@ public class GameRoomController implements Initializable {
     private void synchronise() {
         System.out.println("Synchronising");
         communicator.broadcast("room", room);
-        communicator.broadcast("difficulty" , cbDifficulty.getValue());
-        communicator.broadcast("playlistUri" , tfPlaylistURI.getText());
-        communicator.broadcast("numberOfQuestions" , spinNumberOfQuestions.getValue());
+        communicator.broadcast("difficulty", cbDifficulty.getValue());
+        communicator.broadcast("playlistUri", tfPlaylistURI.getText());
+        communicator.broadcast("numberOfQuestions", spinNumberOfQuestions.getValue());
     }
 }

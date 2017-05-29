@@ -121,7 +121,7 @@ public class HostOptionsController implements Initializable {
                 stage.setTitle("Game Room");
                 stage.setScene(new Scene(root1));
                 stage.show();
-            } catch (IOException e) {
+            } catch (Exception e) {
                 LOGGER.log(Level.SEVERE, e.toString(), e);
             }
         });
