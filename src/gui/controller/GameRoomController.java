@@ -276,6 +276,8 @@ public class GameRoomController implements Initializable {
             Player newPlayer = new Player(playerName, 0);
             localPlayer = newPlayer;
             communicator.broadcast("join", newPlayer);
+
+            disableControls();
         }
     }
 
@@ -375,6 +377,13 @@ public class GameRoomController implements Initializable {
         }
 
     }
+
+    private void disableControls() {
+        cbDifficulty.setDisable(true);
+        spinNumberOfQuestions.setDisable(true);
+        tfPlaylistURI.setDisable(true);
+    }
+
 
     /**
      * Add the new localPlayer to the room and send over all current data.

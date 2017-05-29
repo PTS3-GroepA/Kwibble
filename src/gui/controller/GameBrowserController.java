@@ -11,14 +11,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,6 +38,8 @@ public class GameBrowserController implements Initializable {
     public Button btnJoin;
     @FXML
     public Button btnRefresh;
+    @FXML
+    public TextField tfIp;
 
     private GameRoomCommunicator communicator = null;
     private ObservableList<String> servers = FXCollections.observableArrayList();
@@ -67,9 +69,31 @@ public class GameBrowserController implements Initializable {
 
     private void btnRefreshEventHandler() {
         servers.clear();
-        String[] foundServers = communicator.findServers();
-        servers.addAll(foundServers);
-        lvServer.setItems(servers);
+        if(!tfIp.getText().equals("")) {
+            String[] foundServers = communicator.findServers(tfIp.getText());
+            servers.addAll(foundServers);
+            if(servers.size() == 0) {
+                ArrayList<String> noServer = new ArrayList<>();
+                noServer.add("No servers found");
+                lvServer.setItems((ObservableList) noServer);
+            }
+            else {
+                lvServer.setItems(servers);
+            }
+        }
+        else {
+            showDialog("Enter a valid IP address.");
+        }
+
+    }
+
+    public void showDialog(String message) {
+        Dialog<String> dialog = new Dialog<>();
+        dialog.getDialogPane().setContentText(message);
+        dialog.getDialogPane().getButtonTypes().add(new ButtonType("OK", ButtonBar.ButtonData.CANCEL_CLOSE));
+        dialog.setWidth(300);
+        dialog.setHeight(100);
+        dialog.showAndWait();
     }
 
     private void btnHostEvenHandler() {

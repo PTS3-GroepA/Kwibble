@@ -5,8 +5,6 @@ import fontyspublisher.IRemotePublisherForDomain;
 import fontyspublisher.IRemotePublisherForListener;
 import gui.controller.GameRoomController;
 import gui.controller.MainMenuController;
-import models.GameRoom;
-import models.Player;
 
 import java.beans.PropertyChangeEvent;
 import java.rmi.NotBoundException;
@@ -74,9 +72,9 @@ public class GameRoomCommunicator
      *
      * @return An array of registry bindingnames found on the specific address
      */
-    public String[] findServers() {
+    public String[] findServers(String ip) {
         try {
-            Registry registry = LocateRegistry.getRegistry("localhost");
+            Registry registry = LocateRegistry.getRegistry(ip);
             String[] registries = registry.list();
             for (String s : registries) {
                 System.out.println(s);

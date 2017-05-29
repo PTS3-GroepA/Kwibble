@@ -6,6 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.TextField?>
 <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: radial-gradient(center 50% +60%,radius 120%, #5FC3E4 0%, #1A2980 100%);" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.GameBrowserController">
    <children>
       <Label layoutX="45.0" layoutY="40.0" style="-fx-text-fill: #FFFFFF;" text="Servers:">
@@ -16,5 +17,11 @@
       <ListView fx:id="lvServer" layoutX="41.0" layoutY="81.0" prefHeight="238.0" prefWidth="518.0" />
       <Button fx:id="btnJoin" layoutX="493.0" layoutY="345.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="70.0" style="-fx-background-radius: 20pt; -fx-background-color: #3FBB65; -fx-text-fill: #FFFFFF;" text="Join" />
       <Button fx:id="btnRefresh" layoutX="416.0" layoutY="345.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="66.0" style="-fx-background-radius: 20pt; -fx-background-color: #FFCA28; -fx-text-fill: #FFFFFF;" text="Refresh" />
+      <TextField fx:id="tfIp" layoutX="202.0" layoutY="348.0" prefHeight="25.0" prefWidth="192.0" />
+      <Label layoutX="119.0" layoutY="348.0" text="IP Adress:" textFill="WHITE">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
