@@ -12,7 +12,6 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: radial-gradient(center 50% +60%,radius 120%, #5FC3E4 0%, #1A2980 100%);" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.GameRoomController">
     <children>
-      <WebView fx:id="webView" layoutX="40.0" layoutY="3.0" prefHeight="641.0" prefWidth="540.0" />
         <Label fx:id="lblServerName" layoutX="15.0" layoutY="14.0" style="-fx-text-fill: white;" text="Server: name">
             <font>
                 <Font size="29.0" />
@@ -48,5 +47,6 @@
             <Font size="15.0" />
          </font>
       </Button>
+      <WebView fx:id="webView" prefHeight="641.0" prefWidth="540.0" />
     </children>
 </AnchorPane>

@@ -33,7 +33,7 @@ public class QuestionFileContext implements Questionable {
 
         Scanner c = null;
         try {
-            c = new Scanner(new BufferedReader(new FileReader("C:\\Users\\Max\\Source\\Repos\\Semester 3\\Kwibble\\src\\questions\\0_1.txt")));
+            c = new Scanner(new BufferedReader(new FileReader("C:\\Users\\Max\\Source\\repos\\Semester 3\\Kwibble\\src\\questions\\0_1.txt")));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

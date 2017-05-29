@@ -1,4 +1,4 @@
-package Models.Answer;
+package models.answer;
 
 import java.io.Serializable;
 

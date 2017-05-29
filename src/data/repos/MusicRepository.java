@@ -1,12 +1,11 @@
-package Data.Repos;
+package data.repos;
 
 import com.wrapper.spotify.Api;
 import com.wrapper.spotify.models.Artist;
 import com.wrapper.spotify.models.Playlist;
 import com.wrapper.spotify.models.Track;
-import Data.Context.Interfaces.MusicContext;
+import data.context.interfaces.MusicContext;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**

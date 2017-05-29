@@ -1,8 +1,8 @@
-package Data.Repos;
+package data.repos;
 
-import Data.Context.Interfaces.Questionable;
-import Models.Difficulty;
-import Models.Questions.Question;
+import data.context.interfaces.Questionable;
+import models.Difficulty;
+import models.questions.Question;
 
 import java.util.List;
 

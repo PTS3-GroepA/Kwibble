@@ -1,4 +1,4 @@
-package Data.Context.Interfaces;
+package data.context.interfaces;
 
 import com.wrapper.spotify.Api;
 import com.wrapper.spotify.models.Artist;

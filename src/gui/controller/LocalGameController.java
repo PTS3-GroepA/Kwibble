@@ -17,8 +17,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-import Models.Difficulty;
-import Models.Quiz;
+import models.Difficulty;
+import models.Quiz;
 
 import java.net.URL;
 import java.util.Optional;

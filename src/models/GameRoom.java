@@ -1,7 +1,4 @@
-package Models;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableMap;
+package models;
 
 import java.io.Serializable;
 import java.util.*;
@@ -14,7 +11,7 @@ import java.util.*;
 public class GameRoom implements Serializable {
 
     private String sessionName;
-    private Quiz quiz;
+    public Quiz quiz;
     private Map<Player, Boolean> players;
 
 

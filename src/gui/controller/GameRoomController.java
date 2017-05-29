@@ -14,15 +14,16 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import Models.Difficulty;
-import Models.GameRoom;
-import Models.Player;
-import Models.Quiz;
+import models.Difficulty;
+import models.GameRoom;
+import models.Player;
+import models.Quiz;
 
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.*;
+import java.util.concurrent.Callable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -38,7 +39,8 @@ public class GameRoomController implements Initializable {
     private boolean isConnected = false;
     private boolean isHost = false;
     private Player localPlayer = null;
-    private Quiz quiz;
+
+    private Thread thread;
 
     @FXML
     public Button btnLeave;
@@ -75,11 +77,6 @@ public class GameRoomController implements Initializable {
         isHost = true;
     }
 
-    public void showBrowser(String URL){
-        WebEngine webEngine = webView.getEngine();
-        webEngine.load(URL);
-        webView.setVisible(true);
-    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -90,6 +87,7 @@ public class GameRoomController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 addQuiz();
+                authorize();
             }
         });
 
@@ -119,9 +117,19 @@ public class GameRoomController implements Initializable {
 
 
 
-    private void startGame(){
+    private void authorize(){
 
-      //  quiz = new Quiz(spinNumberOfQuestions, Difficulty.EASY, trimUri(),);
+        String url = room.quiz.getAuthenticationURL();
+        WebEngine engine = webView.getEngine();
+        engine.load(url);
+        webView.setVisible(true);
+
+        thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        });
 
     }
 
@@ -141,7 +149,6 @@ public class GameRoomController implements Initializable {
         Quiz quiz = new Quiz(amountOfQuestions, dif, result.get(0), result.get(1));
         room.addQuiz(quiz);
 
-        room.generateQuestions();
     }
 
     /**
