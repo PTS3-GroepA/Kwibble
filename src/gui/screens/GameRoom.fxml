@@ -8,6 +8,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.web.WebView?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: radial-gradient(center 50% +60%,radius 120%, #5FC3E4 0%, #1A2980 100%);" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.GameRoomController">
     <children>
@@ -46,5 +47,6 @@
             <Font size="15.0" />
          </font>
       </Button>
+      <WebView fx:id="webView" prefHeight="641.0" prefWidth="540.0" />
     </children>
 </AnchorPane>

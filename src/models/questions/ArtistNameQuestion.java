@@ -4,7 +4,7 @@ import com.wrapper.spotify.models.Artist;
 import com.wrapper.spotify.models.SimpleArtist;
 import com.wrapper.spotify.models.Track;
 import models.Difficulty;
-import models.answer.TextAnswer;
+import models.answer.*;
 
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;

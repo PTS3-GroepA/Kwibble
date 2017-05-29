@@ -10,6 +10,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import models.Difficulty;
@@ -21,6 +23,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.*;
+import java.util.concurrent.Callable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -37,6 +40,8 @@ public class GameRoomController implements Initializable {
     private boolean isHost = false;
     private Player localPlayer = null;
 
+    private Thread thread;
+
     @FXML
     public Button btnLeave;
     @FXML
@@ -51,6 +56,8 @@ public class GameRoomController implements Initializable {
     private TextField tfPlaylistURI;
     @FXML
     private Label lblServerName;
+    @FXML
+    private WebView webView;
 
     GameRoom room = null;
     GameRoomCommunicator communicator = null;
@@ -70,14 +77,17 @@ public class GameRoomController implements Initializable {
         isHost = true;
     }
 
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        webView.setVisible(false);
 
         // Button start click event.
         btnStart.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 addQuiz();
+                authorize();
             }
         });
 
@@ -110,6 +120,24 @@ public class GameRoomController implements Initializable {
         });
     }
 
+
+
+    private void authorize(){
+
+        String url = room.quiz.getAuthenticationURL();
+        WebEngine engine = webView.getEngine();
+        engine.load(url);
+        webView.setVisible(true);
+
+        thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        });
+
+    }
+
     /**
      * Set the server name label at the top of the screen.
      *
@@ -127,7 +155,6 @@ public class GameRoomController implements Initializable {
         Quiz quiz = new Quiz(amountOfQuestions, dif, result.get(0), result.get(1));
         room.addQuiz(quiz);
 
-        room.generateQuestions();
     }
 
     /**

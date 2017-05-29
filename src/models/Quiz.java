@@ -1,11 +1,9 @@
 package models;
 
 import data.context.QuestionMSSQLContext;
-import data.context.QuestionMySQLContext;
 import data.context.SpotifyContext;
 import data.repos.MusicRepository;
 import data.repos.QuestionRepository;
-import gui.controller.LocalGameController;
 import models.questions.Question;
 
 import java.util.ArrayList;
@@ -152,5 +150,6 @@ public class Quiz {
 
     public void confirmAuthorisation() {
         server = null;
+        generateQuestions();
     }
 }
