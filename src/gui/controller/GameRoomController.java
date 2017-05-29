@@ -10,12 +10,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import models.Difficulty;
-import models.GameRoom;
-import models.Player;
-import models.Quiz;
+import Models.Difficulty;
+import Models.GameRoom;
+import Models.Player;
+import Models.Quiz;
 
 import java.io.IOException;
 import java.net.URL;
@@ -36,6 +38,7 @@ public class GameRoomController implements Initializable {
     private boolean isConnected = false;
     private boolean isHost = false;
     private Player localPlayer = null;
+    private Quiz quiz;
 
     @FXML
     public Button btnLeave;
@@ -51,6 +54,8 @@ public class GameRoomController implements Initializable {
     private TextField tfPlaylistURI;
     @FXML
     private Label lblServerName;
+    @FXML
+    private WebView webView;
 
     GameRoom room = null;
     GameRoomCommunicator communicator = null;
@@ -70,8 +75,15 @@ public class GameRoomController implements Initializable {
         isHost = true;
     }
 
+    public void showBrowser(String URL){
+        WebEngine webEngine = webView.getEngine();
+        webEngine.load(URL);
+        webView.setVisible(true);
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        webView.setVisible(false);
 
         // Button start click event.
         btnStart.setOnAction(new EventHandler<ActionEvent>() {
@@ -103,6 +115,14 @@ public class GameRoomController implements Initializable {
         tfPlaylistURI.textProperty().addListener((observable, oldValue, newValue) -> {
             tfUriChangeEvent(newValue);
         });
+    }
+
+
+
+    private void startGame(){
+
+      //  quiz = new Quiz(spinNumberOfQuestions, Difficulty.EASY, trimUri(),);
+
     }
 
     /**
