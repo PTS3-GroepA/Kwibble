@@ -5,6 +5,8 @@ import fontyspublisher.IRemotePublisherForDomain;
 import fontyspublisher.IRemotePublisherForListener;
 import gui.controller.GameRoomController;
 import gui.controller.MainMenuController;
+import models.questions.Question;
+import models.questions.SerQuestion;
 
 import java.beans.PropertyChangeEvent;
 import java.rmi.NotBoundException;
@@ -139,6 +141,7 @@ public class GameRoomCommunicator
         }
     }
 
+    // Don't forget the break statements you twat.
     @Override
     public void propertyChange(PropertyChangeEvent evt) throws RemoteException {
         //System.out.println("Property: " + evt.getPropertyName() + " has changed to: " + evt.getNewValue());
@@ -160,6 +163,12 @@ public class GameRoomCommunicator
                 break;
             case "leave":
                 controller.removePlayer(evt.getNewValue());
+                break;
+            case "playQuestion":
+                controller.playQuestion((SerQuestion) evt.getNewValue());
+                break;
+            case"answer":
+                //TODO
                 break;
             default:
                 System.out.println("Property: " + evt.getPropertyName() + " could not be found.");

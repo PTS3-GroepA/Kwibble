@@ -8,6 +8,7 @@ import gui.controller.GameBrowserController;
 import gui.controller.GameRoomController;
 import models.questions.Question;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +17,7 @@ import java.util.List;
  * <p>
  * Main logic class of the game.
  */
-public class Quiz {
+public class Quiz implements Serializable{
 
     private int amountOfQuestions;
     private Difficulty difficulty;
@@ -27,6 +28,7 @@ public class Quiz {
     private QuestionRepository questionRepo;
     private SimpleServer server;
     private GameRoomController gameRoomController;
+    private int questionsPlayed = 0;
 
     public Quiz(int amountOfQuestions, Difficulty difficulty, String userID, String playlistId) {
         this.amountOfQuestions = amountOfQuestions;
@@ -42,12 +44,9 @@ public class Quiz {
         server = new SimpleServer(context, this);
     }
 
-
     public void setGameBrowserController(GameRoomController controller){
         this.gameRoomController = controller;
     }
-
-
 
     /**
      * Create a question based on the playlist and the difficulty level
@@ -162,5 +161,9 @@ public class Quiz {
         server = null;
         generateQuestions();
         gameRoomController.confirmAuth();
+    }
+
+    public Question getQuestionToPlay() {
+        return questions.get(questionsPlayed);
     }
 }

@@ -18,6 +18,8 @@ import models.Difficulty;
 import models.GameRoom;
 import models.Player;
 import models.Quiz;
+import models.questions.Question;
+import models.questions.SerQuestion;
 
 import java.io.IOException;
 import java.net.URL;
@@ -62,7 +64,7 @@ public class GameRoomController implements Initializable {
     GameRoom room = null;
     GameRoomCommunicator communicator = null;
     // TODO change string array to enum.
-    private static String[] properties = {"room", "difficulty", "numberOfQuestions", "playlistUri", "join", "leave"};
+    private static String[] properties = {"room", "difficulty", "numberOfQuestions", "playlistUri", "join", "leave", "playQuestion", "answer"};
 
     void initData(String name, Player host) {
         room = new GameRoom(host, name);
@@ -121,26 +123,17 @@ public class GameRoomController implements Initializable {
         });
     }
 
-
-
     private void authorize(){
 
         String url = room.quiz.getAuthenticationURL();
         WebEngine engine = webView.getEngine();
         engine.load(url);
         webView.setVisible(true);
-
-        thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-            }
-        });
-
     }
 
     public void confirmAuth(){
         webView.setVisible(false);
+        communicator.broadcast("playQuestion", room.quiz.getQuestionToPlay().getSerQuestion());
     }
 
     /**
@@ -458,5 +451,26 @@ public class GameRoomController implements Initializable {
         communicator.broadcast("difficulty", cbDifficulty.getValue());
         communicator.broadcast("playlistUri", tfPlaylistURI.getText());
         communicator.broadcast("numberOfQuestions", spinNumberOfQuestions.getValue());
+    }
+
+    @SuppressWarnings("Duplicates")
+    public void playQuestion(SerQuestion question) {
+
+        System.out.println("Opening play screen");
+        Platform.runLater(() -> {
+            try {
+
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("gui/screens/GameScreen.fxml"));
+                Parent root1 = fxmlLoader.load();
+                GameScreenController controller = fxmlLoader.getController();
+                controller.initData(question, this);
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root1));
+                stage.show();
+                controller.playMusic();
+            } catch (Exception e) {
+                LOGGER.log(Level.SEVERE, e.toString(), e);
+            }
+        });
     }
 }

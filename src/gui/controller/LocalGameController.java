@@ -163,7 +163,7 @@ public class LocalGameController implements Initializable {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("gui/screens/GameScreen.fxml"));
                 Parent root1 = fxmlLoader.load();
                 GameScreenController controller = fxmlLoader.getController();
-                controller.initData(quiz.getQuestion(questionPlayed), this);
+                //controller.initData(quiz.getQuestion(questionPlayed), this);
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root1));
                 stage.show();

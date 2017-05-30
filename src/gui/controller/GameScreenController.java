@@ -1,5 +1,6 @@
 package gui.controller;
 
+import fontyspublisher_kwibble.GameRoomCommunicator;
 import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.event.ActionEvent;
@@ -11,9 +12,11 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import models.MusicPlayer;
 import models.questions.Question;
+import models.questions.SerQuestion;
 
 import java.awt.event.MouseEvent;
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.concurrent.ThreadLocalRandom;
@@ -25,7 +28,7 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class GameScreenController  implements Initializable  {
 
-    LocalGameController controllerReference;
+    GameRoomCommunicator communicator;
     MusicPlayer mp;
     @FXML
     private Button btnAnswer1;
@@ -37,12 +40,16 @@ public class GameScreenController  implements Initializable  {
     private Button btnAnswer4;
     @FXML
     private Label questionBox;
-    private Question question;
+    private SerQuestion question;
 
-    void initData(Question question, LocalGameController controller) {
+    void initData(SerQuestion question, GameRoomController controller) {
         System.out.println("initialising game screen with question: " + question.toString());
         this.question = question;
-        this.controllerReference = controller;
+        try {
+            communicator = new GameRoomCommunicator(null);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
         questionBox.setText(question.getQuestionString());
         placeAnswers();
         mp = new MusicPlayer(question.getPreviewURL());
@@ -89,10 +96,6 @@ public class GameScreenController  implements Initializable  {
         btnAnswer4.setOnMouseEntered(mouseEvent -> btnAnswer4.setStyle("-fx-background-color:  #DF5242"));
 
     }
-
-
-
-
 
     private void placeAnswers() {
         Platform.runLater(() -> {
@@ -145,6 +148,7 @@ public class GameScreenController  implements Initializable  {
             dialog.setWidth(300);
             dialog.setHeight(100);
             dialog.showAndWait();
+            communicator.broadcast("answer", true);
         } else {
             Dialog<String> dialog = new Dialog<>();
             dialog.getDialogPane().setContentText("Wrong, the correct answer was: " + question.getCorrectAnswer());
@@ -152,10 +156,8 @@ public class GameScreenController  implements Initializable  {
             dialog.setWidth(300);
             dialog.setHeight(100);
             dialog.showAndWait();
+            communicator.broadcast("answer", false);
         }
-
-        controllerReference.increasePlayedQuestion();
-        controllerReference.playQuestion();
 
         Node source = (Node) actionEvent.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
