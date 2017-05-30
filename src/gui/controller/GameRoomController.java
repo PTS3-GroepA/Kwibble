@@ -86,6 +86,7 @@ public class GameRoomController implements Initializable {
         btnStart.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                disableControls();
                 addQuiz();
                 authorize();
             }
@@ -440,8 +441,11 @@ public class GameRoomController implements Initializable {
      */
     private void disableControls() {
         cbDifficulty.setDisable(true);
+        cbDifficulty.setStyle("-fx-opacity: 1;");
         spinNumberOfQuestions.setDisable(true);
+        spinNumberOfQuestions.setStyle("-fx-opacity: 1;");
         tfPlaylistURI.setDisable(true);
+        tfPlaylistURI.setStyle("-fx-opacity: 1;");
     }
 
 

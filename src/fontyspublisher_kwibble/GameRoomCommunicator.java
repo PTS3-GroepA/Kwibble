@@ -123,10 +123,6 @@ public class GameRoomCommunicator
         }
     }
 
-    public void unsubscribe(String property) {
-
-    }
-
     public void broadcast(String property, Object newValue) {
         if (connected) {
             threadPool.execute(new Runnable() {
