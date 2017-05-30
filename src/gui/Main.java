@@ -6,6 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.net.InetAddress;
+
 
 /**
  * Created by Max Meijer on 27/03/2017.
@@ -26,5 +28,8 @@ public class Main extends Application {
         scene.getStylesheets().add(getClass().getResource("screens/Main.css").toExternalForm());
         stage.setScene(scene);
         stage.show();
+
+        InetAddress IP= InetAddress.getLocalHost();
+        System.out.println("IP of my system is := "+IP.getHostAddress());
     }
 }

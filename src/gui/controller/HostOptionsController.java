@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import models.Player;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.rmi.RemoteException;
@@ -85,9 +86,9 @@ public class HostOptionsController implements Initializable {
         try {
             remotePublisher = new RemotePublisher();
             Registry registry = LocateRegistry.createRegistry(portNumber);
-            System.setProperty("java.rmi.server.hostname","192.168.2.118");
+            System.setProperty("java.rmi.server.hostname", String.valueOf(InetAddress.getLocalHost()));
             registry.rebind(serverName, remotePublisher);
-        } catch (RemoteException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -117,7 +118,7 @@ public class HostOptionsController implements Initializable {
                 Parent root1 = fxmlLoader.load();
                 GameRoomController controller = fxmlLoader.getController();
                 controller.initData(tfHostName.getText(), player);
-                controller.connectAndSetup(tfHostName.getText());
+                controller.connectAndSetup("0.0.0.0" ,tfHostName.getText());
                 Stage stage = new Stage();
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.setTitle("Game Room");

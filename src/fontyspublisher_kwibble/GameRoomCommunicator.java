@@ -9,6 +9,7 @@ import models.questions.Question;
 import models.questions.SerQuestion;
 
 import java.beans.PropertyChangeEvent;
+import java.net.InetAddress;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -57,12 +58,13 @@ public class GameRoomCommunicator
     public void connectToServer(String ip ,String bindingName) {
         try {
             this.bindingName = bindingName;
+            System.setProperty("java.rmi.server.hostname", String.valueOf(InetAddress.getLocalHost()));
             Registry registry = LocateRegistry.getRegistry(ip, portNumber);
             publisherForDomain = (IRemotePublisherForDomain) registry.lookup(bindingName);
             publisherForListener = (IRemotePublisherForListener) registry.lookup(bindingName);
             connected = true;
             System.out.println("Connection with server: " + bindingName + " has been established");
-        } catch (RemoteException | NotBoundException re) {
+        } catch ( Exception re) {
             connected = false;
             System.out.println("Connection could not be established see log files for more information.");
             LOGGER.severe(String.valueOf(re));
