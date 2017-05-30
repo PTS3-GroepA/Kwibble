@@ -267,7 +267,7 @@ public class GameRoomController implements Initializable {
      *
      * @param serverName The name of the server to connect to.
      */
-    public void connectAndSetup(String serverName) {
+    public void connectAndSetup(String ip, String serverName) {
 
         try {
             // Setup the spinner with a valueFactory otherwise we get a null point exception.
@@ -284,7 +284,7 @@ public class GameRoomController implements Initializable {
         // Setup the communicator and connect to the server.
         try {
             communicator = new GameRoomCommunicator(this);
-            communicator.connectToServer(serverName);
+            communicator.connectToServer(ip, serverName);
         } catch (RemoteException e) {
             LOGGER.severe(e.getMessage());
         }

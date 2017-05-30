@@ -18,7 +18,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -62,7 +61,7 @@ public class GameBrowserController implements Initializable {
         btnJoin.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                btnHostEvenHandler();
+                btnJoinEvenHandler();
             }
         });
     }
@@ -95,7 +94,7 @@ public class GameBrowserController implements Initializable {
         dialog.showAndWait();
     }
 
-    private void btnHostEvenHandler() {
+    private void btnJoinEvenHandler() {
         openGameBrowserScreen();
     }
 
@@ -107,7 +106,7 @@ public class GameBrowserController implements Initializable {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("gui/screens/GameRoom.fxml"));
                 Parent root1 = fxmlLoader.load();
                 GameRoomController controller = fxmlLoader.getController();
-                controller.connectAndSetup((String) lvServer.getSelectionModel().getSelectedItem());
+                controller.connectAndSetup(tfIp.getText(), (String) lvServer.getSelectionModel().getSelectedItem());
                 Stage stage = new Stage();
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.setTitle("Game Room");

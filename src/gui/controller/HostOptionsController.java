@@ -20,6 +20,7 @@ import java.net.UnknownHostException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -84,6 +85,7 @@ public class HostOptionsController implements Initializable {
         try {
             remotePublisher = new RemotePublisher();
             Registry registry = LocateRegistry.createRegistry(portNumber);
+            System.setProperty("java.rmi.server.hostname","192.168.2.118");
             registry.rebind(serverName, remotePublisher);
         } catch (RemoteException e) {
             e.printStackTrace();

@@ -54,10 +54,10 @@ public class GameRoomCommunicator
      * Note that the connection is currently hardcode to localhost.
      * @param bindingName The name of the server to connect to.
      */
-    public void connectToServer(String bindingName) {
+    public void connectToServer(String ip ,String bindingName) {
         try {
             this.bindingName = bindingName;
-            Registry registry = LocateRegistry.getRegistry("localhost", portNumber);
+            Registry registry = LocateRegistry.getRegistry(ip, portNumber);
             publisherForDomain = (IRemotePublisherForDomain) registry.lookup(bindingName);
             publisherForListener = (IRemotePublisherForListener) registry.lookup(bindingName);
             connected = true;
