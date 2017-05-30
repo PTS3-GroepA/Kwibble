@@ -2,6 +2,7 @@ package models;
 
 import java.io.Serializable;
 import java.util.*;
+import java.util.function.BiConsumer;
 
 /**
  * Created by dennisvermeulen on 20-03-17.
@@ -53,5 +54,14 @@ public class GameRoom implements Serializable {
 
     public String getName() {
         return sessionName;
+    }
+
+    public void increaseScoreForPlayer(Player player , int score) {
+        for (Map.Entry<Player, Boolean> entry : players.entrySet())
+        {
+            if(entry.getKey().getName().equals(player.getName())) {
+                entry.getKey().addScore(score);
+            }
+        }
     }
 }

@@ -42,14 +42,10 @@ public class GameScreenController  implements Initializable  {
     private Label questionBox;
     private SerQuestion question;
 
-    void initData(SerQuestion question, GameRoomController controller) {
+    void initData(SerQuestion question, GameRoomController controller, GameRoomCommunicator communicator) {
         System.out.println("initialising game screen with question: " + question.toString());
         this.question = question;
-        try {
-            communicator = new GameRoomCommunicator(null);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
+        this.communicator = communicator;
         questionBox.setText(question.getQuestionString());
         placeAnswers();
         mp = new MusicPlayer(question.getPreviewURL());
@@ -94,7 +90,6 @@ public class GameScreenController  implements Initializable  {
         });
 
         btnAnswer4.setOnMouseEntered(mouseEvent -> btnAnswer4.setStyle("-fx-background-color:  #DF5242"));
-
     }
 
     private void placeAnswers() {
@@ -126,7 +121,6 @@ public class GameScreenController  implements Initializable  {
                 }
             }
         });
-
     }
 
     void playMusic() {
@@ -148,7 +142,7 @@ public class GameScreenController  implements Initializable  {
             dialog.setWidth(300);
             dialog.setHeight(100);
             dialog.showAndWait();
-            communicator.broadcast("answer", true);
+            question.setScore(10);
         } else {
             Dialog<String> dialog = new Dialog<>();
             dialog.getDialogPane().setContentText("Wrong, the correct answer was: " + question.getCorrectAnswer());
@@ -156,9 +150,10 @@ public class GameScreenController  implements Initializable  {
             dialog.setWidth(300);
             dialog.setHeight(100);
             dialog.showAndWait();
-            communicator.broadcast("answer", false);
+            question.setScore(0);
         }
 
+        communicator.broadcast("answer", question);
         Node source = (Node) actionEvent.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
         stage.close();

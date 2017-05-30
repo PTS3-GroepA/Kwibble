@@ -65,6 +65,7 @@ public class GameRoomController implements Initializable {
     GameRoomCommunicator communicator = null;
     // TODO change string array to enum.
     private static String[] properties = {"room", "difficulty", "numberOfQuestions", "playlistUri", "join", "leave", "playQuestion", "answer"};
+    int answeredQuestions = 0;
 
     void initData(String name, Player host) {
         room = new GameRoom(host, name);
@@ -133,6 +134,11 @@ public class GameRoomController implements Initializable {
 
     public void confirmAuth(){
         webView.setVisible(false);
+        playquestion();
+    }
+
+    public void playquestion() {
+        answeredQuestions = 0;
         communicator.broadcast("playQuestion", room.quiz.getQuestionToPlay().getSerQuestion());
     }
 
@@ -150,6 +156,9 @@ public class GameRoomController implements Initializable {
         Difficulty dif = (Difficulty) cbDifficulty.getValue();
         ArrayList<String> result = (ArrayList<String>) trimUri();
 
+        if(result == null)  {
+            return;
+        }
         Quiz quiz = new Quiz(amountOfQuestions, dif, result.get(0), result.get(1));
         room.addQuiz(quiz);
         room.quiz.setGameBrowserController(this);
@@ -456,6 +465,8 @@ public class GameRoomController implements Initializable {
     @SuppressWarnings("Duplicates")
     public void playQuestion(SerQuestion question) {
 
+        question.setPlayer(localPlayer);
+
         System.out.println("Opening play screen");
         Platform.runLater(() -> {
             try {
@@ -463,7 +474,7 @@ public class GameRoomController implements Initializable {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("gui/screens/GameScreen.fxml"));
                 Parent root1 = fxmlLoader.load();
                 GameScreenController controller = fxmlLoader.getController();
-                controller.initData(question, this);
+                controller.initData(question, this, communicator);
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root1));
                 stage.show();
@@ -472,5 +483,33 @@ public class GameRoomController implements Initializable {
                 LOGGER.log(Level.SEVERE, e.toString(), e);
             }
         });
+    }
+
+    private void printScores() {
+        for (Map.Entry<Player, Boolean> entry : room.getPlayers().entrySet())
+        {
+            System.out.println("Player: " + entry.getKey().getName() + " has :" + entry.getKey().getScore() + " points!");
+        }
+    }
+
+    public void answerQuestion(SerQuestion question) {
+        try {
+            System.out.println("Answering for player: " + question.getPlayer().getName());
+            room.increaseScoreForPlayer(question.getPlayer(), question.getScore());
+            answeredQuestions++;
+            System.out.println(room.quiz.getQuestionsPlayed());
+            if ((room.quiz.getQuestionsPlayed() + 1) == room.quiz.getQuestions().size()) {
+                System.out.println("game finished, hooray you are done with this piece of shit.");
+                printScores();
+            } else {
+                if (answeredQuestions == room.getPlayers().size()) {
+                    printScores();
+                    room.quiz.increaseQuestionToPlay();
+                    playquestion();
+                }
+            }
+        } catch (Exception e) {
+            LOGGER.severe(e.getMessage());
+        }
     }
 }

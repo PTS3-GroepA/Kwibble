@@ -28,6 +28,11 @@ public class Quiz implements Serializable{
     private QuestionRepository questionRepo;
     private SimpleServer server;
     private GameRoomController gameRoomController;
+
+    public int getQuestionsPlayed() {
+        return questionsPlayed;
+    }
+
     private int questionsPlayed = 0;
 
     public Quiz(int amountOfQuestions, Difficulty difficulty, String userID, String playlistId) {
@@ -165,5 +170,9 @@ public class Quiz implements Serializable{
 
     public Question getQuestionToPlay() {
         return questions.get(questionsPlayed);
+    }
+
+    public void increaseQuestionToPlay() {
+        questionsPlayed++;
     }
 }

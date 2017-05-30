@@ -1,6 +1,7 @@
 package models.questions;
 
 import models.Difficulty;
+import models.Player;
 import models.answer.Answer;
 
 import java.io.Serializable;
@@ -19,6 +20,16 @@ public class SerQuestion implements Serializable {
     private boolean showAlbumArt;
     private int score;
     private List<Answer> answers;
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    private Player player;
 
     public SerQuestion(String questionString, int maxAnswerTime, String previewUrl, boolean showAlbumArt, int score, List<Answer> answers) {
         this.questionString = questionString;
@@ -76,4 +87,13 @@ public class SerQuestion implements Serializable {
         }
         return false;
     }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
 }

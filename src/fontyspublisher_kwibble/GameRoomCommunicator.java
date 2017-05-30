@@ -144,7 +144,7 @@ public class GameRoomCommunicator
     // Don't forget the break statements you twat.
     @Override
     public void propertyChange(PropertyChangeEvent evt) throws RemoteException {
-        //System.out.println("Property: " + evt.getPropertyName() + " has changed to: " + evt.getNewValue());
+        // System.out.println("Property: " + evt.getPropertyName() + " has changed to: " + evt.getNewValue());
         switch(evt.getPropertyName()) {
             case "difficulty":
                 controller.setCbDifficulty(evt.getNewValue());
@@ -168,7 +168,7 @@ public class GameRoomCommunicator
                 controller.playQuestion((SerQuestion) evt.getNewValue());
                 break;
             case"answer":
-                //TODO
+                controller.answerQuestion((SerQuestion) evt.getNewValue());
                 break;
             default:
                 System.out.println("Property: " + evt.getPropertyName() + " could not be found.");
