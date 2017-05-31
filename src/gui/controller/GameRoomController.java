@@ -64,7 +64,7 @@ public class GameRoomController implements Initializable {
     GameRoom room = null;
     GameRoomCommunicator communicator = null;
     // TODO change string array to enum.
-    private static String[] properties = {"room", "difficulty", "numberOfQuestions", "playlistUri", "join", "leave", "playQuestion", "answer"};
+    private static String[] properties = {"room", "difficulty", "numberOfQuestions", "playlistUri", "join", "leave", "playQuestion", "answer", "finished"};
     int answeredQuestions = 0;
 
     void initData(String name, Player host) {
@@ -496,7 +496,7 @@ public class GameRoomController implements Initializable {
     }
 
 
-    private void showScoreScreen() {
+    public void showScoreScreen(ArrayList<Player> playersToShow) {
         Platform.runLater(() -> {
             try {
                 Stage stageToHide = (Stage) btnStart.getScene().getWindow();
@@ -504,8 +504,7 @@ public class GameRoomController implements Initializable {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("gui/screens/GameScore.fxml"));
                 Parent root1 = fxmlLoader.load();
                 GameScoreController controller = fxmlLoader.getController();
-                ArrayList<Player> list = new ArrayList<Player>(room.getPlayers().keySet());
-                controller.initData(list);
+                controller.initData(playersToShow);
                 Stage stage = new Stage();
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.setTitle("Score");
@@ -528,7 +527,8 @@ public class GameRoomController implements Initializable {
 
                 if ((room.quiz.getQuestionsPlayed() + 1) == room.quiz.getQuestions().size()) {
                     System.out.println("game finished");
-                    showScoreScreen();
+                    ArrayList<Player> list = new ArrayList<Player>(room.getPlayers().keySet());
+                    communicator.broadcast("finished", list);
                     printScores();
                 }
                 printScores();

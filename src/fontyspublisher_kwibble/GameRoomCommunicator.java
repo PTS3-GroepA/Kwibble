@@ -5,6 +5,7 @@ import fontyspublisher.IRemotePublisherForDomain;
 import fontyspublisher.IRemotePublisherForListener;
 import gui.controller.GameRoomController;
 import gui.controller.MainMenuController;
+import models.Player;
 import models.questions.Question;
 import models.questions.SerQuestion;
 
@@ -15,6 +16,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Logger;
@@ -172,6 +174,9 @@ public class GameRoomCommunicator
                 break;
             case"answer":
                 controller.answerQuestion((SerQuestion) evt.getNewValue());
+                break;
+            case "finished":
+                controller.showScoreScreen((ArrayList<Player>) evt.getNewValue());
                 break;
             default:
                 System.out.println("Property: " + evt.getPropertyName() + " could not be found.");
