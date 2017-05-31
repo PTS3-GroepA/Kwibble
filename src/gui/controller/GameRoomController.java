@@ -450,6 +450,7 @@ public class GameRoomController implements Initializable {
         spinNumberOfQuestions.setStyle("-fx-opacity: 1;");
         tfPlaylistURI.setDisable(true);
         tfPlaylistURI.setStyle("-fx-opacity: 1;");
+        btnStart.setDisable(true);
     }
 
 
