@@ -86,7 +86,7 @@ public class HostOptionsController implements Initializable {
         try {
             remotePublisher = new RemotePublisher();
             Registry registry = LocateRegistry.createRegistry(portNumber);
-            System.setProperty("java.rmi.server.hostname", String.valueOf(InetAddress.getLocalHost()));
+            //System.setProperty("java.rmi.server.hostname", String.valueOf(InetAddress.getLocalHost()));
             registry.rebind(serverName, remotePublisher);
         } catch (Exception e) {
             e.printStackTrace();
@@ -109,6 +109,7 @@ public class HostOptionsController implements Initializable {
         alert.showAndWait();
     }
 
+
     private void showGameRoomScreen(Player player) {
         Platform.runLater(() -> {
             try {
@@ -118,7 +119,7 @@ public class HostOptionsController implements Initializable {
                 Parent root1 = fxmlLoader.load();
                 GameRoomController controller = fxmlLoader.getController();
                 controller.initData(tfHostName.getText(), player);
-                controller.connectAndSetup("0.0.0.0" ,tfHostName.getText());
+                controller.connectAndSetup("localhost" ,tfHostName.getText());
                 Stage stage = new Stage();
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.setTitle("Game Room");

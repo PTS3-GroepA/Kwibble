@@ -60,6 +60,8 @@ public class GameRoomController implements Initializable {
     private Label lblServerName;
     @FXML
     private WebView webView;
+    @FXML
+    public CheckBox cbDisableMusic;
 
     GameRoom room = null;
     GameRoomCommunicator communicator = null;
@@ -91,7 +93,7 @@ public class GameRoomController implements Initializable {
             public void handle(ActionEvent event) {
                 disableControls();
                 addQuiz();
-                authorize();
+
             }
         });
 
@@ -124,7 +126,7 @@ public class GameRoomController implements Initializable {
         });
     }
 
-    private void authorize(){
+    private void authorize() {
 
         String url = room.quiz.getAuthenticationURL();
         WebEngine engine = webView.getEngine();
@@ -132,7 +134,7 @@ public class GameRoomController implements Initializable {
         webView.setVisible(true);
     }
 
-    public void confirmAuth(){
+    public void confirmAuth() {
         webView.setVisible(false);
         playquestion();
     }
@@ -156,12 +158,14 @@ public class GameRoomController implements Initializable {
         Difficulty dif = (Difficulty) cbDifficulty.getValue();
         ArrayList<String> result = (ArrayList<String>) trimUri();
 
-        if(result == null)  {
+        if (result == null) {
             return;
         }
         Quiz quiz = new Quiz(amountOfQuestions, dif, result.get(0), result.get(1));
         room.addQuiz(quiz);
         room.quiz.setGameBrowserController(this);
+
+        authorize();
     }
 
     /**
@@ -248,7 +252,7 @@ public class GameRoomController implements Initializable {
     private void spinChangeEvent(Object newValue) {
         try {
             communicator.broadcast("numberOfQuestions", newValue);
-        } catch(Exception e) {
+        } catch (Exception e) {
             LOGGER.severe(e.getMessage());
         }
     }
@@ -478,7 +482,9 @@ public class GameRoomController implements Initializable {
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root1));
                 stage.show();
-                controller.playMusic();
+                if (!cbDisableMusic.isSelected()) {
+                    controller.playMusic();
+                }
             } catch (Exception e) {
                 LOGGER.log(Level.SEVERE, e.toString(), e);
             }
@@ -486,10 +492,31 @@ public class GameRoomController implements Initializable {
     }
 
     private void printScores() {
-        for (Map.Entry<Player, Boolean> entry : room.getPlayers().entrySet())
-        {
+        for (Map.Entry<Player, Boolean> entry : room.getPlayers().entrySet()) {
             System.out.println("Player: " + entry.getKey().getName() + " has :" + entry.getKey().getScore() + " points!");
         }
+    }
+
+
+    private void showScoreScreen() {
+        Platform.runLater(() -> {
+            try {
+                Stage stageToHide = (Stage) btnStart.getScene().getWindow();
+                stageToHide.close();
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("gui/screens/GameScore.fxml"));
+                Parent root1 = fxmlLoader.load();
+                GameScoreController controller = fxmlLoader.getController();
+                ArrayList<Player> list = new ArrayList<Player>(room.getPlayers().keySet());
+                controller.initData(list);
+                Stage stage = new Stage();
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.setTitle("Score");
+                stage.setScene(new Scene(root1));
+                stage.show();
+            } catch (Exception e) {
+                LOGGER.log(Level.SEVERE, e.toString(), e);
+            }
+        });
     }
 
     public void answerQuestion(SerQuestion question) {
@@ -498,16 +525,19 @@ public class GameRoomController implements Initializable {
             room.increaseScoreForPlayer(question.getPlayer(), question.getScore());
             answeredQuestions++;
             System.out.println(room.quiz.getQuestionsPlayed());
-            if ((room.quiz.getQuestionsPlayed() + 1) == room.quiz.getQuestions().size()) {
-                System.out.println("game finished, hooray you are done with this piece of shit.");
-                printScores();
-            } else {
-                if (answeredQuestions == room.getPlayers().size()) {
+
+            if (answeredQuestions == room.getPlayers().size()) {
+
+                if ((room.quiz.getQuestionsPlayed() + 1) == room.quiz.getQuestions().size()) {
+                    System.out.println("game finished");
+                    showScoreScreen();
                     printScores();
-                    room.quiz.increaseQuestionToPlay();
-                    playquestion();
                 }
+                printScores();
+                room.quiz.increaseQuestionToPlay();
+                playquestion();
             }
+
         } catch (Exception e) {
             LOGGER.severe(e.getMessage());
         }
