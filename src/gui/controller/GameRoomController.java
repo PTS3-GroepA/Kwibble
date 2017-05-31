@@ -1,5 +1,6 @@
 package gui.controller;
 
+import com.google.common.collect.Lists;
 import fontyspublisher_kwibble.GameRoomCommunicator;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -14,10 +15,7 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import models.Difficulty;
-import models.GameRoom;
-import models.Player;
-import models.Quiz;
+import models.*;
 import models.questions.SerQuestion;
 
 import java.io.IOException;
@@ -437,7 +435,6 @@ public class GameRoomController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     /**
@@ -529,6 +526,8 @@ public class GameRoomController implements Initializable {
                 if ((room.quiz.getQuestionsPlayed() + 1) == room.quiz.getQuestions().size()) {
                     System.out.println("game finished");
                     ArrayList<Player> list = new ArrayList<Player>(room.getPlayers().keySet());
+                    Collections.sort(list, new ScoreComparer());
+                    Collections.reverse(list);
                     communicator.broadcast("finished", list);
                     printScores();
                 }
