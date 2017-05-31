@@ -39,7 +39,7 @@ public class GameScoreController implements Initializable {
         for (int i = 0; i < players.size(); i ++)
         {;
             Label label = new Label(players.get(i).getName() + ": " + players.get(i).getScore());
-            label.setFont(new Font("Arial", 20));
+            label.setFont(new Font("impact", 20));
             grid.add(label, 22 , 10 + (i * 2));
         }
 

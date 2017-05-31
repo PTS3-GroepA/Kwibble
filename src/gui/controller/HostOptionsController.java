@@ -86,11 +86,8 @@ public class HostOptionsController implements Initializable {
         try {
             remotePublisher = new RemotePublisher();
             Registry registry = LocateRegistry.createRegistry(portNumber);
-<<<<<<< HEAD
             //System.setProperty("java.rmi.server.hostname", String.valueOf(InetAddress.getLocalHost()));
-=======
-            System.setProperty("java.rmi.server.hostname", String.valueOf(InetAddress.getLocalHost().getHostAddress()));
->>>>>>> d1acbff900314c4a3241bd5e3a4a0997741b8a48
+            //System.setProperty("java.rmi.server.hostname", String.valueOf(InetAddress.getLocalHost().getHostAddress()));
             registry.rebind(serverName, remotePublisher);
         } catch (Exception e) {
             e.printStackTrace();
