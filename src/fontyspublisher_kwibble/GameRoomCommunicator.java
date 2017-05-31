@@ -59,7 +59,7 @@ public class GameRoomCommunicator
         try {
             this.bindingName = bindingName;
             //System.setProperty("java.rmi.server.hostname", String.valueOf(InetAddress.getLocalHost()));
-            //System.setProperty("java.rmi.server.hostname", String.valueOf(InetAddress.getLocalHost().getHostAddress()));
+            System.setProperty("java.rmi.server.hostname", String.valueOf(InetAddress.getLocalHost().getHostAddress()));
             Registry registry = LocateRegistry.getRegistry(ip, portNumber);
             publisherForDomain = (IRemotePublisherForDomain) registry.lookup(bindingName);
             publisherForListener = (IRemotePublisherForListener) registry.lookup(bindingName);

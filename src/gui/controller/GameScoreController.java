@@ -1,6 +1,5 @@
 package gui.controller;
 
-import fontyspublisher_kwibble.GameRoomCommunicator;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -8,13 +7,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
-import models.MusicPlayer;
 import models.Player;
-import models.questions.SerQuestion;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.ResourceBundle;
 
 /**
