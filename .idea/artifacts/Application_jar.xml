@@ -1,0 +1,16 @@
+<component name="ArtifactManager">
+  <artifact name="Application:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Application_jar</output-path>
+    <root id="root">
+      <element id="archive" name="Application.jar">
+        <element id="directory" name="META-INF">
+          <element id="file-copy" path="$USER_HOME$/Documents/META-INF/MANIFEST.MF" />
+        </element>
+        <element id="module-output" name="Application" />
+      </element>
+      <element id="library" level="project" name="sqljdbc42" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/Mysql/mysql-connector-java-5.1.41-bin.jar" />
+      <element id="library" level="project" name="se.michaelthelin.spotify:spotify-web-api-java:1.5.0" />
+    </root>
+  </artifact>
+</component>

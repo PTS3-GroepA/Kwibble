@@ -14,11 +14,10 @@ import java.util.List;
 
 /**
  * Created by dennisvermeulen on 20-03-17.
- * <p>
+ *
  * Main logic class of the game.
  */
 public class Quiz implements Serializable{
-
     private int amountOfQuestions;
     private Difficulty difficulty;
     private String userID;
