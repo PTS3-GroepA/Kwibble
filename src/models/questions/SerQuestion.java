@@ -96,4 +96,7 @@ public class SerQuestion implements Serializable {
         return score;
     }
 
+    public int getMaxAnswerTime() {
+        return maxAnswerTime;
+    }
 }

@@ -11,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import models.MusicPlayer;
+import models.SimpleTimer;
 import models.questions.Question;
 import models.questions.SerQuestion;
 
@@ -28,8 +29,6 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class GameScreenController  implements Initializable  {
 
-    GameRoomCommunicator communicator;
-    MusicPlayer mp;
     @FXML
     private Button btnAnswer1;
     @FXML
@@ -40,6 +39,13 @@ public class GameScreenController  implements Initializable  {
     private Button btnAnswer4;
     @FXML
     private Label questionBox;
+    @FXML
+    public ProgressBar timerProgressBar;
+
+    SimpleTimer timer;
+
+    private GameRoomCommunicator communicator;
+    private MusicPlayer mp;
     private SerQuestion question;
 
     void initData(SerQuestion question, GameRoomController controller, GameRoomCommunicator communicator) {
@@ -49,6 +55,10 @@ public class GameScreenController  implements Initializable  {
         questionBox.setText(question.getQuestionString());
         placeAnswers();
         mp = new MusicPlayer(question.getPreviewURL());
+        timer = new SimpleTimer(question.getMaxAnswerTime(), this, timerProgressBar);
+
+        Thread t = new Thread(timer);
+        t.run();
     }
 
     @SuppressWarnings("Duplicates")
@@ -153,10 +163,7 @@ public class GameScreenController  implements Initializable  {
             question.setScore(0);
         }
 
-        communicator.broadcast("answer", question);
-        Node source = (Node) actionEvent.getSource();
-        Stage stage = (Stage) source.getScene().getWindow();
-        stage.close();
+        answerAndClose();
     }
     private void checkAnswer(ActionEvent event){
         Button b = (Button) event.getSource();
@@ -167,5 +174,11 @@ public class GameScreenController  implements Initializable  {
             b.setStyle("-fx-background-color: red;");
             showResultDialog(false, event);
         }
+    }
+
+    public void answerAndClose( ) {
+        communicator.broadcast("answer", question);
+        Stage stage = (Stage) btnAnswer1.getScene().getWindow();
+        stage.close();
     }
 }
