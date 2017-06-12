@@ -32,9 +32,6 @@ public class Player implements Serializable {
         this.score = score;
     }
 
-    public void createGameRoom(String name) {
-        //TODO
-    }
 
     public int getId() {
         return id;
