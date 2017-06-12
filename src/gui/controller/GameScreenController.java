@@ -2,22 +2,18 @@ package gui.controller;
 
 import fontyspublisher_kwibble.GameRoomCommunicator;
 import javafx.application.Platform;
-import javafx.event.Event;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import models.MusicPlayer;
 import models.SimpleTimer;
-import models.questions.Question;
 import models.questions.SerQuestion;
 
-import java.awt.event.MouseEvent;
 import java.net.URL;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.concurrent.ThreadLocalRandom;
@@ -43,6 +39,7 @@ public class GameScreenController  implements Initializable  {
     public ProgressBar timerProgressBar;
 
     SimpleTimer timer;
+    Thread timerThread;
 
     private GameRoomCommunicator communicator;
     private MusicPlayer mp;
@@ -55,10 +52,11 @@ public class GameScreenController  implements Initializable  {
         questionBox.setText(question.getQuestionString());
         placeAnswers();
         mp = new MusicPlayer(question.getPreviewURL());
+        System.out.println(question.getMaxAnswerTime());
         timer = new SimpleTimer(question.getMaxAnswerTime(), this, timerProgressBar);
 
-        Thread t = new Thread(timer);
-        t.run();
+        timerThread = new Thread(timer);
+        timerThread.start();
     }
 
     @SuppressWarnings("Duplicates")
@@ -144,6 +142,7 @@ public class GameScreenController  implements Initializable  {
     }
 
     void showResultDialog(boolean correct, ActionEvent actionEvent) {
+        timer.stopTimer();
         mp.stop();
         if (correct) {
             Dialog<String> dialog = new Dialog<>();
@@ -152,7 +151,7 @@ public class GameScreenController  implements Initializable  {
             dialog.setWidth(300);
             dialog.setHeight(100);
             dialog.showAndWait();
-            question.setScore(10);
+            question.calculateScore(timerProgressBar.getProgress());
         } else {
             Dialog<String> dialog = new Dialog<>();
             dialog.getDialogPane().setContentText("Wrong, the correct answer was: " + question.getCorrectAnswer());
@@ -177,6 +176,7 @@ public class GameScreenController  implements Initializable  {
     }
 
     public void answerAndClose( ) {
+        timer.stopTimer();
         communicator.broadcast("answer", question);
         Stage stage = (Stage) btnAnswer1.getScene().getWindow();
         stage.close();

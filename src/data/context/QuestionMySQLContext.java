@@ -103,7 +103,7 @@ public class QuestionMySQLContext implements Questionable {
             while (result.next()) {
                 switch (result.getString(4)) {
                     case "ARTNAME":
-                        return new ArtistNameQuestion(result.getString(2), result.getBoolean(3), result.getString(4), Difficulty.values()[result.getInt(5)]);
+                        return new ArtistNameQuestion(result.getString(2), result.getBoolean(3), result.getString(4), Difficulty.values()[result.getInt(5)], 10);
                 }
             }
         } catch (SQLException e) {

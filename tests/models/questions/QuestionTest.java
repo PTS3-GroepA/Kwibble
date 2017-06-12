@@ -1,5 +1,6 @@
 package models.questions;
 
+import data.context.QuestionMSSQLContext;
 import data.context.QuestionMySQLContext;
 import data.repos.QuestionRepository;
 import models.Difficulty;
@@ -24,7 +25,7 @@ class QuestionTest {
     @BeforeEach
     void init() {
 
-        questionRepo = new QuestionRepository(new QuestionMySQLContext());
+        questionRepo = new QuestionRepository(new QuestionMSSQLContext());
         question = questionRepo.getRandomQuestion(Difficulty.EASY);
 
     }
