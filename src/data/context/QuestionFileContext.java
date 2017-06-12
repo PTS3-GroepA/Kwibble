@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 /**
  * Created by Max Meijer on 15/05/2017.
@@ -18,6 +19,7 @@ import java.util.Scanner;
  */
 public class QuestionFileContext implements Questionable {
 
+    private static final Logger LOGGER = Logger.getLogger(QuestionFileContext.class.getName());
     @Override
     public List<Question> getAllQuestions() {
         return null;
@@ -35,7 +37,7 @@ public class QuestionFileContext implements Questionable {
         try {
             c = new Scanner(new BufferedReader(new FileReader("C:\\Users\\Max\\Source\\repos\\Semester 3\\Kwibble\\src\\questions\\0_1.txt")));
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            LOGGER.severe(e.getMessage());
         }
 
         try {
@@ -52,7 +54,7 @@ public class QuestionFileContext implements Questionable {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.severe(e.getMessage());
         }
         return null;
     }

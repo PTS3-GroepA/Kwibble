@@ -311,7 +311,7 @@ public class GameRoomController implements Initializable {
             try {
                 sleep(1000);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                LOGGER.log(Level.SEVERE, e.toString(), e);
             }
             room = new GameRoom(serverName);
             TextInputDialog tid = new TextInputDialog("Player");
@@ -433,7 +433,7 @@ public class GameRoomController implements Initializable {
             stage.setScene(new Scene(root1));
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, e.toString(), e);
         }
     }
 

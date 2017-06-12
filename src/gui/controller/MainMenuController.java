@@ -114,7 +114,7 @@ public class MainMenuController implements Initializable {
             stage.setScene(new Scene(root1));
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, e.toString(), e);
         }
 
     }

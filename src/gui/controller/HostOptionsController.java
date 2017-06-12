@@ -54,7 +54,7 @@ public class HostOptionsController implements Initializable {
             java.net.InetAddress localMachine = java.net.InetAddress.getLocalHost();
             pcName = localMachine.getHostName();
         } catch (UnknownHostException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, e.toString(), e);
         }
         tfHostName.setText("Server on: " + pcName);
     }
@@ -90,7 +90,7 @@ public class HostOptionsController implements Initializable {
             System.setProperty("java.rmi.server.hostname", String.valueOf(InetAddress.getLocalHost().getHostAddress()));
             registry.rebind(serverName, remotePublisher);
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, e.toString(), e);
         }
 
         // Remote publisher registered
