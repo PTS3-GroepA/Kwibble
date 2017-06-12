@@ -12,12 +12,6 @@ class PlayerTest {
     Player p = new Player("testPlayer", 10, "testplayer@email.com", "testPassword");
     Player p1 = new Player(1, "Testplayer1", 20, "Player@email.com");
 
-    @Test
-    void createGameRoom() {
-        //todo
-        p.createGameRoom("testroom");
-        assertTrue(false);
-    }
 
     @Test
     void getId() {
