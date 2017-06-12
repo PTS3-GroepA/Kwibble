@@ -5,6 +5,7 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.concurrent.Task;
 import javafx.scene.control.ProgressBar;
 import javafx.util.Duration;
@@ -15,9 +16,11 @@ import javafx.util.Duration;
  */
 public class SimpleTimer extends Task {
 
-    double duration = 10;
-    GameScreenController controller;
-    ProgressBar bar;
+    private double duration = 10;
+    private GameScreenController controller;
+    private ProgressBar bar;
+    private Timeline timeline;
+    private int currenTime = 0;
 
     public SimpleTimer(double duration, GameScreenController controller, ProgressBar bar) {
         this.duration = duration;
@@ -27,16 +30,23 @@ public class SimpleTimer extends Task {
 
     @Override
     protected Object call() throws Exception {
-        Timeline timeline = new Timeline(
+        System.out.println("Starting timer");
+        timeline = new Timeline(
                 new KeyFrame(Duration.ZERO, new KeyValue(bar.progressProperty(), 0)),
                 new KeyFrame(Duration.seconds(duration), e-> {
                     controller.answerAndClose();
                     System.out.println("Timer finished");
+                    stopTimer();
                 }, new KeyValue(bar.progressProperty(), 1))
         );
+
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
-
+        System.out.println(timeline.getCurrentTime());
         return null;
+    }
+
+    public void stopTimer() {
+        timeline.stop();
     }
 }

@@ -11,7 +11,7 @@ import java.util.List;
  * Created by Max on 30-May-17.
  * Fontys University of Applied Sciences, Eindhoven
  *
- * Question class used for sending to players in a multi player scenario.
+ * Question class used for sending to players in a multiplayer scenario.
  */
 public class SerQuestion implements Serializable {
     private String questionString;
@@ -98,5 +98,9 @@ public class SerQuestion implements Serializable {
 
     public int getMaxAnswerTime() {
         return maxAnswerTime;
+    }
+
+    public void calculateScore(double percentage) {
+        score = (int) (100 * percentage);
     }
 }

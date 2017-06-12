@@ -21,8 +21,8 @@ public class ArtistNameQuestion extends Question {
         super(questionString, maxAnswerTime, source, showAlbumArt, score, difficulty);
     }
 
-    public ArtistNameQuestion(String questionString, boolean showAlbumArt, String answerType, Difficulty difficulty) {
-        super(questionString, showAlbumArt, answerType, difficulty);
+    public ArtistNameQuestion(String questionString, boolean showAlbumArt, String answerType, Difficulty difficulty, int maxAnswerTime) {
+        super(questionString, showAlbumArt, answerType, difficulty, maxAnswerTime);
     }
 
     @Override

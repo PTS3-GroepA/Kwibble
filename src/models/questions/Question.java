@@ -37,12 +37,13 @@ public abstract class Question implements Serializable {
         musicRepo = new MusicRepository(new SpotifyContext());
     }
 
-    public Question(String questionString, boolean showAlbumArt, String answerType, Difficulty difficulty) {
+    public Question(String questionString, boolean showAlbumArt, String answerType, Difficulty difficulty, int maxAnswerTime) {
         this.questionString = questionString;
         this.showAlbumArt = showAlbumArt;
         this.answerType = answerType;
         this.answers = new ArrayList<>();
         this.difficulty = difficulty;
+        this.maxAnswerTime = maxAnswerTime;
         musicRepo = new MusicRepository(new SpotifyContext());
         score = 0;
     }

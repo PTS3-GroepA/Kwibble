@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  * Fontys University of Applied Sciences, Eindhoven
  */
 public class QuestionMSSQLContext implements Questionable {
-    private static final Logger LOGGER = Logger.getLogger(QuestionMySQLContext.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(QuestionMSSQLContext.class.getName());
     private String connectionUrl = "jdbc:sqlserver://kwibblesonar.database.windows.net:1433;database=kwibble;user=kwibble@kwibblesonar;password=Wachtwoord1;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;";
     private Connection con = null;
     private Statement stmt=null;
@@ -47,7 +47,7 @@ public class QuestionMSSQLContext implements Questionable {
                 name = name.replaceAll("\\s+","");
                 switch (name) {
                     case "ARTNAME":
-                        return new ArtistNameQuestion(rs.getString(2), rs.getBoolean(3), rs.getString(4), Difficulty.values()[rs.getInt(5)]);
+                        return new ArtistNameQuestion(rs.getString(2), rs.getBoolean(3), rs.getString(4), Difficulty.values()[rs.getInt(5)], 10);
                     default :
                         System.out.println("Wrong question type");
                         break;
@@ -56,6 +56,7 @@ public class QuestionMSSQLContext implements Questionable {
         } catch(Exception e) {
             LOGGER.severe(e.getMessage());
         }
+
 
         return null;
     }

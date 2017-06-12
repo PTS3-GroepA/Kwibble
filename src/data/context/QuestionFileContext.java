@@ -48,7 +48,7 @@ public class QuestionFileContext implements Questionable {
                 }
                 switch (result[3]) {
                     case "ARTNAME" :
-                        return new ArtistNameQuestion(result[1], Boolean.parseBoolean(result[2]), result[3], Difficulty.values()[Integer.parseInt(result[4])]);
+                        return new ArtistNameQuestion(result[1], Boolean.parseBoolean(result[2]), result[3], Difficulty.values()[Integer.parseInt(result[4])], 10);
                 }
             }
         } catch (Exception e) {
