@@ -18,7 +18,7 @@ public class QuestionMSSQLContext implements Questionable {
     private static final Logger LOGGER = Logger.getLogger(QuestionMSSQLContext.class.getName());
     private String connectionUrl = "jdbc:sqlserver://kwibblesonar.database.windows.net:1433;database=kwibble;user=kwibble@kwibblesonar;password=Wachtwoord1;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;";
     private Connection con = null;
-    private Statement stmt=null;
+    private Statement stmt = null;
 
     @Override
     public List<Question> getAllQuestions() {
