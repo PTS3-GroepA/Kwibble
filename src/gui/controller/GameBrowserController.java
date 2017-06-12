@@ -48,7 +48,7 @@ public class GameBrowserController implements Initializable {
         try {
             communicator = new GameRoomCommunicator(new GameRoomController());
         } catch (RemoteException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, e.toString(), e);
         }
 
         btnRefresh.setOnAction(new EventHandler<ActionEvent>() {

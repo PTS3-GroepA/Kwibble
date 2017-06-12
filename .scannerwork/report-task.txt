@@ -1,5 +1,5 @@
 projectKey=my:Kwibble
 serverUrl=http://localhost:9000
 dashboardUrl=http://localhost:9000/dashboard/index/my:Kwibble
-ceTaskId=AVwLZ6tyEYuKUFl5WGK1
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AVwLZ6tyEYuKUFl5WGK1
+ceTaskId=AVybue28Z-i7i-nAi-oQ
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AVybue28Z-i7i-nAi-oQ
