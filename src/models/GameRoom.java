@@ -12,7 +12,7 @@ import java.util.function.BiConsumer;
 public class GameRoom implements Serializable {
 
     private String sessionName;
-    private Quiz quiz;
+    public Quiz quiz;
     private Map<Player, Boolean> players;
 
 
