@@ -58,6 +58,8 @@ public class GameRoomController implements Initializable {
     private WebView webView;
     @FXML
     public CheckBox cbDisableMusic;
+    @FXML
+    private ProgressIndicator bar;
 
     GameRoom room = null;
     GameRoomCommunicator communicator = null;
@@ -82,6 +84,7 @@ public class GameRoomController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         webView.setVisible(false);
+        bar.setVisible(false);
 
         // Button start click event.
         btnStart.setOnAction(new EventHandler<ActionEvent>() {
@@ -123,14 +126,20 @@ public class GameRoomController implements Initializable {
     }
 
     private void authorize() {
-
         String url = room.quiz.getAuthenticationURL();
         WebEngine engine = webView.getEngine();
         engine.load(url);
         webView.setVisible(true);
     }
 
+    public ProgressIndicator getProgressBar() {
+        webView.setVisible(false);
+        bar.setVisible(true);
+        return bar;
+    }
+
     public void confirmAuth() {
+        bar.setVisible(false);
         webView.setVisible(false);
         playquestion();
     }

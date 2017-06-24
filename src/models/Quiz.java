@@ -6,6 +6,8 @@ import data.repos.MusicRepository;
 import data.repos.QuestionRepository;
 import gui.controller.GameBrowserController;
 import gui.controller.GameRoomController;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ProgressIndicator;
 import models.questions.Question;
 
 import java.io.Serializable;
@@ -27,6 +29,7 @@ public class Quiz implements Serializable{
     private QuestionRepository questionRepo;
     private SimpleServer server;
     private GameRoomController gameRoomController;
+    private QuestionGenerator questionGenerator;
 
     public int getQuestionsPlayed() {
         return questionsPlayed;
@@ -52,15 +55,21 @@ public class Quiz implements Serializable{
         this.gameRoomController = controller;
     }
 
+    public void bindQuestionGeneratorProperty() {
+        ProgressIndicator bar = gameRoomController.getProgressBar();
+        bar.progressProperty().bind(questionGenerator.progressProperty());
+    }
+
     /**
      * Create questions based on the playlist and the difficulty level.
      */
     public void generateQuestions() {
         questions.clear();
         System.out.println("Generating questions");
-        QuestionGenerator qg = new QuestionGenerator(difficulty, amountOfQuestions, musicRepo.getApi(), userID, playlistURI);
+        questionGenerator = new QuestionGenerator(difficulty, amountOfQuestions, musicRepo.getApi(), userID, playlistURI);
+        bindQuestionGeneratorProperty();
         try {
-            questions = qg.call();
+            questions = questionGenerator.call();
         } catch (Exception e) {
             e.printStackTrace();
         }

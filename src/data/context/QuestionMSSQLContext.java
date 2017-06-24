@@ -47,7 +47,7 @@ public class QuestionMSSQLContext implements Questionable {
                 name = name.replaceAll("\\s+","");
                 switch (name) {
                     case "ARTNAME":
-                        return new ArtistNameQuestion(rs.getString(2), rs.getBoolean(3), rs.getString(4), Difficulty.values()[rs.getInt(5)], 10);
+                        return new ArtistNameQuestion(rs.getString(2).trim(), rs.getBoolean(3), rs.getString(4), Difficulty.values()[rs.getInt(5)], 10);
                     default :
                         System.out.println("Wrong question type");
                         break;
