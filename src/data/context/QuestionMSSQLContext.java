@@ -56,8 +56,6 @@ public class QuestionMSSQLContext implements Questionable {
         } catch(Exception e) {
             LOGGER.severe(e.getMessage());
         }
-
-
         return null;
     }
 }
