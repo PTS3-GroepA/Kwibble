@@ -30,7 +30,7 @@
 .questionBar{
     -fx-background-color:  #003973;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 5, 5);
-    /-fx-background-radius: 70;/
+    -fx-background-radius: 70;
     -fx-font-family: Impact;
     -fx-font-size: 50;
     -fx-text-fill: #F5F5F5;
