@@ -87,5 +87,17 @@ class QuestionTest {
         assertEquals(true, question.getAnswerString(3));
     }
 
+    @Test
+    void testScoreCalculation() {
+        SerQuestion question = new SerQuestion("", 0, "", false, 0, new ArrayList<Answer>());
+        assertEquals(0, question.getScore());
+
+        double percentage = 80;
+
+        question.calculateScore(percentage);
+
+        assertEquals(20, question.getScore());
+    }
+
 
 }

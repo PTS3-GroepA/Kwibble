@@ -65,7 +65,6 @@ public class Quiz implements Serializable{
      */
     public void generateQuestions() {
         questions.clear();
-        System.out.println("Generating questions");
         questionGenerator = new QuestionGenerator(difficulty, amountOfQuestions, musicRepo.getApi(), userID, playlistURI);
         bindQuestionGeneratorProperty();
         try {

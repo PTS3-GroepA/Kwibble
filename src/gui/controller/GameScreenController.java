@@ -2,6 +2,8 @@ package gui.controller;
 
 import fontyspublisher_kwibble.GameRoomCommunicator;
 import javafx.application.Platform;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -46,13 +48,11 @@ public class GameScreenController  implements Initializable  {
     private SerQuestion question;
 
     void initData(SerQuestion question, GameRoomController controller, GameRoomCommunicator communicator) {
-        System.out.println("initialising game screen with question: " + question.toString());
         this.question = question;
         this.communicator = communicator;
         questionBox.setText(question.getQuestionString());
         placeAnswers();
         mp = new MusicPlayer(question.getPreviewURL());
-        System.out.println(question.getMaxAnswerTime());
         timer = new SimpleTimer(question.getMaxAnswerTime(), this, timerProgressBar);
 
         timerThread = new Thread(timer);
@@ -132,8 +132,6 @@ public class GameScreenController  implements Initializable  {
     }
 
     void playMusic() {
-        System.out.println("Playing music");
-        System.out.println(question.getPreviewURL());
         Platform.runLater(mp);
     }
 
@@ -145,24 +143,30 @@ public class GameScreenController  implements Initializable  {
         timer.stopTimer();
         mp.stop();
         if (correct) {
-            Dialog<String> dialog = new Dialog<>();
-            dialog.getDialogPane().setContentText("Well done!");
-            dialog.getDialogPane().getButtonTypes().add(new ButtonType("OK", ButtonBar.ButtonData.CANCEL_CLOSE));
-            dialog.setWidth(300);
-            dialog.setHeight(100);
-            dialog.showAndWait();
             question.calculateScore(timerProgressBar.getProgress());
         } else {
-            Dialog<String> dialog = new Dialog<>();
-            dialog.getDialogPane().setContentText("Wrong, the correct answer was: " + question.getCorrectAnswer());
-            dialog.getDialogPane().getButtonTypes().add(new ButtonType("OK", ButtonBar.ButtonData.CANCEL_CLOSE));
-            dialog.setWidth(300);
-            dialog.setHeight(100);
-            dialog.showAndWait();
             question.setScore(0);
         }
 
-        answerAndClose();
+        Task<Void> sleeper = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                }
+                return null;
+            }
+        };
+        sleeper.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent event) {
+                answerAndClose();
+            }
+        });
+        new Thread(sleeper).start();
+
+
     }
     private void checkAnswer(ActionEvent event){
         Button b = (Button) event.getSource();
@@ -171,6 +175,7 @@ public class GameScreenController  implements Initializable  {
             showResultDialog(true, event);
         } else {
             b.setStyle("-fx-background-color: red;");
+
             showResultDialog(false, event);
         }
     }

@@ -38,7 +38,5 @@ public class ArtistNameQuestion extends Question {
             int randomNum = ThreadLocalRandom.current().nextInt(0, related.size());
             addAnswer(new TextAnswer(related.get(randomNum).getName(), false));
         }
-
-        System.out.println(this);
     }
 }

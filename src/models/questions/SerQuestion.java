@@ -101,6 +101,6 @@ public class SerQuestion implements Serializable {
     }
 
     public void calculateScore(double percentage) {
-        score = (int) (100 * percentage);
+        score = (int) ( 100 - percentage);
     }
 }
