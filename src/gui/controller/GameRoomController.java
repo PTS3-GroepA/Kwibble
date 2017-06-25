@@ -10,7 +10,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
+import javafx.scene.layout.Pane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Modality;
@@ -33,6 +35,8 @@ import static java.lang.Thread.sleep;
  */
 public class GameRoomController implements Initializable {
     private static final Logger LOGGER = Logger.getLogger(LocalGameController.class.getName());
+
+
 
     private boolean isConnected = false;
     private boolean isHost = false;
@@ -60,6 +64,10 @@ public class GameRoomController implements Initializable {
     public CheckBox cbDisableMusic;
     @FXML
     private ProgressIndicator bar;
+    @FXML
+    private Pane blurPane;
+    @FXML
+    private Label labelLoadingQuestion;
 
     GameRoom room = null;
     GameRoomCommunicator communicator = null;
@@ -85,6 +93,8 @@ public class GameRoomController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         webView.setVisible(false);
         bar.setVisible(false);
+        blurPane.setVisible(false);
+        labelLoadingQuestion.setVisible(false);
 
         // Button start click event.
         btnStart.setOnAction(new EventHandler<ActionEvent>() {
@@ -134,13 +144,17 @@ public class GameRoomController implements Initializable {
 
     public ProgressIndicator getProgressBar() {
         webView.setVisible(false);
+        labelLoadingQuestion.setVisible(true);
+        blurPane.setVisible(true);
         bar.setVisible(true);
         return bar;
     }
 
     public void confirmAuth() {
         bar.setVisible(false);
+        blurPane.setVisible(false);
         webView.setVisible(false);
+        labelLoadingQuestion.setVisible(false);
         playquestion();
     }
 
