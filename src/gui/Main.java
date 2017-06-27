@@ -4,12 +4,8 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-import javax.print.DocFlavor;
-import javax.swing.*;
-import java.awt.*;
 import java.net.InetAddress;
 
 
@@ -35,6 +31,5 @@ public class Main extends Application {
 
         InetAddress IP= InetAddress.getLocalHost();
         System.out.println("IP of my system is := "+IP.getHostAddress());
-        System.out.println("Hoi vera");
     }
 }

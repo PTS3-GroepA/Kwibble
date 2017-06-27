@@ -50,17 +50,17 @@ public class QuestionGenerator extends Task<List<Question>> {
 
             // Get a base random question from the database.
             Question question = questionRepo.getRandomQuestion(difficulty);
-            System.out.println(question);
+            //System.out.println(question);
 
             // Pass the api with credentials to the question.
             question.setApi(musicRepo.getApi());
-            System.out.println(question);
+            //System.out.println(question);
 
             // Add a random song from the playlist as source.
             question.setSource(musicRepo.getRandomTrackFromPlaylist(userID, playlistURI).getUri());
 
             question.generateAnswers();
-            System.out.println(question);
+            //System.out.println(question);
             questions.add(question);
             updateProgress(i, numberOfQuestions);
         }

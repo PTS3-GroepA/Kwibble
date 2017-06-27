@@ -143,6 +143,7 @@ public class GameScreenController  implements Initializable  {
         timer.stopTimer();
         mp.stop();
         if (correct) {
+            System.out.println("Progress at: " + timerProgressBar.getProgress());
             question.calculateScore(timerProgressBar.getProgress());
         } else {
             question.setScore(0);

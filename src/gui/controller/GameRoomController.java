@@ -1,6 +1,5 @@
 package gui.controller;
 
-import com.google.common.collect.Lists;
 import fontyspublisher_kwibble.GameRoomCommunicator;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -96,13 +95,14 @@ public class GameRoomController implements Initializable {
         blurPane.setVisible(false);
         labelLoadingQuestion.setVisible(false);
 
+        tfPlaylistURI.setText("spotify:user:siemke1994:playlist:6R5Z9DppfB0WLjboQzl5cg");
+
         // Button start click event.
         btnStart.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 disableControls();
                 addQuiz();
-
             }
         });
 

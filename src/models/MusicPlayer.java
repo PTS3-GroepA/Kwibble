@@ -4,6 +4,8 @@ import javafx.application.Platform;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
+import java.util.logging.Logger;
+
 /**
  * Created by Max on 4/7/2017.
  * Fontys University of Applied Sciences, Eindhoven.
@@ -18,7 +20,18 @@ public class MusicPlayer implements Runnable {
     public MusicPlayer(String source) {
         this.source = source;
         System.out.println("Music player running");
-        Media m = new Media(source);
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Media m = null;
+        try {
+            m = new Media(source);
+        } catch(Exception e) {
+            Logger.getAnonymousLogger().severe(e.getMessage());
+            m = new Media("https://p.scdn.co/mp3-preview/b51d0ed637d2e5cb3eb27565cce9a06f95599077");
+        }
         player = new MediaPlayer(m);
     }
 

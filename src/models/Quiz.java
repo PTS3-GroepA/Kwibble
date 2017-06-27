@@ -6,6 +6,7 @@ import data.repos.MusicRepository;
 import data.repos.QuestionRepository;
 import gui.controller.GameBrowserController;
 import gui.controller.GameRoomController;
+import javafx.application.Platform;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ProgressIndicator;
 import models.questions.Question;
@@ -56,8 +57,13 @@ public class Quiz implements Serializable{
     }
 
     public void bindQuestionGeneratorProperty() {
-        ProgressIndicator bar = gameRoomController.getProgressBar();
-        bar.progressProperty().bind(questionGenerator.progressProperty());
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                ProgressIndicator bar = gameRoomController.getProgressBar();
+                bar.progressProperty().bind(questionGenerator.progressProperty());
+            }
+        });
     }
 
     /**
